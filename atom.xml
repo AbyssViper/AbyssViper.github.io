@@ -2,12 +2,12 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Viper</title>
   
-  <subtitle>Hello World!</subtitle>
+  <subtitle>今天你努力了嘛</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="https://abyssviper.github.io/"/>
+  <link href="http://viper.pub/"/>
   <updated>2019-08-16T00:18:50.479Z</updated>
-  <id>https://abyssviper.github.io/</id>
+  <id>http://viper.pub/</id>
   
   <author>
     <name>AbyssViper</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>Hello World</title>
-    <link href="https://abyssviper.github.io/2019/08/16/hello-world/"/>
-    <id>https://abyssviper.github.io/2019/08/16/hello-world/</id>
+    <link href="http://viper.pub/2019/08/16/hello-world/"/>
+    <id>http://viper.pub/2019/08/16/hello-world/</id>
     <published>2019-08-16T00:18:50.479Z</published>
     <updated>2019-08-16T00:18:50.479Z</updated>
     
