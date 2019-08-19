@@ -5,9 +5,9 @@
   <subtitle>Hello World!</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://viper.pub/"/>
+  <link href="https://abyssviper.github.io/"/>
   <updated>2019-08-16T00:18:50.479Z</updated>
-  <id>http://viper.pub/</id>
+  <id>https://abyssviper.github.io/</id>
   
   <author>
     <name>AbyssViper</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>Hello World</title>
-    <link href="http://viper.pub/2019/08/16/hello-world/"/>
-    <id>http://viper.pub/2019/08/16/hello-world/</id>
+    <link href="https://abyssviper.github.io/2019/08/16/hello-world/"/>
+    <id>https://abyssviper.github.io/2019/08/16/hello-world/</id>
     <published>2019-08-16T00:18:50.479Z</published>
     <updated>2019-08-16T00:18:50.479Z</updated>
     
