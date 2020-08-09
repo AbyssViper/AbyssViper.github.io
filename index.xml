@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>我的全新 Hugo 网站</title>
+        <link>https://www.viper.pub/</link>
+        <description>我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 09 Aug 2020 16:29:34 &#43;0800</lastBuildDate>
+            <atom:link href="https://www.viper.pub/index.xml" rel="self" type="application/rss+xml" />
+        <item>
+    <title>Softether VPN 拆分隧道</title>
+    <link>https://www.viper.pub/posts/softether-vpn-split-tunnel/</link>
+    <pubDate>Sun, 09 Aug 2020 16:29:34 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.viper.pub/posts/softether-vpn-split-tunnel/</guid>
+    <description><![CDATA[需求来源 ​ SoftEther VPN介绍移步此处 ​ 对于VPN来说，存在远程网关与本地网关的概念，如下图以SoftEther VPN 的 SecureNAT 配置为例，接入VPN后本地路由]]></description>
+</item></channel>
+</rss>
