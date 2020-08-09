@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Softether VPN 拆分隧道 - Viper的博客</title><meta name="Description" content="Welcome to viper&#39;s blog."><meta property="og:title" content="Softether VPN 拆分隧道" />
+<meta property="og:description" content="需求来源 ​ SoftEther VPN介绍移步此处 ​ 对于VPN来说，存在远程网关与本地网关的概念，如下图以SoftEther VPN 的 SecureNAT 配置为例，接入VPN后本地路由" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.viper.pub/softether-vpn-split-tunnel/" />
+<meta property="og:image" content="https://www.viper.pub/logo.png"/>
+<meta property="article:published_time" content="2019-08-09T16:29:34+08:00" />
+<meta property="article:modified_time" content="2019-08-09T16:29:34+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://www.viper.pub/logo.png"/>
+
+<meta name="twitter:title" content="Softether VPN 拆分隧道"/>
+<meta name="twitter:description" content="需求来源 ​ SoftEther VPN介绍移步此处 ​ 对于VPN来说，存在远程网关与本地网关的概念，如下图以SoftEther VPN 的 SecureNAT 配置为例，接入VPN后本地路由"/>
+<meta name="application-name" content="Viper&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Viper&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.viper.pub/softether-vpn-split-tunnel/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Softether VPN 拆分隧道",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.viper.pub\/softether-vpn-split-tunnel\/"
+        },"genre": "posts","wordcount":  1357 ,
+        "url": "https:\/\/www.viper.pub\/softether-vpn-split-tunnel\/","datePublished": "2019-08-09T16:29:34+08:00","dateModified": "2019-08-09T16:29:34+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "abyssviper"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Viper的博客">Viper的博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Viper的博客">Viper的博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Softether VPN 拆分隧道</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://www.viper.pub" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>abyssviper</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2019-08-09">2019-08-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1357 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#需求来源">需求来源</a></li>
+        <li><a href="#split-tunneling">Split Tunneling</a></li>
+        <li><a href="#解除限制">解除限制</a>
+          <ul>
+            <li><a href="#下载源码">下载源码</a></li>
+            <li><a href="#删除限制部分代码">删除限制部分代码</a></li>
+            <li><a href="#编译">编译</a></li>
+            <li><a href="#部署">部署</a></li>
+            <li><a href="#测试">测试</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h3 id="需求来源">需求来源</h3>
+<p>​	SoftEther VPN介绍<a href="https://zh.wikipedia.org/zh-cn/SoftEther_VPN" target="_blank" rel="noopener noreffer">移步此处</a></p>
+<p>​	对于VPN来说，存在<strong>远程网关与本地网关</strong>的概念，如下图以SoftEther VPN 的 SecureNAT 配置为例，接入VPN后本地路由表的对比 。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.loli.net/2020/02/26/aIHLx475TWp3vlw.png"
+        data-srcset="https://i.loli.net/2020/02/26/aIHLx475TWp3vlw.png, https://i.loli.net/2020/02/26/aIHLx475TWp3vlw.png 1.5x, https://i.loli.net/2020/02/26/aIHLx475TWp3vlw.png 2x"
+        data-sizes="auto"
+        alt="https://i.loli.net/2020/02/26/aIHLx475TWp3vlw.png"
+        title="https://i.loli.net/2020/02/26/aIHLx475TWp3vlw.png" /></p>
+<p>​	可以很明显的看出，如果使用远程网关，所有的<strong>流量都走VPN隧道</strong>，这样不仅给VPN服务器造成很大的压力，而且大部分日常的网络访问都需要去VPN服务器绕一圈，显然这样是很不合理的。</p>
+<p>​	所以比较好的方案是<strong>除了指定的地址段</strong>走VPN隧道，其余流量全部走本地的默认网关。</p>
+<p>​	显然使用本地网关是无法直接访问到异地的内网地址的，缺少了一步静态路由。比如使用本地网关的情况下，异地存在一个web应用，访问地址 https://192.168.7.5, 连接VPN后，我tracert一下，如图所示，经过几跳以后，在公网直接超时了。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.loli.net/2020/02/26/Jzeh1dVi2LFRaCb.png"
+        data-srcset="https://i.loli.net/2020/02/26/Jzeh1dVi2LFRaCb.png, https://i.loli.net/2020/02/26/Jzeh1dVi2LFRaCb.png 1.5x, https://i.loli.net/2020/02/26/Jzeh1dVi2LFRaCb.png 2x"
+        data-sizes="auto"
+        alt="https://i.loli.net/2020/02/26/Jzeh1dVi2LFRaCb.png"
+        title="https://i.loli.net/2020/02/26/Jzeh1dVi2LFRaCb.png" /></p>
+<p>​    对于已经接入VPN的本机来说，192.168.200.1 就是通过虚拟局域网前往异地内网的网关，所以如果我们增加这么一条静态路由，指向如果走7网段直接通过网关192.168.200.1，添加后再次tracert 一下, 可以看到直接通过远程网关访问到了异地内网的机器</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bat" data-lang="bat">route add 192.168.7.0 mask 255.255.255.0 192.168.200.1
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.loli.net/2020/02/26/1HuA4CXDqnbNriB.png"
+        data-srcset="https://i.loli.net/2020/02/26/1HuA4CXDqnbNriB.png, https://i.loli.net/2020/02/26/1HuA4CXDqnbNriB.png 1.5x, https://i.loli.net/2020/02/26/1HuA4CXDqnbNriB.png 2x"
+        data-sizes="auto"
+        alt="https://i.loli.net/2020/02/26/1HuA4CXDqnbNriB.png"
+        title="https://i.loli.net/2020/02/26/1HuA4CXDqnbNriB.png" /></p>
+<p>​    之前在同样使用SoftEther VPN的项目上，解决该问题的方法是每次使用运行一下上述命令的bat脚本，该解决方法每次接入VPN之前都需要运行一下，如果加了 -p 参数添加为永久路由，又会在某些网络环境下造成不可避免的冲突。</p>
+<h3 id="split-tunneling">Split Tunneling</h3>
+<p>Split Tunneling （拆分隧道），是SoftEther-VPN中比较强悍的一个功能。具体位置在SecureNAT配置界面就可以找到，简单来讲 拆分隧道可以理解为推送静态路由，接入 VPN 以后，server端会推送设置的静态路由到client端，断开VPN后，推送的静态路由失效，完美的解决了上述问题带来的痛点。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.loli.net/2020/02/26/CqKDUlWzROFdYZL.png"
+        data-srcset="https://i.loli.net/2020/02/26/CqKDUlWzROFdYZL.png, https://i.loli.net/2020/02/26/CqKDUlWzROFdYZL.png 1.5x, https://i.loli.net/2020/02/26/CqKDUlWzROFdYZL.png 2x"
+        data-sizes="auto"
+        alt="https://i.loli.net/2020/02/26/CqKDUlWzROFdYZL.png"
+        title="https://i.loli.net/2020/02/26/CqKDUlWzROFdYZL.png" /></p>
+<p>现实总是这样一次次的打击，提示该功能并不适合开源版本，其实根本原因也并不是开源版本不能使用该功能，我再海外的VPS中用同样的包进行了部署测试，该功能是没有问题的，从网上查到的信息，基本意思就是天朝跟岛国不可以使用该功能在内的一部分功能(当然仅限于官方下载的编译好的版本，对于自己进行源码编译是不限制的)</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.loli.net/2020/02/26/SyAj8n7d4sHw2YK.png"
+        data-srcset="https://i.loli.net/2020/02/26/SyAj8n7d4sHw2YK.png, https://i.loli.net/2020/02/26/SyAj8n7d4sHw2YK.png 1.5x, https://i.loli.net/2020/02/26/SyAj8n7d4sHw2YK.png 2x"
+        data-sizes="auto"
+        alt="https://i.loli.net/2020/02/26/SyAj8n7d4sHw2YK.png"
+        title="https://i.loli.net/2020/02/26/SyAj8n7d4sHw2YK.png" /></p>
+<h3 id="解除限制">解除限制</h3>
+<h4 id="下载源码">下载源码</h4>
+<ul>
+<li>
+<p><a href="https://www.softether-download.com/?product=softether" target="_blank" rel="noopener noreffer">下载地址</a>， 组件选择 <strong>Source Code of SoftEther VPN</strong></p>
+</li>
+<li>
+<p>如果是生产环境在用，建议下载在用版本的源码</p>
+</li>
+</ul>
+<h4 id="删除限制部分代码">删除限制部分代码</h4>
+<ul>
+<li>解压后，在以下路径中找到Server.c文件，编辑</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">/your_tar_path/src/Cedar/Server.c
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>可以看出Server端代码在以下 两个函数中 出现了关键词 CN 与 JP</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="n">SiGetCurrentRegion</span><span class="p">(</span><span class="n">CEDAR</span> <span class="o">*</span><span class="n">c</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">region</span><span class="p">,</span> <span class="n">UINT</span> <span class="n">region_size</span><span class="p">)</span>
+<span class="kt">bool</span> <span class="n">SiIsEnterpriseFunctionsRestrictedOnOpenSource</span><span class="p">(</span><span class="n">CEDAR</span> <span class="o">*</span><span class="n">c</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>SiIsEnterpriseFunctionsRestrictedOnOpenSource函数中调用了SiGetCurrentRegion函数，最终的逻辑判断还是发生在SiIsEnterpriseFunctionsRestrictedOnOpenSource函数该段代码</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c" data-lang="c"><span class="k">if</span> <span class="p">(</span><span class="n">StrCmpi</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="s">&#34;JP&#34;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">StrCmpi</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="s">&#34;CN&#34;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="n">ret</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>我们直接把 ret 的赋值改为  false；当然更改方法多种多样</li>
+</ul>
+<h4 id="编译">编译</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">yum -y groupinstall <span class="s2">&#34;Development Tools&#34;</span>
+yum -y install readline-devel ncurses-devel openssl-devel
+./configure
+make
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="部署">部署</h4>
+<ul>
+<li>
+<p>编译完成后，会在如下路径生成vpnserver 以及hamcore.se2文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">bin/vpnserver/
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>直接用上述两个文件替换掉原部署的vpnserver以及hamcore.se2即可</p>
+</li>
+<li>
+<p>注意: 替换前注意备份原目录，替换前注意停止vpnserver服务</p>
+</li>
+</ul>
+<h4 id="测试">测试</h4>
+<ul>
+<li>再次Manager连接进行路由推送，并没有弹出窗口限制</li>
+<li>客户端拨入VPN，再次查看路由表，发现路由已经推送过来了；断开VPN后该条路由被清理</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.loli.net/2020/02/27/OKMf1gVhsnZ9lvH.png"
+        data-srcset="https://i.loli.net/2020/02/27/OKMf1gVhsnZ9lvH.png, https://i.loli.net/2020/02/27/OKMf1gVhsnZ9lvH.png 1.5x, https://i.loli.net/2020/02/27/OKMf1gVhsnZ9lvH.png 2x"
+        data-sizes="auto"
+        alt="https://i.loli.net/2020/02/27/OKMf1gVhsnZ9lvH.png"
+        title="https://i.loli.net/2020/02/27/OKMf1gVhsnZ9lvH.png" /></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2019-08-09</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.viper.pub/softether-vpn-split-tunnel/" data-title="Softether VPN 拆分隧道"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.viper.pub/softether-vpn-split-tunnel/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://www.viper.pub/softether-vpn-split-tunnel/" data-title="Softether VPN 拆分隧道" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://www.viper.pub/softether-vpn-split-tunnel/" data-title="Softether VPN 拆分隧道"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.viper.pub/softether-vpn-split-tunnel/" data-title="Softether VPN 拆分隧道"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://www.viper.pub/softether-vpn-split-tunnel/" data-title="Softether VPN 拆分隧道" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://www.viper.pub/softether-vpn-split-tunnel/" data-title="Softether VPN 拆分隧道" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://www.viper.pub/softether-vpn-split-tunnel/" data-title="Softether VPN 拆分隧道"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.74.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2020</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"gitalk":{"admin":["AbyssViper"],"clientID":"6902cde2aae313788a4c","clientSecret":"81fc2e7de744fca69c9e8b683e85e50a2bb5951c","id":"2019-08-09T16:29:34+08:00","owner":"AbyssViper","repo":"AbyssViper.github.io","title":"Softether VPN 拆分隧道"}},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
