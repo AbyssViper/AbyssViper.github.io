@@ -1,12 +1,10 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>Viper的博客</title>
-        <link>https://www.viper.pub/</link>
-        <description>Welcome to viper&#39;s blog.</description>
+        <title>VPN - 标签 - Viper的博客</title>
+        <link>https://www.viper.pub/tags/vpn/</link>
+        <description>VPN - 标签 - Viper的博客</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>root@viper.run (abyssviper)</managingEditor>
-            <webMaster>root@viper.run (abyssviper)</webMaster><lastBuildDate>Fri, 09 Aug 2019 16:29:34 &#43;0800</lastBuildDate>
-            <atom:link href="https://www.viper.pub/index.xml" rel="self" type="application/rss+xml" />
-        <item>
+            <webMaster>root@viper.run (abyssviper)</webMaster><lastBuildDate>Fri, 09 Aug 2019 16:29:34 &#43;0800</lastBuildDate><atom:link href="https://www.viper.pub/tags/vpn/" rel="self" type="application/rss+xml" /><item>
     <title>Softether-VPN 拆分隧道</title>
     <link>https://www.viper.pub/softether-vpn-split-tunnel/</link>
     <pubDate>Fri, 09 Aug 2019 16:29:34 &#43;0800</pubDate>
