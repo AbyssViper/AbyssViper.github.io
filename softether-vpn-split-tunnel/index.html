@@ -6,7 +6,7 @@
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
         <title>Softether-VPN 拆分隧道 - Viper的博客</title><meta name="Description" content="Welcome to viper&#39;s blog."><meta property="og:title" content="Softether-VPN 拆分隧道" />
-<meta property="og:description" content="需求来源 ​ SoftEther VPN介绍移步此处 ​ 对于VPN来说，存在远程网关与本地网关的概念，如下图以SoftEther VPN 的 SecureNAT 配置为例，接入VPN后本地路由" />
+<meta property="og:description" content="SoftEther VPN 简介 SoftEther VPN介绍移步此处 需求来源 远程网关与本地网关 对于VPN来说，存在远程网关与本地网关的概念，以下图以SoftEther VPN 的 SecureNAT 配置为例" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.viper.pub/softether-vpn-split-tunnel/" />
 <meta property="og:image" content="https://www.viper.pub/logo.png"/>
@@ -16,11 +16,9 @@
 <meta name="twitter:image" content="https://www.viper.pub/logo.png"/>
 
 <meta name="twitter:title" content="Softether-VPN 拆分隧道"/>
-<meta name="twitter:description" content="需求来源 ​ SoftEther VPN介绍移步此处 ​ 对于VPN来说，存在远程网关与本地网关的概念，如下图以SoftEther VPN 的 SecureNAT 配置为例，接入VPN后本地路由"/>
+<meta name="twitter:description" content="SoftEther VPN 简介 SoftEther VPN介绍移步此处 需求来源 远程网关与本地网关 对于VPN来说，存在远程网关与本地网关的概念，以下图以SoftEther VPN 的 SecureNAT 配置为例"/>
 <meta name="application-name" content="Viper&#39;s Blog">
-<meta name="apple-mobile-web-app-title" content="Viper&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.viper.pub/softether-vpn-split-tunnel/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.a12cacf4b5b41234196cb89042b24a70.css" integrity="md5-oSys9LW0EjQZbLiQQrJKcA=="><link rel="stylesheet" href="/css/style.min.f03a2ec71b16efbe4f24352e542c93a9.css" integrity="md5-8DouxxsW775PJDUuVCyTqQ=="><link rel="stylesheet" href="/lib/fontawesome-free/all.min.26386564b5cf1594be24059af1cd0db9.css" integrity="md5-JjhlZLXPFZS&#43;JAWa8c0NuQ=="><link rel="stylesheet" href="/lib/animate/animate.min.43d6b8fdf324505f0ceb7ea698d0b7a5.css" integrity="md5-Q9a4/fMkUF8M636mmNC3pQ=="><script type="application/ld+json">
+<meta name="apple-mobile-web-app-title" content="Viper&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/images/ico.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.viper.pub/softether-vpn-split-tunnel/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.a12cacf4b5b41234196cb89042b24a70.css" integrity="md5-oSys9LW0EjQZbLiQQrJKcA=="><link rel="stylesheet" href="/css/style.min.f03a2ec71b16efbe4f24352e542c93a9.css" integrity="md5-8DouxxsW775PJDUuVCyTqQ=="><link rel="stylesheet" href="/lib/fontawesome-free/all.min.26386564b5cf1594be24059af1cd0db9.css" integrity="md5-JjhlZLXPFZS&#43;JAWa8c0NuQ=="><link rel="stylesheet" href="/lib/animate/animate.min.43d6b8fdf324505f0ceb7ea698d0b7a5.css" integrity="md5-Q9a4/fMkUF8M636mmNC3pQ=="><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -29,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/www.viper.pub\/softether-vpn-split-tunnel\/"
-        },"genre": "posts","keywords": "VPN, 网络","wordcount":  1357 ,
+        },"genre": "posts","keywords": "VPN, 网络","wordcount":  1303 ,
         "url": "https:\/\/www.viper.pub\/softether-vpn-split-tunnel\/","datePublished": "2019-08-09T16:29:34+08:00","dateModified": "2019-08-09T16:29:34+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -43,7 +41,14 @@
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
         <div class="header-title">
-            <a href="/" title="Viper的博客">Viper的博客</a>
+            <a href="/" title="Viper的博客"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/logo.png"
+        data-srcset="/images/logo.png, /images/logo.png 1.5x, /images/logo.png 2x"
+        data-sizes="auto"
+        alt="/images/logo.png"
+        title="/images/logo.png" />Viper的博客</a>
         </div>
         <div class="menu">
             <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
@@ -67,7 +72,14 @@
     <div class="header-container">
         <div class="header-wrapper">
             <div class="header-title">
-                <a href="/" title="Viper的博客">Viper的博客</a>
+                <a href="/" title="Viper的博客"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/logo.png"
+        data-srcset="/images/logo.png, /images/logo.png 1.5x, /images/logo.png 2x"
+        data-sizes="auto"
+        alt="/images/logo.png"
+        title="/images/logo.png" />Viper的博客</a>
             </div>
             <div class="menu-toggle" id="menu-toggle-mobile">
                 <span></span><span></span><span></span>
@@ -106,7 +118,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Softether-VPN 拆分隧道</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://www.viper.pub" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>abyssviper</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%BD%91%E7%BB%9C/"><i class="far fa-folder fa-fw"></i>网络</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2019-08-09">2019-08-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1357 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2019-08-09">2019-08-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1303 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
@@ -124,7 +136,13 @@
   <ul>
     <li>
       <ul>
-        <li><a href="#需求来源">需求来源</a></li>
+        <li><a href="#softether-vpn-简介">SoftEther VPN 简介</a></li>
+        <li><a href="#需求来源">需求来源</a>
+          <ul>
+            <li><a href="#远程网关与本地网关">远程网关与本地网关</a></li>
+            <li><a href="#本地网关配合静态路由">本地网关配合静态路由</a></li>
+          </ul>
+        </li>
         <li><a href="#split-tunneling">Split Tunneling</a></li>
         <li><a href="#解除限制">解除限制</a>
           <ul>
@@ -139,9 +157,17 @@
     </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h3 id="需求来源">需求来源</h3>
-<p>​	SoftEther VPN介绍<a href="https://zh.wikipedia.org/zh-cn/SoftEther_VPN" target="_blank" rel="noopener noreffer">移步此处</a></p>
-<p>​	对于VPN来说，存在<strong>远程网关与本地网关</strong>的概念，如下图以SoftEther VPN 的 SecureNAT 配置为例，接入VPN后本地路由表的对比 。</p>
+            </div><div class="content" id="content"><h3 id="softether-vpn-简介">SoftEther VPN 简介</h3>
+<ul>
+<li>SoftEther VPN介绍<a href="https://zh.wikipedia.org/zh-cn/SoftEther_VPN" target="_blank" rel="noopener noreffer">移步此处</a></li>
+</ul>
+<h3 id="需求来源">需求来源</h3>
+<h4 id="远程网关与本地网关">远程网关与本地网关</h4>
+<p>对于VPN来说，存在<strong>远程网关与本地网关</strong>的概念，以下图以SoftEther VPN 的 SecureNAT 配置为例，接入VPN后本地路由表的对比 。</p>
+<ul>
+<li>如果使用远程网关，默认路由均走<strong>VPN隧道</strong>，这样VPN服务器压力较大，而且日常的网络访问都需要从VPN服务器作为出口，很显然作为远程接入公司网络该场景使用不太合理</li>
+<li>如果使用本地网关，默认路由走的是本地的网络出口</li>
+</ul>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -150,9 +176,9 @@
         data-sizes="auto"
         alt="https://i.loli.net/2020/02/26/aIHLx475TWp3vlw.png"
         title="https://i.loli.net/2020/02/26/aIHLx475TWp3vlw.png" /></p>
-<p>​	可以很明显的看出，如果使用远程网关，所有的<strong>流量都走VPN隧道</strong>，这样不仅给VPN服务器造成很大的压力，而且大部分日常的网络访问都需要去VPN服务器绕一圈，显然这样是很不合理的。</p>
-<p>​	所以比较好的方案是<strong>除了指定的地址段</strong>走VPN隧道，其余流量全部走本地的默认网关。</p>
-<p>​	显然使用本地网关是无法直接访问到异地的内网地址的，缺少了一步静态路由。比如使用本地网关的情况下，异地存在一个web应用，访问地址 https://192.168.7.5, 连接VPN后，我tracert一下，如图所示，经过几跳以后，在公网直接超时了。</p>
+<h4 id="本地网关配合静态路由">本地网关配合静态路由</h4>
+<p>​	如果单纯的使用本地网关，是无法直接访问到异地的内网地址的，缺少了一步静态路由。</p>
+<p>​	比如使用本地网关的情况下，公司内网存在一个地址为 192.168.7.5 , 连接VPN后，tracert一下，如图所示，经过几跳以后，在公网直接超时了。</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -161,7 +187,7 @@
         data-sizes="auto"
         alt="https://i.loli.net/2020/02/26/Jzeh1dVi2LFRaCb.png"
         title="https://i.loli.net/2020/02/26/Jzeh1dVi2LFRaCb.png" /></p>
-<p>​    对于已经接入VPN的本机来说，192.168.200.1 就是通过虚拟局域网前往异地内网的网关，所以如果我们增加这么一条静态路由，指向如果走7网段直接通过网关192.168.200.1，添加后再次tracert 一下, 可以看到直接通过远程网关访问到了异地内网的机器</p>
+<p>​	此时我们只需要把VPN分配的虚拟网络的网关，（图中192.168.200.1 就是通过虚拟局域网前往异地内网的网关），作为本地的一条静态路由，指向如果走7网段直接通过网关192.168.200.1，添加后再次tracert 一下, 可以看到直接通过远程网关访问到了异地内网的机器</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -178,9 +204,14 @@
         data-sizes="auto"
         alt="https://i.loli.net/2020/02/26/1HuA4CXDqnbNriB.png"
         title="https://i.loli.net/2020/02/26/1HuA4CXDqnbNriB.png" /></p>
-<p>​    之前在同样使用SoftEther VPN的项目上，解决该问题的方法是每次使用运行一下上述命令的bat脚本，该解决方法每次接入VPN之前都需要运行一下，如果加了 -p 参数添加为永久路由，又会在某些网络环境下造成不可避免的冲突。</p>
+<p>​	所以如果使用本地网关，我们需要进行一次静态路由的添加，这里存在的问题也显而易见</p>
+<ul>
+<li>不添加为本机永久路由，需要每次机器重启后手动添加路由</li>
+<li>添加为本机永久路由，可能会在某些网络环境下造成地址冲突等情况</li>
+</ul>
 <h3 id="split-tunneling">Split Tunneling</h3>
-<p>Split Tunneling （拆分隧道），是SoftEther-VPN中比较强悍的一个功能。具体位置在SecureNAT配置界面就可以找到，简单来讲 拆分隧道可以理解为推送静态路由，接入 VPN 以后，server端会推送设置的静态路由到client端，断开VPN后，推送的静态路由失效，完美的解决了上述问题带来的痛点。</p>
+<p>​	Split Tunneling （拆分隧道），是SoftEther-VPN中比较强悍的一个功能。具体位置在SecureNAT配置界面就可以找到。</p>
+<p>​	简单来讲 <strong>拆分隧道可以理解为推送静态路由</strong>，接入 VPN 以后，server端会推送设置的静态路由到client端，断开VPN后，推送的静态路由失效，完美的解决了上述问题带来的痛点。</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -189,7 +220,7 @@
         data-sizes="auto"
         alt="https://i.loli.net/2020/02/26/CqKDUlWzROFdYZL.png"
         title="https://i.loli.net/2020/02/26/CqKDUlWzROFdYZL.png" /></p>
-<p>现实总是这样一次次的打击，提示该功能并不适合开源版本，其实根本原因也并不是开源版本不能使用该功能，我再海外的VPS中用同样的包进行了部署测试，该功能是没有问题的，从网上查到的信息，基本意思就是天朝跟岛国不可以使用该功能在内的一部分功能(当然仅限于官方下载的编译好的版本，对于自己进行源码编译是不限制的)</p>
+<p>​	但是对于Softether VPN 来说，拆分隧道功能并不适合开源版本，从网上查到的信息，天朝跟岛国不可以使用该功能在内的一部分功能(当然仅限于官方下载的编译好的版本，对于自己进行源码编译是不限制的)</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -210,7 +241,7 @@
 </ul>
 <h4 id="删除限制部分代码">删除限制部分代码</h4>
 <ul>
-<li>解压后，在以下路径中找到Server.c文件，编辑</li>
+<li>解压后，在以下路径中找到Server.c文件，编辑Server部分代码</li>
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
