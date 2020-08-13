@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>二进制部署Kubernetes Part1 - Viper的博客</title><meta name="Description" content="Welcome to viper&#39;s blog."><meta property="og:title" content="二进制部署Kubernetes Part1" />
+<meta property="og:description" content="前言 项目地址 本次安装完全参照于 follow-me-install-kubernetes-cluster 项目 对于源项目操作进行了部分扩展的解释与优化 版本信息 当前版本基于 v1.16.x 版本 环境准备 版本信息 组件 版本 发布时间 kubernetes 1.16.6 2020-01-22" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.viper.pub/k8s-install-hardway-1/" />
+<meta property="og:image" content="https://www.viper.pub/logo.png"/>
+<meta property="article:published_time" content="2020-06-11T10:50:59+08:00" />
+<meta property="article:modified_time" content="2020-06-11T10:50:59+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://www.viper.pub/logo.png"/>
+
+<meta name="twitter:title" content="二进制部署Kubernetes Part1"/>
+<meta name="twitter:description" content="前言 项目地址 本次安装完全参照于 follow-me-install-kubernetes-cluster 项目 对于源项目操作进行了部分扩展的解释与优化 版本信息 当前版本基于 v1.16.x 版本 环境准备 版本信息 组件 版本 发布时间 kubernetes 1.16.6 2020-01-22"/>
+<meta name="application-name" content="Viper&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Viper&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="https://gitee.com/AbyssViper/pic/raw/master/images/ico.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.viper.pub/k8s-install-hardway-1/" /><link rel="prev" href="https://www.viper.pub/softether-vpn-split-tunnel/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.a12cacf4b5b41234196cb89042b24a70.css" integrity="md5-oSys9LW0EjQZbLiQQrJKcA=="><link rel="stylesheet" href="/css/style.min.f03a2ec71b16efbe4f24352e542c93a9.css" integrity="md5-8DouxxsW775PJDUuVCyTqQ=="><link rel="stylesheet" href="/lib/fontawesome-free/all.min.26386564b5cf1594be24059af1cd0db9.css" integrity="md5-JjhlZLXPFZS&#43;JAWa8c0NuQ=="><link rel="stylesheet" href="/lib/animate/animate.min.43d6b8fdf324505f0ceb7ea698d0b7a5.css" integrity="md5-Q9a4/fMkUF8M636mmNC3pQ=="><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "二进制部署Kubernetes Part1",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.viper.pub\/k8s-install-hardway-1\/"
+        },"genre": "posts","keywords": "Kubernetes","wordcount":  2872 ,
+        "url": "https:\/\/www.viper.pub\/k8s-install-hardway-1\/","datePublished": "2020-06-11T10:50:59+08:00","dateModified": "2020-06-11T10:50:59+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "abyssviper"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Viper的博客"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="https://gitee.com/AbyssViper/pic/raw/master/images/logo.png"
+        data-srcset="https://gitee.com/AbyssViper/pic/raw/master/images/logo.png, https://gitee.com/AbyssViper/pic/raw/master/images/logo.png 1.5x, https://gitee.com/AbyssViper/pic/raw/master/images/logo.png 2x"
+        data-sizes="auto"
+        alt="https://gitee.com/AbyssViper/pic/raw/master/images/logo.png"
+        title="https://gitee.com/AbyssViper/pic/raw/master/images/logo.png" />Viper的博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Viper的博客"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="https://gitee.com/AbyssViper/pic/raw/master/images/logo.png"
+        data-srcset="https://gitee.com/AbyssViper/pic/raw/master/images/logo.png, https://gitee.com/AbyssViper/pic/raw/master/images/logo.png 1.5x, https://gitee.com/AbyssViper/pic/raw/master/images/logo.png 2x"
+        data-sizes="auto"
+        alt="https://gitee.com/AbyssViper/pic/raw/master/images/logo.png"
+        title="https://gitee.com/AbyssViper/pic/raw/master/images/logo.png" />Viper的博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">二进制部署Kubernetes Part1</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://www.viper.pub" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>abyssviper</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/kubernetes/"><i class="far fa-folder fa-fw"></i>Kubernetes</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-06-11">2020-06-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2872 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://gitee.com/AbyssViper/pic/raw/master/images/k8s-install-hardway/featuredImage.jpg"
+        data-srcset="https://gitee.com/AbyssViper/pic/raw/master/images/k8s-install-hardway/featuredImage.jpg, https://gitee.com/AbyssViper/pic/raw/master/images/k8s-install-hardway/featuredImage.jpg 1.5x, https://gitee.com/AbyssViper/pic/raw/master/images/k8s-install-hardway/featuredImage.jpg 2x"
+        data-sizes="auto"
+        alt="https://gitee.com/AbyssViper/pic/raw/master/images/k8s-install-hardway/featuredImage.jpg"
+        title="https://gitee.com/AbyssViper/pic/raw/master/images/k8s-install-hardway/featuredImage.jpg" /></div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a>
+      <ul>
+        <li><a href="#项目地址">项目地址</a></li>
+        <li><a href="#版本信息">版本信息</a></li>
+      </ul>
+    </li>
+    <li><a href="#环境准备">环境准备</a>
+      <ul>
+        <li><a href="#版本信息-1">版本信息</a></li>
+      </ul>
+    </li>
+    <li><a href="#主要配置策略">主要配置策略</a>
+      <ul>
+        <li><a href="#机器信息">机器信息</a></li>
+      </ul>
+    </li>
+    <li><a href="#基础配置">基础配置</a>
+      <ul>
+        <li><a href="#注意事项">注意事项</a></li>
+        <li><a href="#主机名">主机名</a></li>
+        <li><a href="#节点免密">节点免密</a></li>
+        <li><a href="#添加本次二进制程序存放路径到path">添加本次二进制程序存放路径到Path</a></li>
+        <li><a href="#依赖安装">依赖安装</a></li>
+        <li><a href="#防火墙配置">防火墙配置</a></li>
+        <li><a href="#关闭swap分区">关闭SWAP分区</a></li>
+        <li><a href="#关闭-selinux">关闭 SELINUX</a></li>
+        <li><a href="#内核调优">内核调优</a></li>
+        <li><a href="#设置时区以及同步">设置时区以及同步</a></li>
+        <li><a href="#关闭无关服务">关闭无关服务</a></li>
+        <li><a href="#创建相关目录">创建相关目录</a></li>
+        <li><a href="#分发集群配置参数脚本">分发集群配置参数脚本</a></li>
+        <li><a href="#升级内核">升级内核</a></li>
+      </ul>
+    </li>
+    <li><a href="#根证书创建">根证书创建</a>
+      <ul>
+        <li><a href="#cfssl-工具集">cfssl 工具集</a></li>
+        <li><a href="#创建配置文件">创建配置文件</a></li>
+        <li><a href="#创建证书签名请求文件">创建证书签名请求文件</a></li>
+        <li><a href="#生成-ca证书以及密钥">生成 CA证书以及密钥</a></li>
+        <li><a href="#分发证书">分发证书</a></li>
+        <li><a href="#参考">参考</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="前言">前言</h2>
+<h3 id="项目地址">项目地址</h3>
+<ul>
+<li>
+<p>本次安装完全参照于 <a href="https://github.com/opsnull/follow-me-install-kubernetes-cluster/" target="_blank" rel="noopener noreffer">follow-me-install-kubernetes-cluster</a> 项目</p>
+</li>
+<li>
+<p>对于源项目操作进行了部分扩展的解释与优化</p>
+</li>
+</ul>
+<h3 id="版本信息">版本信息</h3>
+<ul>
+<li>当前版本基于 v1.16.x 版本</li>
+</ul>
+<h2 id="环境准备">环境准备</h2>
+<h3 id="版本信息-1">版本信息</h3>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>版本</th>
+<th>发布时间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>kubernetes</td>
+<td>1.16.6</td>
+<td>2020-01-22</td>
+</tr>
+<tr>
+<td>etcd</td>
+<td>3.4.3</td>
+<td>2019-10-24</td>
+</tr>
+<tr>
+<td>containerd</td>
+<td>1.3.3</td>
+<td>2020-02-07</td>
+</tr>
+<tr>
+<td>runc</td>
+<td>1.0.0-rc10</td>
+<td>2019-12-23</td>
+</tr>
+<tr>
+<td>calico</td>
+<td>3.12.0</td>
+<td>2020-01-27</td>
+</tr>
+<tr>
+<td>coredns</td>
+<td>1.6.6</td>
+<td>2019-12-20</td>
+</tr>
+<tr>
+<td>dashboard</td>
+<td>v2.0.0-rc4</td>
+<td>2020-02-06</td>
+</tr>
+<tr>
+<td>k8s-prometheus-adapter</td>
+<td>0.5.0</td>
+<td>2019-04-03</td>
+</tr>
+<tr>
+<td>prometheus-operator</td>
+<td>0.35.0</td>
+<td>2020-01-13</td>
+</tr>
+<tr>
+<td>prometheus</td>
+<td>2.15.2</td>
+<td>2020-01-06</td>
+</tr>
+<tr>
+<td>elasticsearch、kibana</td>
+<td>7.2.0</td>
+<td>2019-06-25</td>
+</tr>
+<tr>
+<td>cni-plugins</td>
+<td>0.8.5</td>
+<td>2019-12-20</td>
+</tr>
+<tr>
+<td>metrics-server</td>
+<td>0.3.6</td>
+<td>2019-10-15</td>
+</tr>
+</tbody>
+</table>
+<h2 id="主要配置策略">主要配置策略</h2>
+<p>kube-apiserver：</p>
+<ul>
+<li>使用节点本地 nginx 4 层透明代理实现高可用；</li>
+<li>关闭非安全端口 8080 和匿名访问；</li>
+<li>在安全端口 6443 接收 https 请求；</li>
+<li>严格的认证和授权策略 (x509、token、RBAC)；</li>
+<li>开启 bootstrap token 认证，支持 kubelet TLS bootstrapping；</li>
+<li>使用 https 访问 kubelet、etcd，加密通信；</li>
+</ul>
+<p>kube-controller-manager：</p>
+<ul>
+<li>3 节点高可用；</li>
+<li>关闭非安全端口，在安全端口 10252 接收 https 请求；</li>
+<li>使用 kubeconfig 访问 apiserver 的安全端口；</li>
+<li>自动 approve kubelet 证书签名请求 (CSR)，证书过期后自动轮转；</li>
+<li>各 controller 使用自己的 ServiceAccount 访问 apiserver；</li>
+</ul>
+<p>kube-scheduler：</p>
+<ul>
+<li>3 节点高可用；</li>
+<li>使用 kubeconfig 访问 apiserver 的安全端口；</li>
+</ul>
+<p>kubelet：</p>
+<ul>
+<li>使用 kubeadm 动态创建 bootstrap token，而不是在 apiserver 中静态配置；</li>
+<li>使用 TLS bootstrap 机制自动生成 client 和 server 证书，过期后自动轮转；</li>
+<li>在 KubeletConfiguration 类型的 JSON 文件配置主要参数；</li>
+<li>关闭只读端口，在安全端口 10250 接收 https 请求，对请求进行认证和授权，拒绝匿名访问和非授权访问；</li>
+<li>使用 kubeconfig 访问 apiserver 的安全端口；</li>
+</ul>
+<p>kube-proxy：</p>
+<ul>
+<li>使用 kubeconfig 访问 apiserver 的安全端口；</li>
+<li>在 KubeProxyConfiguration 类型的 JSON 文件配置主要参数；</li>
+<li>使用 ipvs 代理模式；</li>
+</ul>
+<p>集群插件：</p>
+<ul>
+<li>DNS：使用功能、性能更好的 coredns；</li>
+<li>Dashboard：支持登录认证；</li>
+<li>Metric：metrics-server，使用 https 访问 kubelet 安全端口；</li>
+<li>Log：Elasticsearch、Fluend、Kibana；</li>
+<li>Registry 镜像库：docker-registry、harbor；</li>
+</ul>
+<h3 id="机器信息">机器信息</h3>
+<table>
+<thead>
+<tr>
+<th>IP</th>
+<th>主机名</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>192.168.7.200</td>
+<td>k8s-node01</td>
+<td></td>
+</tr>
+<tr>
+<td>192.168.7.201</td>
+<td>k8s-node02</td>
+<td></td>
+</tr>
+<tr>
+<td>192.168.7.203</td>
+<td>k8s-node03</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="基础配置">基础配置</h2>
+<h3 id="注意事项">注意事项</h3>
+<ul>
+<li>基础配置章节，如果没有特别指明在 k8s-node01 节点，所有操作所有节点都需要进行</li>
+</ul>
+<h3 id="主机名">主机名</h3>
+<ul>
+<li>修改机器主机名</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">hostnamectl set-hostname k8s-node01
+hostnamectl set-hostname k8s-node02
+hostnamectl set-hostname k8s-node03
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>修改 hosts 信息，关联节点DNS解析</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">cat	&gt;&gt;	/etc/hosts <span class="s">&lt;&lt;EOF
+</span><span class="s">	192.168.7.200 k8s-node01
+</span><span class="s">	192.168.7.201 k8s-node02
+</span><span class="s">	192.168.7.202 k8s-node03
+</span><span class="s">EOF</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>重新连接当前 SSH 连接，主机名显示生效</li>
+</ul>
+<h3 id="节点免密">节点免密</h3>
+<ul>
+<li><strong>在 k8s-node01节点执行</strong></li>
+<li>保证 k8s-node01 可以免密登录到其他机器</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">ssh-keygen -t rsa
+ssh-copy-id root@k8s-node01
+ssh-copy-id root@k8s-node02
+ssh-copy-id root@k8s-node03
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="添加本次二进制程序存放路径到path">添加本次二进制程序存放路径到Path</h3>
+<ul>
+<li>以 /opt/k8s 作为部署根目录，二进制文件存放在 bin 中，添加到 Path</li>
+<li>具体目录后续会创建</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">echo</span>  <span class="s1">&#39;PATH=/opt/k8s/bin:$PATH&#39;</span>	&gt;&gt;/root/.bashrc 
+<span class="nb">source</span>	/root/.bashrc
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="依赖安装">依赖安装</h3>
+<ul>
+<li>kube-proxy 使用 ipvs 模式安装， ipvsadm 为 ipvs 的管理工具</li>
+<li>etcd 集群节点之间需要时间同步，chrony 用于系统时间同步</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">yum install -y epel-release 
+yum install -y chrony conntrack ipvsadm ipset jq iptables curl sysstat libseccomp wget socat git
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="防火墙配置">防火墙配置</h3>
+<ul>
+<li>关闭防火墙</li>
+<li>清空 iptables 规则</li>
+<li>设置默认转发策略</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">systemctl stop firewalld <span class="o">&amp;&amp;</span> systemctl disable firewalld 
+iptables -F <span class="o">&amp;&amp;</span> iptables -X <span class="o">&amp;&amp;</span> iptables -F -t nat <span class="o">&amp;&amp;</span> iptables -X -t nat
+iptables -P FORWARD ACCEPT
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="关闭swap分区">关闭SWAP分区</h3>
+<ul>
+<li>关闭swap分区，否则可能会影响 kubelet 启动</li>
+<li>同样可以通过设置 kubelet 启动参数 &ndash;fail-swap-on 为 false 关闭 swap 检查</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">swapoff -a
+sed -i <span class="s1">&#39;/ swap / s/^\(.*\)$/#\1/g&#39;</span> /etc/fstab
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="关闭-selinux">关闭 SELINUX</h3>
+<ul>
+<li>关闭 SELINUX 否则可能 kubelet 挂载目录报错：Permission denied</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">setenforce <span class="m">0</span>
+sed -i <span class="s1">&#39;s/^SELINUX=.*/SELINUX=disabled/&#39;</span> /etc/selinux/config
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="内核调优">内核调优</h3>
+<ul>
+<li>关闭 tcp_tw_recycle，否则与 NAT 冲突， 可能导致服务不通；</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">cat	&gt; /etc/sysctl.d/kubernetes.conf	<span class="s">&lt;&lt;EOF
+</span><span class="s">    net.bridge.bridge-nf-call-iptables=1
+</span><span class="s">    net.bridge.bridge-nf-call-ip6tables=1
+</span><span class="s">    net.ipv4.ip_forward=1
+</span><span class="s">    net.ipv4.tcp_tw_recycle=0
+</span><span class="s">    net.ipv4.neigh.default.gc_thresh1=1024
+</span><span class="s">    net.ipv4.neigh.default.gc_thresh1=2048
+</span><span class="s">    net.ipv4.neigh.default.gc_thresh1=4096
+</span><span class="s">    vm.swappiness=0 vm.overcommit_memory=1
+</span><span class="s">    vm.panic_on_oom=0
+</span><span class="s">    fs.inotify.max_user_instances=8192
+</span><span class="s">    fs.inotify.max_user_watches=1048576
+</span><span class="s">    fs.file-max=52706963 fs.nr_open=52706963
+</span><span class="s">    net.ipv6.conf.all.disable_ipv6=1
+</span><span class="s">    net.netfilter.nf_conntrack_max=2310720
+</span><span class="s">EOF</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>否则会执行 调优参数 生效的时候报错：sysctl: cannot stat /proc/sys/net/bridge/bridge-nf-call-iptables: No such file or directory</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">modprobe br_netfilter
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">sysctl -p /etc/sysctl.d/kubernetes.conf
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="设置时区以及同步">设置时区以及同步</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">timedatectl set-timezone Asia/Shanghai
+systemctl <span class="nb">enable</span> chronyd <span class="o">&amp;&amp;</span> systemctl start chronyd
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>检查状态</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">timedatectl status
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>如果输出内容存在 即可</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">Time zone: Asia/Shanghai <span class="o">(</span>CST, +0800<span class="o">)</span>
+     NTP enabled: yes
+NTP synchronized: yes
+ RTC in <span class="nb">local</span> TZ: no
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>将当前 UTC 时间写入硬件时钟，并重启系统时间相关的依赖服务</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">timedatectl set-local-rtc <span class="m">0</span>
+systemctl restart rsyslog
+systemctl restart crond
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="关闭无关服务">关闭无关服务</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">systemctl disable postfix <span class="o">&amp;&amp;</span> systemctl stop postfix
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="创建相关目录">创建相关目录</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">mkdir -p /opt/k8s/<span class="o">{</span>bin,work<span class="o">}</span> /etc/<span class="o">{</span>kubernetes,etcd<span class="o">}</span>/cert
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="分发集群配置参数脚本">分发集群配置参数脚本</h3>
+<ul>
+<li><strong>该操作在k8s-node1节点进行</strong></li>
+<li>集群配置参数脚本， 根据具体情况更改机器信息   <a href="https://github.com/opsnull/follow-me-install-kubernetes-cluster/blob/master/manifests/environment.sh" target="_blank" rel="noopener noreffer">脚本原地址</a></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">vim environment.sh
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="cp">#!/usr/bin/bash
+</span><span class="cp"></span>
+<span class="c1"># 生成 EncryptionConfig 所需的加密 key</span>
+<span class="nb">export</span> <span class="nv">ENCRYPTION_KEY</span><span class="o">=</span><span class="k">$(</span>head -c <span class="m">32</span> /dev/urandom <span class="p">|</span> base64<span class="k">)</span>
+
+<span class="c1"># 集群各机器 IP 数组</span>
+<span class="nb">export</span> <span class="nv">NODE_IPS</span><span class="o">=(</span>192.168.7.200 192.168.7.201 192.168.7.202<span class="o">)</span>
+
+<span class="c1"># 集群各 IP 对应的主机名数组</span>
+<span class="nb">export</span> <span class="nv">NODE_NAMES</span><span class="o">=(</span>k8s-node01 k8s-node02 k8s-node03<span class="o">)</span>
+
+<span class="c1"># etcd 集群服务地址列表</span>
+<span class="nb">export</span> <span class="nv">ETCD_ENDPOINTS</span><span class="o">=</span><span class="s2">&#34;https://192.168.7.200:2379,https://192.168.7.201:2379,https://192.168.7.202:2379&#34;</span>
+
+<span class="c1"># etcd 集群间通信的 IP 和端口</span>
+<span class="nb">export</span> <span class="nv">ETCD_NODES</span><span class="o">=</span><span class="s2">&#34;k8s-node01=https://192.168.7.201:2380,k8s-node02=https://192.168.7.201:2380,k8s-node03=https://192.168.7.202:2380&#34;</span>
+
+<span class="c1"># kube-apiserver 的反向代理(kube-nginx)地址端口</span>
+<span class="nb">export</span> <span class="nv">KUBE_APISERVER</span><span class="o">=</span><span class="s2">&#34;https://127.0.0.1:8443&#34;</span>
+
+<span class="c1"># 节点间互联网络接口名称</span>
+<span class="nb">export</span> <span class="nv">IFACE</span><span class="o">=</span><span class="s2">&#34;eth0&#34;</span>
+
+<span class="c1"># etcd 数据目录</span>
+<span class="nb">export</span> <span class="nv">ETCD_DATA_DIR</span><span class="o">=</span><span class="s2">&#34;/data/k8s/etcd/data&#34;</span>
+
+<span class="c1"># etcd WAL 目录，建议是 SSD 磁盘分区，或者和 ETCD_DATA_DIR 不同的磁盘分区</span>
+<span class="nb">export</span> <span class="nv">ETCD_WAL_DIR</span><span class="o">=</span><span class="s2">&#34;/data/k8s/etcd/wal&#34;</span>
+
+<span class="c1"># k8s 各组件数据目录</span>
+<span class="nb">export</span> <span class="nv">K8S_DIR</span><span class="o">=</span><span class="s2">&#34;/data/k8s/k8s&#34;</span>
+
+<span class="c1">## DOCKER_DIR 和 CONTAINERD_DIR 二选一</span>
+<span class="c1"># docker 数据目录</span>
+<span class="nb">export</span> <span class="nv">DOCKER_DIR</span><span class="o">=</span><span class="s2">&#34;/data/k8s/docker&#34;</span>
+
+<span class="c1"># containerd 数据目录</span>
+<span class="nb">export</span> <span class="nv">CONTAINERD_DIR</span><span class="o">=</span><span class="s2">&#34;/data/k8s/containerd&#34;</span>
+
+<span class="c1">## 以下参数一般不需要修改</span>
+
+<span class="c1"># TLS Bootstrapping 使用的 Token，可以使用命令 head -c 16 /dev/urandom | od -An -t x | tr -d &#39; &#39; 生成</span>
+<span class="nv">BOOTSTRAP_TOKEN</span><span class="o">=</span><span class="s2">&#34;41f7e4ba8b7be874fcff18bf5cf41a7c&#34;</span>
+
+<span class="c1"># 最好使用 当前未用的网段 来定义服务网段和 Pod 网段</span>
+
+<span class="c1"># 服务网段，部署前路由不可达，部署后集群内路由可达(kube-proxy 保证)</span>
+<span class="nv">SERVICE_CIDR</span><span class="o">=</span><span class="s2">&#34;10.254.0.0/16&#34;</span>
+
+<span class="c1"># Pod 网段，建议 /16 段地址，部署前路由不可达，部署后集群内路由可达(flanneld 保证)</span>
+<span class="nv">CLUSTER_CIDR</span><span class="o">=</span><span class="s2">&#34;172.30.0.0/16&#34;</span>
+
+<span class="c1"># 服务端口范围 (NodePort Range)</span>
+<span class="nb">export</span> <span class="nv">NODE_PORT_RANGE</span><span class="o">=</span><span class="s2">&#34;30000-32767&#34;</span>
+
+<span class="c1"># kubernetes 服务 IP (一般是 SERVICE_CIDR 中第一个IP)</span>
+<span class="nb">export</span> <span class="nv">CLUSTER_KUBERNETES_SVC_IP</span><span class="o">=</span><span class="s2">&#34;10.254.0.1&#34;</span>
+
+<span class="c1"># 集群 DNS 服务 IP (从 SERVICE_CIDR 中预分配)</span>
+<span class="nb">export</span> <span class="nv">CLUSTER_DNS_SVC_IP</span><span class="o">=</span><span class="s2">&#34;10.254.0.2&#34;</span>
+
+<span class="c1"># 集群 DNS 域名（末尾不带点号）</span>
+<span class="nb">export</span> <span class="nv">CLUSTER_DNS_DOMAIN</span><span class="o">=</span><span class="s2">&#34;cluster.local&#34;</span>
+
+<span class="c1"># 将二进制目录 /opt/k8s/bin 加到 PATH 中</span>
+<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span>/opt/k8s/bin:<span class="nv">$PATH</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>分发到各个节点</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">source</span> environment.sh
+<span class="k">for</span> node_ip in <span class="si">${</span><span class="nv">NODE_IPS</span><span class="p">[@]</span><span class="si">}</span>
+  <span class="k">do</span>
+    <span class="nb">echo</span> <span class="s2">&#34;&gt;&gt;&gt; </span><span class="si">${</span><span class="nv">node_ip</span><span class="si">}</span><span class="s2">&#34;</span>
+    scp environment.sh root@<span class="si">${</span><span class="nv">node_ip</span><span class="si">}</span>:/opt/k8s/bin/
+    ssh root@<span class="si">${</span><span class="nv">node_ip</span><span class="si">}</span> <span class="s2">&#34;chmod +x /opt/k8s/bin/*&#34;</span>
+  <span class="k">done</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="升级内核">升级内核</h3>
+<p>CentOS 7.x 内核 自带的 3.10.x  存在一些 Bugs</p>
+<ul>
+<li>高版本的 docker(1.13之后) 启用了 3.10 kernel 实验室支持的 kernel memory account 功能（无法关闭），会在节点压力大（比如频繁启动关闭容器） 时候导致  cgroup memory leak</li>
+<li>网络设备引用计数泄露，会导致类似于报错：&ldquo;kernel:unregister_netdevice: waiting for eth0 to become free. Usage count = 1&rdquo;;</li>
+</ul>
+<p>采用升级内核至 4.4.x 以上的方法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm
+yum --enablerepo<span class="o">=</span>elrepo-kernel install -y kernel-lt
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>
+<p>检查 /boot/grub2/grub.cfg 中对应内核 menuentry 中是否包含 initrd16 配置, 如果无输出，再尝试安装一次</p>
+</li>
+<li>
+<p>设置开机启动内核</p>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">grub2-set-default <span class="m">0</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>重启机器</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">sync
+reboot
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>查看内核 是否已经升级为  4.4.x版本</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">uname -a
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="根证书创建">根证书创建</h2>
+<p>需要使用 X509 证书对通信进行加密和认证； 使用 CloudFlare 的PKI工具集 cfssl 生成，CA证书只需要一份</p>
+<ul>
+<li>本小节所有操作均在 k8s-node01 节点下执行</li>
+</ul>
+<h3 id="cfssl-工具集">cfssl 工具集</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">mkdir -p /opt/k8s/cert <span class="o">&amp;&amp;</span> <span class="nb">cd</span> /opt/k8s/work
+
+wget https://github.com/cloudflare/cfssl/releases/download/v1.4.1/cfssl_1.4.1_linux_amd64
+mv cfssl_1.4.1_linux_amd64 /opt/k8s/bin/cfssl
+
+wget https://github.com/cloudflare/cfssl/releases/download/v1.4.1/cfssljson_1.4.1_linux_amd64
+mv cfssljson_1.4.1_linux_amd64 /opt/k8s/bin/cfssljson
+
+wget https://github.com/cloudflare/cfssl/releases/download/v1.4.1/cfssl-certinfo_1.4.1_linux_amd64
+mv cfssl-certinfo_1.4.1_linux_amd64 /opt/k8s/bin/cfssl-certinfo
+
+chmod +x /opt/k8s/bin/*
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="创建配置文件">创建配置文件</h3>
+<ul>
+<li>CA 配置文件用于配置根证书的使用场景（profile）和 具体参数（usage，过期时间，服务端认证，客户端认证，加密等）</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">cd</span> /opt/k8s/work
+
+cat &gt; ca-config.json <span class="s">&lt;&lt; EOF
+</span><span class="s">{
+</span><span class="s">    &#34;signing&#34;: {
+</span><span class="s">        &#34;default&#34;: {
+</span><span class="s">            &#34;expiry&#34;: &#34;87600h&#34;
+</span><span class="s">        },
+</span><span class="s">        &#34;profiles&#34;: {
+</span><span class="s">            &#34;kubernetes&#34;: {
+</span><span class="s">                &#34;usages&#34;: [
+</span><span class="s">                    &#34;signing&#34;,
+</span><span class="s">                    &#34;key encipherment&#34;,
+</span><span class="s">                    &#34;server auth&#34;,
+</span><span class="s">                    &#34;client auth&#34;
+</span><span class="s">                ],
+</span><span class="s">                &#34;expiry&#34;: &#34;876000h&#34;
+</span><span class="s">            }
+</span><span class="s">        }
+</span><span class="s">    }
+</span><span class="s">}
+</span><span class="s">EOF</span>
+</code></pre></td></tr></table>
+</div>
+</div><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>signing</td>
+<td>表示该证书可以签名其他证书（ca.pem 中 CA=TRUE）</td>
+</tr>
+<tr>
+<td>server auth</td>
+<td>表示 client 可以用该证书对 server 提供的证书进行验证</td>
+</tr>
+<tr>
+<td>client auth</td>
+<td>表示 server 可以用该证书对 client 提供的证书进行验证</td>
+</tr>
+<tr>
+<td>expiry</td>
+<td>标识证书的有效期，上述表示100年</td>
+</tr>
+</tbody>
+</table>
+<h3 id="创建证书签名请求文件">创建证书签名请求文件</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">cd</span> /opt/k8s/work 
+cat &gt; ca-csr.json <span class="s">&lt;&lt;EOF
+</span><span class="s">{
+</span><span class="s">    &#34;CN&#34;: &#34;kubernetes-ca&#34;,
+</span><span class="s">    &#34;key&#34;: {
+</span><span class="s">        &#34;algo&#34;: &#34;rsa&#34;,
+</span><span class="s">        &#34;size&#34;: 2048
+</span><span class="s">    },
+</span><span class="s">    &#34;names&#34;: [
+</span><span class="s">        {
+</span><span class="s">            &#34;C&#34;: &#34;CN&#34;,
+</span><span class="s">            &#34;ST&#34;: &#34;BeiJing&#34;,
+</span><span class="s">            &#34;L&#34;: &#34;BeiJing&#34;,
+</span><span class="s">            &#34;O&#34;: &#34;k8s&#34;,
+</span><span class="s">            &#34;OU&#34;: &#34;opsnull&#34;
+</span><span class="s">        }
+</span><span class="s">    ],
+</span><span class="s">    &#34;ca&#34;: {
+</span><span class="s">        &#34;expiry&#34;: &#34;876000h&#34;
+</span><span class="s">    }
+</span><span class="s">}
+</span><span class="s">EOF</span>
+</code></pre></td></tr></table>
+</div>
+</div><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CN</td>
+<td>Common Name kube-apiserver 从证书中提取该字段作为<strong>请求的用户名（User Name）</strong>；浏览器通过该字段验证网站是否合法</td>
+</tr>
+<tr>
+<td>O</td>
+<td>Organization：kube-apiserver从证书中提取该字段作为<strong>请求用户所属的组 （Group）</strong></td>
+</tr>
+<tr>
+<td></td>
+<td>kube-apiserver 将<strong>提取的 User、Group 作为 RBAC 授权的用户标识</strong></td>
+</tr>
+</tbody>
+</table>
+<p>注意：</p>
+<ul>
+<li>不同证书的 csr 文件中的 CN, C, ST, L, O, OU 组合 必须不同，否则可能出现 PEER&rsquo;S CERTIFICATE HAS AN INVAILD SINGTURE 错误；</li>
+<li>后续创建的证书，保证CN不同以达到区分</li>
+</ul>
+<h3 id="生成-ca证书以及密钥">生成 CA证书以及密钥</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">cd</span> /opt/k8s/work
+cfssl gencert -initca ca-csr.json <span class="p">|</span> cfssljson -bare ca
+ls ca*
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="分发证书">分发证书</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">cd</span> /opt/k8s/work
+<span class="nb">source</span> /opt/k8s/bin/environment.sh 
+<span class="k">for</span> node_ip in <span class="si">${</span><span class="nv">NODE_IPS</span><span class="p">[@]</span><span class="si">}</span>
+  <span class="k">do</span>
+    <span class="nb">echo</span> <span class="s2">&#34;&gt;&gt;&gt; </span><span class="si">${</span><span class="nv">node_ip</span><span class="si">}</span><span class="s2">&#34;</span>
+    ssh root@<span class="si">${</span><span class="nv">node_ip</span><span class="si">}</span> <span class="s2">&#34;mkdir -p /etc/kubernetes/cert&#34;</span>
+    scp ca*.pem ca-config.json root@<span class="si">${</span><span class="nv">node_ip</span><span class="si">}</span>:/etc/kubernetes/cert
+  <span class="k">done</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="参考">参考</h3>
+<ul>
+<li><a href="https://github.com/kubernetes-sigs/apiserver-builder-alpha/blob/master/docs/concepts/auth.md" target="_blank" rel="noopener noreffer">Kubernetes证书类型</a></li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-06-11</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.viper.pub/k8s-install-hardway-1/" data-title="二进制部署Kubernetes Part1" data-hashtags="Kubernetes"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.viper.pub/k8s-install-hardway-1/" data-hashtag="Kubernetes"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://www.viper.pub/k8s-install-hardway-1/" data-title="二进制部署Kubernetes Part1" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://www.viper.pub/k8s-install-hardway-1/" data-title="二进制部署Kubernetes Part1"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.viper.pub/k8s-install-hardway-1/" data-title="二进制部署Kubernetes Part1" data-image="https://gitee.com/AbyssViper/pic/raw/master/images/k8s-install-hardway/featuredImage.jpg"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://www.viper.pub/k8s-install-hardway-1/" data-title="二进制部署Kubernetes Part1" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://www.viper.pub/k8s-install-hardway-1/" data-title="二进制部署Kubernetes Part1" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://www.viper.pub/k8s-install-hardway-1/" data-title="二进制部署Kubernetes Part1"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/kubernetes/">Kubernetes</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/softether-vpn-split-tunnel/" class="prev" rel="prev" title="Softether-VPN 拆分隧道"><i class="fas fa-angle-left fa-fw"></i>Softether-VPN 拆分隧道</a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.74.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2020</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/gitalk/gitalk.min.71b52de752d829104ec4119a58460549.css" integrity="md5-cbUt51LYKRBOxBGaWEYFSQ=="><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.77eb6ae63c63c88c5e7a10b6c9570c54.css" integrity="md5-d&#43;tq5jxjyIxeehC2yVcMVA=="><link rel="stylesheet" href="/lib/katex/katex.min.ef3c395634e43fe45f5332bfca2287b3.css" integrity="md5-7zw5VjTkP&#43;RfUzK/yiKHsw=="><link rel="stylesheet" href="/lib/katex/copy-tex.min.622133ef544b0f203604a52bebba29f4.css" integrity="md5-YiEz71RLDyA2BKUr67op9A=="><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.4c5305a5255032858d47ae995b20aeca.css" integrity="md5-TFMFpSVQMoWNR66ZWyCuyg=="><script type="text/javascript" src="/lib/gitalk/gitalk.min.ec4a60342c0b98209772ebf3fdec0aa2.js" integrity="md5-7EpgNCwLmCCXcuvz/ewKog=="></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.dd4e1772a44268dd6e27f193695067fc.js" integrity="md5-3U4XcqRCaN1uJ/GTaVBn/A=="></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.10321080d79e27ee01ff36859c02acd3.js" integrity="md5-EDIQgNeeJ&#43;4B/zaFnAKs0w=="></script><script type="text/javascript" src="/lib/lunr/lunr.min.f2eea188dc4939c55ff8f55569a4e87c.js" integrity="md5-8u6hiNxJOcVf&#43;PVVaaTofA=="></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.b82fb8d93ce0ea6a485dfa3a0b1e7573.js" integrity="md5-uC&#43;42Tzg6mpIXfo6Cx51cw=="></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.f1ba3e22560e2eb7474f28feb4507617.js" integrity="md5-8bo&#43;IlYOLrdHTyj&#43;tFB2Fw=="></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.40c0bfc764764587555c066d46fe6071.js" integrity="md5-QMC/x2R2RYdVXAZtRv5gcQ=="></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.c6a5b6b1db8980fdc42cd3456fe1ec74.js" integrity="md5-xqW2sduJgP3ELNNFb&#43;HsdA=="></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.ba38a712df31c778e10e8211f8cb891b.js" integrity="md5-ujinEt8xx3jhDoIR&#43;MuJGw=="></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.fa56076f9d071729612c4849acae1ce5.js" integrity="md5-&#43;lYHb50HFylhLEhJrK4c5Q=="></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.4f0896a2ff5ef76f0dd00f5c5de65abb.js" integrity="md5-TwiWov9e928N0A9cXeZauw=="></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.221393f48062472d1e72960fda7db7a3.js" integrity="md5-IhOT9IBiRy0ecpYP2n23ow=="></script><script type="text/javascript" src="/lib/sharer/sharer.min.5625619b1285f17b13aee3f397116aa6.js" integrity="md5-ViVhmxKF8XsTruPzlxFqpg=="></script><script type="text/javascript" src="/lib/katex/katex.min.c158c9e823b681cf535f46596b5e4eac.js" integrity="md5-wVjJ6CO2gc9TX0ZZa15OrA=="></script><script type="text/javascript" src="/lib/katex/auto-render.min.28cd0b98cd3f4fa37d52f3ffe47ad9d4.js" integrity="md5-KM0LmM0/T6N9UvP/5HrZ1A=="></script><script type="text/javascript" src="/lib/katex/copy-tex.min.bfaec7d1dea915d74a7a6d833f0ff62e.js" integrity="md5-v67H0d6pFddKem2DPw/2Lg=="></script><script type="text/javascript" src="/lib/katex/mhchem.min.1bbb252363e83547d4b2186a41eaca28.js" integrity="md5-G7slI2PoNUfUshhqQerKKA=="></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.4a48532bf0b17c058b8b6854f49de23f.js" integrity="md5-SkhTK/CxfAWLi2hU9J3iPw=="></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"gitalk":{"admin":["AbyssViper"],"clientID":"6902cde2aae313788a4c","clientSecret":"81fc2e7de744fca69c9e8b683e85e50a2bb5951c","id":"2020-06-11T10:50:59+08:00","owner":"AbyssViper","repo":"AbyssViper.github.io","title":"二进制部署Kubernetes Part1"}},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.8043ef4f5ae2d4fd302305ffd8316f55.js" integrity="md5-gEPvT1ri1P0wIwX/2DFvVQ=="></script></body>
+</html>

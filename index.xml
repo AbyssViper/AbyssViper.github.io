@@ -4,9 +4,18 @@
         <link>https://www.viper.pub/</link>
         <description>Welcome to viper&#39;s blog.</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>root@viper.run (abyssviper)</managingEditor>
-            <webMaster>root@viper.run (abyssviper)</webMaster><lastBuildDate>Fri, 09 Aug 2019 16:29:34 &#43;0800</lastBuildDate>
+            <webMaster>root@viper.run (abyssviper)</webMaster><lastBuildDate>Thu, 11 Jun 2020 10:50:59 &#43;0800</lastBuildDate>
             <atom:link href="https://www.viper.pub/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>二进制部署Kubernetes Part1</title>
+    <link>https://www.viper.pub/k8s-install-hardway-1/</link>
+    <pubDate>Thu, 11 Jun 2020 10:50:59 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.viper.pub/k8s-install-hardway-1/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://gitee.com/AbyssViper/pic/raw/master/images/k8s-install-hardway/featuredImage.jpg" referrerpolicy="no-referrer">
+            </div>前言 项目地址 本次安装完全参照于 follow-me-install-kubernetes-cluster 项目 对于源项目操作进行了部分扩展的解释与优化 版本信息 当前版本基于 v1.16.x 版本 环境准备 版本信息 组件 版本 发布时间 kubernetes 1.16.6 2020-01-22]]></description>
+</item><item>
     <title>Softether-VPN 拆分隧道</title>
     <link>https://www.viper.pub/softether-vpn-split-tunnel/</link>
     <pubDate>Fri, 09 Aug 2019 16:29:34 &#43;0800</pubDate>
