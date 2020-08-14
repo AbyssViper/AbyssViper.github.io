@@ -3,7 +3,7 @@
 
 ## 前言
 
-### 项目地址
+### 参考地址
 
 - 本次安装完全参照于 [follow-me-install-kubernetes-cluster](https://github.com/opsnull/follow-me-install-kubernetes-cluster/) 项目
 
@@ -12,6 +12,13 @@
 ### 版本信息
 
 - 当前版本基于 v1.16.x 版本
+
+### 系列目录
+
+- [二进制部署Kubernetes Part1(本篇)](https://www.viper.pub/k8s-install-hardway-1/)
+- [二进制部署Kubernetes Part2](https://www.viper.pub/k8s-install-hardway-2/)
+- [二进制部署Kubernetes Part3](https://www.viper.pub/k8s-install-hardway-3/)
+- [二进制部署Kubernetes Part4](https://www.viper.pub/k8s-install-hardway-4/)
 
 
 
@@ -294,6 +301,8 @@ mkdir -p /opt/k8s/{bin,work} /etc/{kubernetes,etcd}/cert
 vim environment.sh
 ```
 
+- 需要注意 `NODE_IPS` `NODE_NAMES` `ETCD_ENDPOINTS` `ETCD_NODES`  `IFACE`  `CLUSTER_DNS_DOMAIN`
+
 ```shell
 #!/usr/bin/bash
 
@@ -316,7 +325,7 @@ export ETCD_NODES="k8s-node01=https://192.168.7.201:2380,k8s-node02=https://192.
 export KUBE_APISERVER="https://127.0.0.1:8443"
 
 # 节点间互联网络接口名称
-export IFACE="eth0"
+export IFACE="ens192"
 
 # etcd 数据目录
 export ETCD_DATA_DIR="/data/k8s/etcd/data"
