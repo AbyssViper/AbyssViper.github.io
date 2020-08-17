@@ -807,7 +807,26 @@ for node_ip in ${NODE_IPS[@]}
   done
 ```
 
-#### metrics???
+#### 查看输出的metrics
+
+```shell
+curl -s --cacert /opt/k8s/work/ca.pem --cert /opt/k8s/work/admin.pem --key /opt/k8s/work/admin-key.pem https://192.168.7.200:10252/metrics |head
+```
+
+```shell
+# HELP apiserver_audit_event_total [ALPHA] Counter of audit events generated and sent to the audit backend.
+# TYPE apiserver_audit_event_total counter
+apiserver_audit_event_total 0
+# HELP apiserver_audit_requests_rejected_total [ALPHA] Counter of apiserver requests rejected due to an error in audit logging backend.
+# TYPE apiserver_audit_requests_rejected_total counter
+apiserver_audit_requests_rejected_total 0
+# HELP apiserver_client_certificate_expiration_seconds [ALPHA] Distribution of the remaining lifetime on the certificate used to authenticate a request.
+# TYPE apiserver_client_certificate_expiration_seconds histogram
+apiserver_client_certificate_expiration_seconds_bucket{le="0"} 0
+apiserver_client_certificate_expiration_seconds_bucket{le="1800"} 0
+```
+
+
 
 #### 查看 leader 节点
 
@@ -1073,7 +1092,67 @@ for node_ip in ${NODE_IPS[@]}
   done
 ```
 
-#### metrics???
+#### 查看输出的metrics
+
+注意：以下命令在 kube-scheduler 节点上执行。
+
+kube-scheduler 监听 10251 和 10259 端口：
+
+- 10251：接收 http 请求，非安全端口，不需要认证授权；
+- 10259：接收 https 请求，安全端口，需要认证授权；
+
+两个接口都对外提供 `/metrics` 和 `/healthz` 的访问。
+
+```shell
+netstat -lnpt |grep kube-sch
+```
+
+```shell
+tcp        0      0 192.168.7.200:10251     0.0.0.0:*               LISTEN      1219/kube-scheduler 
+tcp        0      0 192.168.7.200:10259     0.0.0.0:*               LISTEN      1219/kube-scheduler 
+```
+
+
+
+```shell
+curl -s http://192.168.7.200:10251/metrics |head
+```
+
+```shell
+# HELP apiserver_audit_event_total [ALPHA] Counter of audit events generated and sent to the audit backend.
+# TYPE apiserver_audit_event_total counter
+apiserver_audit_event_total 0
+# HELP apiserver_audit_requests_rejected_total [ALPHA] Counter of apiserver requests rejected due to an error in audit logging backend.
+# TYPE apiserver_audit_requests_rejected_total counter
+apiserver_audit_requests_rejected_total 0
+# HELP apiserver_client_certificate_expiration_seconds [ALPHA] Distribution of the remaining lifetime on the certificate used to authenticate a request.
+# TYPE apiserver_client_certificate_expiration_seconds histogram
+apiserver_client_certificate_expiration_seconds_bucket{le="0"} 0
+apiserver_client_certificate_expiration_seconds_bucket{le="1800"} 0
+```
+
+
+
+```shell
+curl -s --cacert /opt/k8s/work/ca.pem --cert /opt/k8s/work/admin.pem --key /opt/k8s/work/admin-key.pem https://192.168.7.200:10259/metrics |head
+```
+
+```shell
+# HELP apiserver_audit_event_total [ALPHA] Counter of audit events generated and sent to the audit backend.
+# TYPE apiserver_audit_event_total counter
+apiserver_audit_event_total 0
+# HELP apiserver_audit_requests_rejected_total [ALPHA] Counter of apiserver requests rejected due to an error in audit logging backend.
+# TYPE apiserver_audit_requests_rejected_total counter
+apiserver_audit_requests_rejected_total 0
+# HELP apiserver_client_certificate_expiration_seconds [ALPHA] Distribution of the remaining lifetime on the certificate used to authenticate a request.
+# TYPE apiserver_client_certificate_expiration_seconds histogram
+apiserver_client_certificate_expiration_seconds_bucket{le="0"} 0
+apiserver_client_certificate_expiration_seconds_bucket{le="1800"} 0
+```
+
+
+
+
 
 #### 查看当前 leader
 
@@ -2270,9 +2349,139 @@ debug: false
 
 
 
+### 检查节点功能
+
+- 都为 Ready 且版本为 v1.16.6 时正常。
+
+```shell
+kubectl get nodes
+```
 
 
 
+### 创建测试文件
+
+```shell
+cd /opt/k8s/work
+cat > nginx-ds.yml <<EOF
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-ds
+  labels:
+    app: nginx-ds
+spec:
+  type: NodePort
+  selector:
+    app: nginx-ds
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: nginx-ds
+  labels:
+    addonmanager.kubernetes.io/mode: Reconcile
+spec:
+  selector:
+    matchLabels:
+      app: nginx-ds
+  template:
+    metadata:
+      labels:
+        app: nginx-ds
+    spec:
+      containers:
+      - name: my-nginx
+        image: nginx:1.7.9
+        ports:
+        - containerPort: 80
+EOF
+```
+
+
+
+### 执行测试
+
+```shell
+kubectl create -f nginx-ds.yml
+```
+
+
+
+### 检查节点 POD IP 连通性
+
+```shell
+ kubectl get pods  -o wide -l app=nginx-ds
+```
+
+```shell
+NAME             READY STATUS   RESTARTS  AGE    IP              NODE        NOMINATED NODE  READINESS GATES
+nginx-ds-5qszv   1/1   Running  0         4h25m  172.30.135.129  k8s-node03  <none>          <none>
+nginx-ds-n5tzp   1/1   Running  0         4h25m  172.30.85.193   k8s-node01  <none>          <none>
+nginx-ds-pdsp2   1/1   Running  0         4h25m  172.30.58.194   k8s-node02  <none>          <none>
+```
+
+在所有的 Node上对 Pod IP 进行联通性测试
+
+```shell
+source /opt/k8s/bin/environment.sh
+for node_ip in ${NODE_IPS[@]}
+  do
+    echo ">>> ${node_ip}"
+    ssh ${node_ip} "ping -c 1 172.30.135.129"
+    ssh ${node_ip} "ping -c 1 172.30.85.193"
+    ssh ${node_ip} "ping -c 1 172.30.58.194"
+  done
+```
+
+
+
+### 检查服务IP 和 端口可达性
+
+```shell
+ kubectl get svc -l app=nginx-ds    
+```
+
+```shell
+NAME       TYPE       CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+nginx-ds   NodePort   10.254.217.207   <none>        80:32716/TCP   4h30m
+```
+
+通过信息可以看出
+
+- Service Cluster IP：10.254.217.207
+- 服务端口：80
+- NodePort：32716
+
+
+
+```shell
+source /opt/k8s/bin/environment.sh
+for node_ip in ${NODE_IPS[@]}
+  do
+    echo ">>> ${node_ip}"
+    ssh ${node_ip} "curl -s 10.254.217.207"
+  done
+```
+
+预期打印 Nginx 信息
+
+### 检查服务 NodePort 可达性
+
+```shell
+source /opt/k8s/bin/environment.sh
+for node_ip in ${NODE_IPS[@]}
+  do
+    echo ">>> ${node_ip}"
+    ssh ${node_ip} "curl -s ${node_ip}:32716"
+  done
+```
+
+预期打印 Nginx 信息
 
 
 
