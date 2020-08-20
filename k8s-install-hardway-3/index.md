@@ -1,4 +1,4 @@
-# 二进制部署Kubernetes Part3
+# Kubernetes 二进制部署 Part3
 
 
 ## 前言
@@ -1461,6 +1461,10 @@ state = "${CONTAINERD_DIR}/state"
     runtime_root = ""
     no_shim = false
     shim_debug = false
+  [plugins."io.containerd.grpc.v1.cri".registry]
+    [plugins."io.containerd.grpc.v1.cri".registry.mirrors]
+      [plugins."io.containerd.grpc.v1.cri".registry.mirrors."docker.io"]
+        endpoint = ["https://jxus37ad.mirror.aliyuncs.com"]
 EOF
 ```
 

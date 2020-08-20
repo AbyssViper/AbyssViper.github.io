@@ -1,4 +1,4 @@
-# 二进制部署Kubernetes Part1
+# Kubernetes 二进制部署 Part1
 
 
 ## 前言

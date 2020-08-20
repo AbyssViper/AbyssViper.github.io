@@ -1,4 +1,4 @@
-# 二进制部署Kubernetes Part2
+# Kubernetes 二进制部署 Part2
 
 
 ## 前言
@@ -147,6 +147,8 @@ for node_ip in ${NODE_IPS[@]}
     scp kubectl.kubeconfig root@${node_ip}:~/.kube/config
   done
 ```
+
+
 
 
 

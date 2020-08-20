@@ -5,8 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>K8s Install Hardway 4 - Viper的博客</title><meta name="Description" content="Welcome to viper&#39;s blog."><meta property="og:title" content="K8s Install Hardway 4" />
-<meta property="og:description" content="前言 系列目录 二进制部署Kubernetes Part1 二进制部署Kubernetes Part2 二进制部署Kubernetes Part3(本篇) 二进制部署Kub" />
+        <title>Kubernetes 二进制部署 Part4 - Viper的博客</title><meta name="Description" content="Welcome to viper&#39;s blog."><meta property="og:title" content="Kubernetes 二进制部署 Part4" />
+<meta property="og:description" content="前言 系列目录 二进制部署Kubernetes Part1 二进制部署Kubernetes Part2 二进制部署Kubernetes Part3 二进制部署Kubernetes P" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.viper.pub/k8s-install-hardway-4/" />
 <meta property="og:image" content="https://www.viper.pub/logo.png"/>
@@ -15,19 +15,19 @@
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://www.viper.pub/logo.png"/>
 
-<meta name="twitter:title" content="K8s Install Hardway 4"/>
-<meta name="twitter:description" content="前言 系列目录 二进制部署Kubernetes Part1 二进制部署Kubernetes Part2 二进制部署Kubernetes Part3(本篇) 二进制部署Kub"/>
+<meta name="twitter:title" content="Kubernetes 二进制部署 Part4"/>
+<meta name="twitter:description" content="前言 系列目录 二进制部署Kubernetes Part1 二进制部署Kubernetes Part2 二进制部署Kubernetes Part3 二进制部署Kubernetes P"/>
 <meta name="application-name" content="Viper&#39;s Blog">
 <meta name="apple-mobile-web-app-title" content="Viper&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="https://gitee.com/AbyssViper/pic/raw/master/images/ico.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.viper.pub/k8s-install-hardway-4/" /><link rel="prev" href="https://www.viper.pub/k8s-install-hardway-3/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.a12cacf4b5b41234196cb89042b24a70.css" integrity="md5-oSys9LW0EjQZbLiQQrJKcA=="><link rel="stylesheet" href="/css/style.min.f03a2ec71b16efbe4f24352e542c93a9.css" integrity="md5-8DouxxsW775PJDUuVCyTqQ=="><link rel="stylesheet" href="/lib/fontawesome-free/all.min.26386564b5cf1594be24059af1cd0db9.css" integrity="md5-JjhlZLXPFZS&#43;JAWa8c0NuQ=="><link rel="stylesheet" href="/lib/animate/animate.min.43d6b8fdf324505f0ceb7ea698d0b7a5.css" integrity="md5-Q9a4/fMkUF8M636mmNC3pQ=="><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "K8s Install Hardway 4",
+        "headline": "Kubernetes 二进制部署 Part4",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/www.viper.pub\/k8s-install-hardway-4\/"
-        },"genre": "posts","keywords": "Kubernetes","wordcount":  276 ,
+        },"genre": "posts","keywords": "Kubernetes","wordcount":  1805 ,
         "url": "https:\/\/www.viper.pub\/k8s-install-hardway-4\/","datePublished": "2019-12-10T22:40:42+08:00","dateModified": "2020-08-11T00:00:00+00:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -116,10 +116,12 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">K8s Install Hardway 4</h1><div class="post-meta">
+        </div><article class="page single"><h1 class="single-title animated flipInX">Kubernetes 二进制部署 Part4</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://www.viper.pub" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>abyssviper</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/kubernetes/"><i class="far fa-folder fa-fw"></i>Kubernetes</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2019-12-10">2019-12-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 276 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2019-12-10">2019-12-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1805 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;<span id="/k8s-install-hardway-4/" class="leancloud_visitors" data-flag-title="Kubernetes 二进制部署 Part4">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -147,6 +149,39 @@
         <li><a href="#检查功能">检查功能</a></li>
       </ul>
     </li>
+    <li><a href="#dashborad-插件">Dashborad 插件</a>
+      <ul>
+        <li><a href="#下载配置">下载配置</a></li>
+        <li><a href="#执行所有定义文件">执行所有定义文件</a></li>
+        <li><a href="#检测运行状态">检测运行状态</a></li>
+        <li><a href="#访问-dashboard">访问 Dashboard</a>
+          <ul>
+            <li><a href="#通过-port-forward-访问-dashboard">通过 port forward 访问 dashboard</a></li>
+          </ul>
+        </li>
+        <li><a href="#创建登录-dashboard-的-token-和-kubeconfig-文件">创建登录 Dashboard 的 token 和 kubeconfig 文件</a>
+          <ul>
+            <li><a href="#创建登录-token">创建登录 token</a></li>
+            <li><a href="#创建使用-token-的-kubeconfig-文件">创建使用 token 的 Kubeconfig 文件</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#部署-kube-prometheus-框架">部署 kube-prometheus 框架</a>
+      <ul>
+        <li><a href="#下载和安装">下载和安装</a></li>
+        <li><a href="#查看运行结果">查看运行结果</a></li>
+        <li><a href="#访问测试">访问测试</a></li>
+      </ul>
+    </li>
+    <li><a href="#部署-efk-插件">部署 EFK 插件</a>
+      <ul>
+        <li><a href="#修改配置文件">修改配置文件</a></li>
+        <li><a href="#执行定义文件">执行定义文件</a></li>
+        <li><a href="#结果检查">结果检查</a></li>
+        <li><a href="#访问测试-1">访问测试</a></li>
+      </ul>
+    </li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><h2 id="前言">前言</h2>
@@ -154,8 +189,8 @@
 <ul>
 <li><a href="https://www.viper.pub/k8s-install-hardway-1/" target="_blank" rel="noopener noreffer">二进制部署Kubernetes Part1</a></li>
 <li><a href="https://www.viper.pub/k8s-install-hardway-2/" target="_blank" rel="noopener noreffer">二进制部署Kubernetes Part2</a></li>
-<li><a href="https://www.viper.pub/k8s-install-hardway-3/" target="_blank" rel="noopener noreffer">二进制部署Kubernetes Part3(本篇)</a></li>
-<li><a href="https://www.viper.pub/k8s-install-hardway-4/" target="_blank" rel="noopener noreffer">二进制部署Kubernetes Part4</a></li>
+<li><a href="https://www.viper.pub/k8s-install-hardway-3/" target="_blank" rel="noopener noreffer">二进制部署Kubernetes Part3</a></li>
+<li><a href="https://www.viper.pub/k8s-install-hardway-4/" target="_blank" rel="noopener noreffer">二进制部署Kubernetes Part4(本篇)</a></li>
 </ul>
 <h3 id="注意点">注意点</h3>
 <ul>
@@ -265,14 +300,598 @@ kubectl create -f my-nginx.yaml
 <pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
+</span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">kubectl get services my-nginx -o wide
+<pre class="chroma"><code class="language-shell" data-lang="shell">$ kubectl get services my-nginx -o wide
 
-
+NAME       TYPE        CLUSTER-IP       EXTERNAL-IP   PORT<span class="o">(</span>S<span class="o">)</span>   AGE   SELECTOR
+my-nginx   ClusterIP   10.254.251.214   &lt;none&gt;        80/TCP    10s   <span class="nv">run</span><span class="o">=</span>my-nginx
 </code></pre></td></tr></table>
 </div>
-</div></div><div class="post-footer" id="post-footer">
+</div><p>创建另一个 Pod，查看 <code>/etc/resolv.conf</code> 是否包含 <code>kubelet</code> 配置的 <code>--cluster-dns</code> 和 <code>--cluster-domain</code>，是否能够将服务 <code>my-nginx</code> 解析到上面显示的 Cluster IP <code>10.254.251.214</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">cd</span> /opt/k8s/work
+cat &gt; dnsutils-ds.yml <span class="s">&lt;&lt;EOF
+</span><span class="s">apiVersion: v1
+</span><span class="s">kind: Service
+</span><span class="s">metadata:
+</span><span class="s">  name: dnsutils-ds
+</span><span class="s">  labels:
+</span><span class="s">    app: dnsutils-ds
+</span><span class="s">spec:
+</span><span class="s">  type: NodePort
+</span><span class="s">  selector:
+</span><span class="s">    app: dnsutils-ds
+</span><span class="s">  ports:
+</span><span class="s">  - name: http
+</span><span class="s">    port: 80
+</span><span class="s">    targetPort: 80
+</span><span class="s">---
+</span><span class="s">apiVersion: apps/v1
+</span><span class="s">kind: DaemonSet
+</span><span class="s">metadata:
+</span><span class="s">  name: dnsutils-ds
+</span><span class="s">  labels:
+</span><span class="s">    addonmanager.kubernetes.io/mode: Reconcile
+</span><span class="s">spec:
+</span><span class="s">  selector:
+</span><span class="s">    matchLabels:
+</span><span class="s">      app: dnsutils-ds
+</span><span class="s">  template:
+</span><span class="s">    metadata:
+</span><span class="s">      labels:
+</span><span class="s">        app: dnsutils-ds
+</span><span class="s">    spec:
+</span><span class="s">      containers:
+</span><span class="s">      - name: my-dnsutils
+</span><span class="s">        image: tutum/dnsutils:latest
+</span><span class="s">        command:
+</span><span class="s">          - sleep
+</span><span class="s">          - &#34;3600&#34;
+</span><span class="s">        ports:
+</span><span class="s">        - containerPort: 80
+</span><span class="s">EOF</span>
+kubectl create -f dnsutils-ds.yml
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">$ kubectl get pods -lapp<span class="o">=</span>dnsutils-ds -o wide 
+
+NAME                READY   STATUS    RESTARTS   AGE   IP               NODE         NOMINATED NODE   READINESS GATES
+dnsutils-ds-2dpjw   1/1     Running   <span class="m">0</span>          33m   172.30.135.132   k8s-node03   &lt;none&gt;           &lt;none&gt;
+dnsutils-ds-85d6q   1/1     Running   <span class="m">0</span>          33m   172.30.85.195    k8s-node01   &lt;none&gt;           &lt;none&gt;
+dnsutils-ds-nwnz4   1/1     Running   <span class="m">0</span>          33m   172.30.58.195    k8s-node02   &lt;none&gt;           &lt;none&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>查看 <code>/etc/resolv.conf</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">$ kubectl -it <span class="nb">exec</span> dnsutils-ds-2dpjw  cat /etc/resolv.conf
+
+search default.svc.cluster.local svc.cluster.local cluster.local
+nameserver 10.254.0.2
+options ndots:5
+</code></pre></td></tr></table>
+</div>
+</div><p>通过 nslookup 进行解析测试</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">$ kubectl -it <span class="nb">exec</span> dnsutils-ds-2dpjw nslookup kubernetes
+
+Server:		10.254.0.2
+Address:	10.254.0.2#53
+
+Name:	kubernetes.default.svc.cluster.local
+Address: 10.254.0.1
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">$ kubectl -it <span class="nb">exec</span> dnsutils-ds-2dpjw nslookup www.baidu.com
+
+Server:		10.254.0.2
+Address:	10.254.0.2#53
+
+Non-authoritative answer:
+www.baidu.com	canonical <span class="nv">name</span> <span class="o">=</span> www.a.shifen.com.
+Name:	www.a.shifen.com
+Address: 180.97.34.94
+Name:	www.a.shifen.com
+Address: 180.97.34.96
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">$ kubectl -it <span class="nb">exec</span> dnsutils-ds-2dpjw nslookup my-nginx
+
+Server:		10.254.0.2
+Address:	10.254.0.2#53
+
+Name:	my-nginx.default.svc.cluster.local
+Address: 10.254.251.214
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="dashborad-插件">Dashborad 插件</h2>
+<h3 id="下载配置">下载配置</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">cd</span> /opt/k8s/work
+wget https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-rc4/aio/deploy/recommended.yaml
+mv  recommended.yaml dashboard-recommended.yaml
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="执行所有定义文件">执行所有定义文件</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">cd</span> /opt/k8s/work
+kubectl apply -f dashboard-recommended.yaml
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="检测运行状态">检测运行状态</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">$ kubectl get pods -n kubernetes-dashboard 
+
+NAME                                         READY   STATUS    RESTARTS   AGE
+dashboard-metrics-scraper-7b8b58dc8b-djtvn   1/1     Running   <span class="m">0</span>          16m
+kubernetes-dashboard-6cfc8c4c9-pw2sx         1/1     Running   <span class="m">0</span>          16m
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="访问-dashboard">访问 Dashboard</h3>
+<p>Kubernetes 1.7 以后，dashboard 只允许通过 https访问。如果使用 kube proxy 则必须监听 localhost 或 127.0.0.1。对于 NodePort 没有这个限制，但是仅建议在开发环境中使用。对于不满足这些条件的登录访问，在登录成功后<strong>浏览器不跳转，始终停在登录界面</strong></p>
+<h4 id="通过-port-forward-访问-dashboard">通过 port forward 访问 dashboard</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">kubectl port-forward -n kubernetes-dashboard  svc/kubernetes-dashboard 4443:443 --address 0.0.0.0
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://gitee.com/AbyssViper/pic/raw/master/images/k8s-install-hardway/dashboard-login-view.png"
+        data-srcset="https://gitee.com/AbyssViper/pic/raw/master/images/k8s-install-hardway/dashboard-login-view.png, https://gitee.com/AbyssViper/pic/raw/master/images/k8s-install-hardway/dashboard-login-view.png 1.5x, https://gitee.com/AbyssViper/pic/raw/master/images/k8s-install-hardway/dashboard-login-view.png 2x"
+        data-sizes="auto"
+        alt="https://gitee.com/AbyssViper/pic/raw/master/images/k8s-install-hardway/dashboard-login-view.png"
+        title="https://gitee.com/AbyssViper/pic/raw/master/images/k8s-install-hardway/dashboard-login-view.png" /></p>
+<h3 id="创建登录-dashboard-的-token-和-kubeconfig-文件">创建登录 Dashboard 的 token 和 kubeconfig 文件</h3>
+<p>dashboard 默认只 支持 token 认证（不支持 client 证书认证），所以如果使用 Kubeconfig 文件，需要将 token 写入到该文件</p>
+<h4 id="创建登录-token">创建登录 token</h4>
+<p>使用输出的 token 登录</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">kubectl create sa dashboard-admin -n kube-system
+kubectl create clusterrolebinding dashboard-admin --clusterrole<span class="o">=</span>cluster-admin --serviceaccount<span class="o">=</span>kube-system:dashboard-admin
+<span class="nv">ADMIN_SECRET</span><span class="o">=</span><span class="k">$(</span>kubectl get secrets -n kube-system <span class="p">|</span> grep dashboard-admin <span class="p">|</span> awk <span class="s1">&#39;{print $1}&#39;</span><span class="k">)</span>
+<span class="nv">DASHBOARD_LOGIN_TOKEN</span><span class="o">=</span><span class="k">$(</span>kubectl describe secret -n kube-system <span class="si">${</span><span class="nv">ADMIN_SECRET</span><span class="si">}</span> <span class="p">|</span> grep -E <span class="s1">&#39;^token&#39;</span> <span class="p">|</span> awk <span class="s1">&#39;{print $2}&#39;</span><span class="k">)</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">DASHBOARD_LOGIN_TOKEN</span><span class="si">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="创建使用-token-的-kubeconfig-文件">创建使用 token 的 Kubeconfig 文件</h4>
+<p>用生成的 dashboard.kubeconfig 登录 Dashboard</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">source</span> /opt/k8s/bin/environment.sh
+<span class="c1"># 设置集群参数</span>
+kubectl config set-cluster kubernetes <span class="se">\
+</span><span class="se"></span>  --certificate-authority<span class="o">=</span>/etc/kubernetes/cert/ca.pem <span class="se">\
+</span><span class="se"></span>  --embed-certs<span class="o">=</span><span class="nb">true</span> <span class="se">\
+</span><span class="se"></span>  --server<span class="o">=</span><span class="si">${</span><span class="nv">KUBE_APISERVER</span><span class="si">}</span> <span class="se">\
+</span><span class="se"></span>  --kubeconfig<span class="o">=</span>dashboard.kubeconfig
+
+<span class="c1"># 设置客户端认证参数，使用上面创建的 Token</span>
+kubectl config set-credentials dashboard_user <span class="se">\
+</span><span class="se"></span>  --token<span class="o">=</span><span class="si">${</span><span class="nv">DASHBOARD_LOGIN_TOKEN</span><span class="si">}</span> <span class="se">\
+</span><span class="se"></span>  --kubeconfig<span class="o">=</span>dashboard.kubeconfig
+
+<span class="c1"># 设置上下文参数</span>
+kubectl config set-context default <span class="se">\
+</span><span class="se"></span>  --cluster<span class="o">=</span>kubernetes <span class="se">\
+</span><span class="se"></span>  --user<span class="o">=</span>dashboard_user <span class="se">\
+</span><span class="se"></span>  --kubeconfig<span class="o">=</span>dashboard.kubeconfig
+
+<span class="c1"># 设置默认上下文</span>
+kubectl config use-context default --kubeconfig<span class="o">=</span>dashboard.kubeconfig
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://gitee.com/AbyssViper/pic/raw/master/images/k8s-install-hardway/dashboard-view.png"
+        data-srcset="https://gitee.com/AbyssViper/pic/raw/master/images/k8s-install-hardway/dashboard-view.png, https://gitee.com/AbyssViper/pic/raw/master/images/k8s-install-hardway/dashboard-view.png 1.5x, https://gitee.com/AbyssViper/pic/raw/master/images/k8s-install-hardway/dashboard-view.png 2x"
+        data-sizes="auto"
+        alt="https://gitee.com/AbyssViper/pic/raw/master/images/k8s-install-hardway/dashboard-view.png"
+        title="https://gitee.com/AbyssViper/pic/raw/master/images/k8s-install-hardway/dashboard-view.png" /></p>
+<h2 id="部署-kube-prometheus-框架">部署 kube-prometheus 框架</h2>
+<p>kube-prometheus 是一整套监控解决方案，它使用 Prometheus 采集集群指标，Grafana 做展示，包含如下组件：</p>
+<ul>
+<li>The Prometheus Operator</li>
+<li>Highly available Prometheus</li>
+<li>Highly available Alertmanager</li>
+<li>Prometheus node-exporter</li>
+<li>Prometheus Adapter for Kubernetes Metrics APIs （k8s-prometheus-adapter）</li>
+<li>kube-state-metrics</li>
+<li>Grafana</li>
+</ul>
+<p>其中 k8s-prometheus-adapter 使用 Prometheus 实现了 metrics.k8s.io 和 custom.metrics.k8s.io API，所以<strong>不需要再部署</strong> <code>metrics-server</code>。</p>
+<h3 id="下载和安装">下载和安装</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">cd</span> /opt/k8s/work
+git clone https://github.com/coreos/kube-prometheus.git
+<span class="nb">cd</span> kube-prometheus/
+sed -i -e <span class="s1">&#39;s_quay.io_quay.mirrors.ustc.edu.cn_&#39;</span> manifests/*.yaml manifests/setup/*.yaml <span class="c1"># 使用中科大的 Registry</span>
+kubectl apply -f manifests/setup <span class="c1"># 安装 prometheus-operator</span>
+kubectl apply -f manifests/ <span class="c1"># 安装 promethes metric adapter</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="查看运行结果">查看运行结果</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">$ kubectl get pods -n monitoring
+
+NAME                                   READY   STATUS    RESTARTS   AGE
+alertmanager-main-0                    2/2     Running   <span class="m">0</span>          14h
+alertmanager-main-1                    2/2     Running   <span class="m">0</span>          14h
+alertmanager-main-2                    2/2     Running   <span class="m">0</span>          14h
+grafana-85c89999cb-cxzsd               1/1     Running   <span class="m">0</span>          14h
+kube-state-metrics-79f47cd6dc-8h92p    3/3     Running   <span class="m">0</span>          14h
+node-exporter-b584n                    2/2     Running   <span class="m">0</span>          14h
+node-exporter-jmcbk                    2/2     Running   <span class="m">0</span>          14h
+node-exporter-zwc8h                    2/2     Running   <span class="m">0</span>          14h
+prometheus-adapter-b8d458474-r4brv     1/1     Running   <span class="m">0</span>          14h
+prometheus-k8s-0                       3/3     Running   <span class="m">0</span>          14h
+prometheus-k8s-1                       3/3     Running   <span class="m">0</span>          14h
+prometheus-operator-784c457694-k9s7q   2/2     Running   <span class="m">0</span>          14h
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">$ kubectl top pods -n monitoring
+
+NAME                                   CPU<span class="o">(</span>cores<span class="o">)</span>   MEMORY<span class="o">(</span>bytes<span class="o">)</span>   
+alertmanager-main-0                    2m           43Mi            
+alertmanager-main-1                    2m           41Mi            
+alertmanager-main-2                    1m           45Mi            
+grafana-85c89999cb-cxzsd               8m           44Mi            
+kube-state-metrics-79f47cd6dc-8h92p    0m           65Mi            
+node-exporter-b584n                    2m           34Mi            
+node-exporter-jmcbk                    4m           37Mi            
+node-exporter-zwc8h                    3m           38Mi            
+prometheus-adapter-b8d458474-r4brv     2m           38Mi            
+prometheus-k8s-0                       68m          489Mi           
+prometheus-k8s-1                       51m          490Mi           
+prometheus-operator-784c457694-k9s7q   0m           51Mi  
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="访问测试">访问测试</h3>
+<p>启动代理，访问 Prometheus</p>
+<ul>
+<li>port-forward 依赖 socat</li>
+<li>访问 http://192.168.7.200:9090/new/graph?g0.expr=&amp;g0.tab=1&amp;g0.stacked=0&amp;g0.range_input=1h</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">kubectl port-forward --address 0.0.0.0 pod/prometheus-k8s-0 -n monitoring 9090:9090
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://gitee.com/AbyssViper/pic/raw/master/images/k8s-install-hardway/prometheus-preview.png"
+        data-srcset="https://gitee.com/AbyssViper/pic/raw/master/images/k8s-install-hardway/prometheus-preview.png, https://gitee.com/AbyssViper/pic/raw/master/images/k8s-install-hardway/prometheus-preview.png 1.5x, https://gitee.com/AbyssViper/pic/raw/master/images/k8s-install-hardway/prometheus-preview.png 2x"
+        data-sizes="auto"
+        alt="https://gitee.com/AbyssViper/pic/raw/master/images/k8s-install-hardway/prometheus-preview.png"
+        title="https://gitee.com/AbyssViper/pic/raw/master/images/k8s-install-hardway/prometheus-preview.png" /></p>
+<p>启动代理，访问 Grafana</p>
+<ul>
+<li>访问 http://192.168.7.200:3000/</li>
+<li>默认账号密码   admin/admin，登录后需要修改密码</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">kubectl port-forward --address 0.0.0.0 svc/grafana -n monitoring 3000:3000 
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://gitee.com/AbyssViper/pic/raw/master/images/k8s-install-hardway/grafana-review.png"
+        data-srcset="https://gitee.com/AbyssViper/pic/raw/master/images/k8s-install-hardway/grafana-review.png, https://gitee.com/AbyssViper/pic/raw/master/images/k8s-install-hardway/grafana-review.png 1.5x, https://gitee.com/AbyssViper/pic/raw/master/images/k8s-install-hardway/grafana-review.png 2x"
+        data-sizes="auto"
+        alt="https://gitee.com/AbyssViper/pic/raw/master/images/k8s-install-hardway/grafana-review.png"
+        title="https://gitee.com/AbyssViper/pic/raw/master/images/k8s-install-hardway/grafana-review.png" /></p>
+<h2 id="部署-efk-插件">部署 EFK 插件</h2>
+<h3 id="修改配置文件">修改配置文件</h3>
+<p>EFK 目录是 <code>kubernetes/cluster/addons/fluentd-elasticsearch</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">cd</span> /opt/k8s/work/kubernetes/cluster/addons/fluentd-elasticsearch
+sed -i -e <span class="s1">&#39;s_quay.io_quay.mirrors.ustc.edu.cn_&#39;</span> es-statefulset.yaml <span class="c1"># 使用中科大的 Registry</span>
+sed -i -e <span class="s1">&#39;s_quay.io_quay.mirrors.ustc.edu.cn_&#39;</span> fluentd-es-ds.yaml <span class="c1"># 使用中科大的 Registry</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="执行定义文件">执行定义文件</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">cd</span> /opt/k8s/work/kubernetes/cluster/addons/fluentd-elasticsearch
+kubectl apply -f .
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="结果检查">结果检查</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">$ kubectl get all -n kube-system <span class="p">|</span>grep -E <span class="s1">&#39;elasticsearch|fluentd|kibana&#39;</span>
+
+pod/elasticsearch-logging-0                    1/1     Running   <span class="m">0</span>          57m
+pod/elasticsearch-logging-1                    1/1     Running   <span class="m">0</span>          27m
+pod/fluentd-es-v2.7.0-8d2d8                    1/1     Running   <span class="m">0</span>          57m
+pod/fluentd-es-v2.7.0-bt9rk                    1/1     Running   <span class="m">0</span>          57m
+pod/fluentd-es-v2.7.0-r2h79                    1/1     Running   <span class="m">0</span>          57m
+pod/kibana-logging-75888755d6-vrdsc            0/1     Running   <span class="m">0</span>          57m
+service/elasticsearch-logging   ClusterIP   10.254.198.164   &lt;none&gt;        9200/TCP                       57m
+service/kibana-logging          ClusterIP   10.254.201.178   &lt;none&gt;        5601/TCP                       57m
+daemonset.apps/fluentd-es-v2.7.0   <span class="m">3</span>         <span class="m">3</span>         <span class="m">3</span>       <span class="m">3</span>            <span class="m">3</span>           &lt;none&gt;                   57m
+deployment.apps/kibana-logging            0/1     <span class="m">1</span>            <span class="m">0</span>           57m
+replicaset.apps/kibana-logging-75888755d6            <span class="m">1</span>         <span class="m">1</span>         <span class="m">0</span>       57m
+statefulset.apps/elasticsearch-logging   2/2     57m
+</code></pre></td></tr></table>
+</div>
+</div><p>kibana Pod 第一次启动时会用**较长时间(0-20分钟)**来优化和 Cache 状态页面，可以 tailf 该 Pod 的日志观察进度：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">kubectl logs kibana-logging-75888755d6-vrdsc -n kube-system -f
+</code></pre></td></tr></table>
+</div>
+</div><p>注意：只有当 Kibana pod 启动完成后，浏览器才能查看 kibana dashboard，否则会被拒绝。</p>
+<h3 id="访问测试-1">访问测试</h3>
+<ul>
+<li>访问 http://192.168.7.200:8086/api/v1/namespaces/kube-system/services/kibana-logging/proxy</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">kubectl proxy --address<span class="o">=</span><span class="s1">&#39;192.168.7.200&#39;</span> --port<span class="o">=</span><span class="m">8086</span> --accept-hosts<span class="o">=</span><span class="s1">&#39;^*$&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>在 Management -&gt; Indices 页面创建一个 index（相当于 mysql 中的一个 database），选中 <code>Index contains time-based events</code>，使用默认的 <code>logstash-*</code> pattern，点击 <code>Create</code> ;</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://gitee.com/AbyssViper/pic/raw/master/images/k8s-install-hardway/kibana-patterns.png"
+        data-srcset="https://gitee.com/AbyssViper/pic/raw/master/images/k8s-install-hardway/kibana-patterns.png, https://gitee.com/AbyssViper/pic/raw/master/images/k8s-install-hardway/kibana-patterns.png 1.5x, https://gitee.com/AbyssViper/pic/raw/master/images/k8s-install-hardway/kibana-patterns.png 2x"
+        data-sizes="auto"
+        alt="https://gitee.com/AbyssViper/pic/raw/master/images/k8s-install-hardway/kibana-patterns.png"
+        title="https://gitee.com/AbyssViper/pic/raw/master/images/k8s-install-hardway/kibana-patterns.png" /></p>
+<p>创建 Index 后，稍等几分钟就可以在 <code>Discover</code> 菜单下看到 ElasticSearch logging 中汇聚的日志；</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://gitee.com/AbyssViper/pic/raw/master/images/k8s-install-hardway/kibana-discover.png"
+        data-srcset="https://gitee.com/AbyssViper/pic/raw/master/images/k8s-install-hardway/kibana-discover.png, https://gitee.com/AbyssViper/pic/raw/master/images/k8s-install-hardway/kibana-discover.png 1.5x, https://gitee.com/AbyssViper/pic/raw/master/images/k8s-install-hardway/kibana-discover.png 2x"
+        data-sizes="auto"
+        alt="https://gitee.com/AbyssViper/pic/raw/master/images/k8s-install-hardway/kibana-discover.png"
+        title="https://gitee.com/AbyssViper/pic/raw/master/images/k8s-install-hardway/kibana-discover.png" /></p>
+</div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
@@ -283,7 +902,7 @@ kubectl create -f my-nginx.yaml
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.viper.pub/k8s-install-hardway-4/" data-title="K8s Install Hardway 4" data-hashtags="Kubernetes"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.viper.pub/k8s-install-hardway-4/" data-hashtag="Kubernetes"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://www.viper.pub/k8s-install-hardway-4/" data-title="K8s Install Hardway 4" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://www.viper.pub/k8s-install-hardway-4/" data-title="K8s Install Hardway 4"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.viper.pub/k8s-install-hardway-4/" data-title="K8s Install Hardway 4" data-image="https://gitee.com/AbyssViper/pic/raw/master/images/k8s-install-hardway/featuredImage4.png"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://www.viper.pub/k8s-install-hardway-4/" data-title="K8s Install Hardway 4" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://www.viper.pub/k8s-install-hardway-4/" data-title="K8s Install Hardway 4" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://www.viper.pub/k8s-install-hardway-4/" data-title="K8s Install Hardway 4"><i class="fab fa-evernote fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.viper.pub/k8s-install-hardway-4/" data-title="Kubernetes 二进制部署 Part4" data-hashtags="Kubernetes"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.viper.pub/k8s-install-hardway-4/" data-hashtag="Kubernetes"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://www.viper.pub/k8s-install-hardway-4/" data-title="Kubernetes 二进制部署 Part4" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://www.viper.pub/k8s-install-hardway-4/" data-title="Kubernetes 二进制部署 Part4"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.viper.pub/k8s-install-hardway-4/" data-title="Kubernetes 二进制部署 Part4" data-image="https://gitee.com/AbyssViper/pic/raw/master/images/k8s-install-hardway/featuredImage4.png"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://www.viper.pub/k8s-install-hardway-4/" data-title="Kubernetes 二进制部署 Part4" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://www.viper.pub/k8s-install-hardway-4/" data-title="Kubernetes 二进制部署 Part4" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://www.viper.pub/k8s-install-hardway-4/" data-title="Kubernetes 二进制部署 Part4"><i class="fab fa-evernote fa-fw"></i></a></span>
             </div>
         </div>
     </div>
@@ -295,10 +914,10 @@ kubectl create -f my-nginx.yaml
         </section>
     </div>
 
-    <div class="post-nav"><a href="/k8s-install-hardway-3/" class="prev" rel="prev" title="二进制部署Kubernetes Part3"><i class="fas fa-angle-left fa-fw"></i>二进制部署Kubernetes Part3</a></div>
+    <div class="post-nav"><a href="/k8s-install-hardway-3/" class="prev" rel="prev" title="Kubernetes 二进制部署 Part3"><i class="fas fa-angle-left fa-fw"></i>Kubernetes 二进制部署 Part3</a></div>
 </div>
-<div id="comments"><div id="gitalk" class="comment"></div><noscript>
-                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.74.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
@@ -311,5 +930,5 @@ kubectl create -f my-nginx.yaml
             </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
                 <i class="fas fa-comment fa-fw"></i>
             </a>
-        </div><link rel="stylesheet" href="/lib/gitalk/gitalk.min.71b52de752d829104ec4119a58460549.css" integrity="md5-cbUt51LYKRBOxBGaWEYFSQ=="><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.77eb6ae63c63c88c5e7a10b6c9570c54.css" integrity="md5-d&#43;tq5jxjyIxeehC2yVcMVA=="><link rel="stylesheet" href="/lib/katex/katex.min.ef3c395634e43fe45f5332bfca2287b3.css" integrity="md5-7zw5VjTkP&#43;RfUzK/yiKHsw=="><link rel="stylesheet" href="/lib/katex/copy-tex.min.622133ef544b0f203604a52bebba29f4.css" integrity="md5-YiEz71RLDyA2BKUr67op9A=="><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.4c5305a5255032858d47ae995b20aeca.css" integrity="md5-TFMFpSVQMoWNR66ZWyCuyg=="><script type="text/javascript" src="/lib/gitalk/gitalk.min.ec4a60342c0b98209772ebf3fdec0aa2.js" integrity="md5-7EpgNCwLmCCXcuvz/ewKog=="></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.dd4e1772a44268dd6e27f193695067fc.js" integrity="md5-3U4XcqRCaN1uJ/GTaVBn/A=="></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.10321080d79e27ee01ff36859c02acd3.js" integrity="md5-EDIQgNeeJ&#43;4B/zaFnAKs0w=="></script><script type="text/javascript" src="/lib/lunr/lunr.min.f2eea188dc4939c55ff8f55569a4e87c.js" integrity="md5-8u6hiNxJOcVf&#43;PVVaaTofA=="></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.b82fb8d93ce0ea6a485dfa3a0b1e7573.js" integrity="md5-uC&#43;42Tzg6mpIXfo6Cx51cw=="></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.f1ba3e22560e2eb7474f28feb4507617.js" integrity="md5-8bo&#43;IlYOLrdHTyj&#43;tFB2Fw=="></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.40c0bfc764764587555c066d46fe6071.js" integrity="md5-QMC/x2R2RYdVXAZtRv5gcQ=="></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.c6a5b6b1db8980fdc42cd3456fe1ec74.js" integrity="md5-xqW2sduJgP3ELNNFb&#43;HsdA=="></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.ba38a712df31c778e10e8211f8cb891b.js" integrity="md5-ujinEt8xx3jhDoIR&#43;MuJGw=="></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.fa56076f9d071729612c4849acae1ce5.js" integrity="md5-&#43;lYHb50HFylhLEhJrK4c5Q=="></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.4f0896a2ff5ef76f0dd00f5c5de65abb.js" integrity="md5-TwiWov9e928N0A9cXeZauw=="></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.221393f48062472d1e72960fda7db7a3.js" integrity="md5-IhOT9IBiRy0ecpYP2n23ow=="></script><script type="text/javascript" src="/lib/sharer/sharer.min.5625619b1285f17b13aee3f397116aa6.js" integrity="md5-ViVhmxKF8XsTruPzlxFqpg=="></script><script type="text/javascript" src="/lib/katex/katex.min.c158c9e823b681cf535f46596b5e4eac.js" integrity="md5-wVjJ6CO2gc9TX0ZZa15OrA=="></script><script type="text/javascript" src="/lib/katex/auto-render.min.28cd0b98cd3f4fa37d52f3ffe47ad9d4.js" integrity="md5-KM0LmM0/T6N9UvP/5HrZ1A=="></script><script type="text/javascript" src="/lib/katex/copy-tex.min.bfaec7d1dea915d74a7a6d833f0ff62e.js" integrity="md5-v67H0d6pFddKem2DPw/2Lg=="></script><script type="text/javascript" src="/lib/katex/mhchem.min.1bbb252363e83547d4b2186a41eaca28.js" integrity="md5-G7slI2PoNUfUshhqQerKKA=="></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.4a48532bf0b17c058b8b6854f49de23f.js" integrity="md5-SkhTK/CxfAWLi2hU9J3iPw=="></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"gitalk":{"admin":["AbyssViper"],"clientID":"6902cde2aae313788a4c","clientSecret":"81fc2e7de744fca69c9e8b683e85e50a2bb5951c","id":"2019-12-10T22:40:42+08:00","owner":"AbyssViper","repo":"AbyssViper.github.io","title":"K8s Install Hardway 4"}},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.8043ef4f5ae2d4fd302305ffd8316f55.js" integrity="md5-gEPvT1ri1P0wIwX/2DFvVQ=="></script></body>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.77eb6ae63c63c88c5e7a10b6c9570c54.css" integrity="md5-d&#43;tq5jxjyIxeehC2yVcMVA=="><link rel="stylesheet" href="/lib/katex/katex.min.ef3c395634e43fe45f5332bfca2287b3.css" integrity="md5-7zw5VjTkP&#43;RfUzK/yiKHsw=="><link rel="stylesheet" href="/lib/katex/copy-tex.min.622133ef544b0f203604a52bebba29f4.css" integrity="md5-YiEz71RLDyA2BKUr67op9A=="><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.4c5305a5255032858d47ae995b20aeca.css" integrity="md5-TFMFpSVQMoWNR66ZWyCuyg=="><script type="text/javascript" src="/lib/valine/Valine.min.6a23a2ee7eb1e270cf4129dac311dcdb.js" integrity="md5-aiOi7n6x4nDPQSnawxHc2w=="></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.dd4e1772a44268dd6e27f193695067fc.js" integrity="md5-3U4XcqRCaN1uJ/GTaVBn/A=="></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.10321080d79e27ee01ff36859c02acd3.js" integrity="md5-EDIQgNeeJ&#43;4B/zaFnAKs0w=="></script><script type="text/javascript" src="/lib/lunr/lunr.min.f2eea188dc4939c55ff8f55569a4e87c.js" integrity="md5-8u6hiNxJOcVf&#43;PVVaaTofA=="></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.b82fb8d93ce0ea6a485dfa3a0b1e7573.js" integrity="md5-uC&#43;42Tzg6mpIXfo6Cx51cw=="></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.f1ba3e22560e2eb7474f28feb4507617.js" integrity="md5-8bo&#43;IlYOLrdHTyj&#43;tFB2Fw=="></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.40c0bfc764764587555c066d46fe6071.js" integrity="md5-QMC/x2R2RYdVXAZtRv5gcQ=="></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.c6a5b6b1db8980fdc42cd3456fe1ec74.js" integrity="md5-xqW2sduJgP3ELNNFb&#43;HsdA=="></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.ba38a712df31c778e10e8211f8cb891b.js" integrity="md5-ujinEt8xx3jhDoIR&#43;MuJGw=="></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.fa56076f9d071729612c4849acae1ce5.js" integrity="md5-&#43;lYHb50HFylhLEhJrK4c5Q=="></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.4f0896a2ff5ef76f0dd00f5c5de65abb.js" integrity="md5-TwiWov9e928N0A9cXeZauw=="></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.221393f48062472d1e72960fda7db7a3.js" integrity="md5-IhOT9IBiRy0ecpYP2n23ow=="></script><script type="text/javascript" src="/lib/sharer/sharer.min.5625619b1285f17b13aee3f397116aa6.js" integrity="md5-ViVhmxKF8XsTruPzlxFqpg=="></script><script type="text/javascript" src="/lib/katex/katex.min.c158c9e823b681cf535f46596b5e4eac.js" integrity="md5-wVjJ6CO2gc9TX0ZZa15OrA=="></script><script type="text/javascript" src="/lib/katex/auto-render.min.28cd0b98cd3f4fa37d52f3ffe47ad9d4.js" integrity="md5-KM0LmM0/T6N9UvP/5HrZ1A=="></script><script type="text/javascript" src="/lib/katex/copy-tex.min.bfaec7d1dea915d74a7a6d833f0ff62e.js" integrity="md5-v67H0d6pFddKem2DPw/2Lg=="></script><script type="text/javascript" src="/lib/katex/mhchem.min.1bbb252363e83547d4b2186a41eaca28.js" integrity="md5-G7slI2PoNUfUshhqQerKKA=="></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.4a48532bf0b17c058b8b6854f49de23f.js" integrity="md5-SkhTK/CxfAWLi2hU9J3iPw=="></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"PDQyOpsbcc3NjAsoLIhLIYGH-MdYXbMMI","appKey":"ftCfYT3oNSUU4N2Jdl2so5EQ","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"visitor":true}},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.8043ef4f5ae2d4fd302305ffd8316f55.js" integrity="md5-gEPvT1ri1P0wIwX/2DFvVQ=="></script></body>
 </html>
