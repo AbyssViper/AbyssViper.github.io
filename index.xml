@@ -4,9 +4,18 @@
         <link>https://www.viper.pub/</link>
         <description>Welcome to viper&#39;s blog.</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>root@viper.run (abyssviper)</managingEditor>
-            <webMaster>root@viper.run (abyssviper)</webMaster><lastBuildDate>Tue, 10 Dec 2019 22:40:42 &#43;0800</lastBuildDate>
+            <webMaster>root@viper.run (abyssviper)</webMaster><lastBuildDate>Wed, 19 Aug 2020 08:38:59 &#43;0800</lastBuildDate>
             <atom:link href="https://www.viper.pub/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Golang GPM调度模型</title>
+    <link>https://www.viper.pub/golang-gpm-model/</link>
+    <pubDate>Wed, 19 Aug 2020 08:38:59 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.viper.pub/golang-gpm-model/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://gitee.com/AbyssViper/pic/raw/master/images/golang-gpm-model/featuredImage.jpg" referrerpolicy="no-referrer">
+            </div>https://github.com/lifei6671/interview-go/blob/master/base/go-gpm.md https://wudaijun.com/2018/01/go-scheduler/ https://www.cnblogs.com/williamjie/p/9267741.html https://www.cnblogs.com/sunsky303/p/9705727.html CSP 通讯顺序进程（Communicating Sequential Processes），七大并发模型中的一种 核心理念是通过通道 channel 将两个 并发执行的实体 连接起]]></description>
+</item><item>
     <title>Kubernetes 二进制部署 Part4</title>
     <link>https://www.viper.pub/k8s-install-hardway-4/</link>
     <pubDate>Tue, 10 Dec 2019 22:40:42 &#43;0800</pubDate>
