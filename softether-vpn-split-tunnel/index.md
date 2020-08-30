@@ -95,9 +95,19 @@ if (StrCmpi(region, "JP") == 0 || StrCmpi(region, "CN") == 0)
 
 #### 编译
 
+- CentOS
+
 ```shell
 yum -y groupinstall "Development Tools"
 yum -y install readline-devel ncurses-devel openssl-devel
+./configure
+make
+```
+
+- Debian
+
+```shell
+apt-get install gcc automake autoconf libtool make libreadline-dev libssl-dev zlib1g-dev lib32ncurses5-dev -y
 ./configure
 make
 ```
@@ -124,3 +134,15 @@ make
 - 客户端拨入VPN，再次查看路由表，发现路由已经推送过来了；断开VPN后该条路由被清理
 
 ![](https://i.loli.net/2020/02/27/OKMf1gVhsnZ9lvH.png)
+
+
+
+### Docker镜像
+
+​	可以直接拉取镜像以便在 Docker 以及 K8s 集群中使用
+
+```shell
+docker pull abyssviper/softethervpn
+```
+
+​    详细使用说明请参考：https://hub.docker.com/r/abyssviper/softethervpn
