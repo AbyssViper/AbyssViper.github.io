@@ -21,7 +21,7 @@
     <guid>https://www.viper.pub/softether-vpn-k8s/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/featuredImage.png" referrerpolicy="no-referrer">
-            </div>介绍 Kubernetes 提供了多种对外暴露服务的方式，但是对于调试环境来说，使用 VPN 方式打通与POD之间的隔阂，会变得十分方便 部署 使用镜像 abyssviper/softethervpn ，该镜像编译基于 alpine 基]]></description>
+            </div>介绍 Kubernetes 提供了多种对外暴露服务的方式 对于开发调试来说，使用 VPN 方式打通 本机开发环境 与 Cluster 之间的网络，会变得十分方便 SoftEther VPN 选用 SoftEther VPN 主要原因是 支持通过单]]></description>
 </item><item>
     <title>Devops Gitops Argocd</title>
     <link>https://www.viper.pub/devops-gitops-argocd/</link>

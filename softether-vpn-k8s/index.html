@@ -6,7 +6,7 @@
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
         <title>Softether VPN 打通容器调试网络 - Viper的博客</title><meta name="Description" content="Welcome to viper&#39;s blog."><meta property="og:title" content="Softether VPN 打通容器调试网络" />
-<meta property="og:description" content="介绍 Kubernetes 提供了多种对外暴露服务的方式，但是对于调试环境来说，使用 VPN 方式打通与POD之间的隔阂，会变得十分方便 部署 使用镜像 abyssviper/softethervpn ，该镜像编译基于 alpine 基" />
+<meta property="og:description" content="介绍 Kubernetes 提供了多种对外暴露服务的方式 对于开发调试来说，使用 VPN 方式打通 本机开发环境 与 Cluster 之间的网络，会变得十分方便 SoftEther VPN 选用 SoftEther VPN 主要原因是 支持通过单" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.viper.pub/softether-vpn-k8s/" />
 <meta property="og:image" content="https://www.viper.pub/logo.png"/>
@@ -16,7 +16,7 @@
 <meta name="twitter:image" content="https://www.viper.pub/logo.png"/>
 
 <meta name="twitter:title" content="Softether VPN 打通容器调试网络"/>
-<meta name="twitter:description" content="介绍 Kubernetes 提供了多种对外暴露服务的方式，但是对于调试环境来说，使用 VPN 方式打通与POD之间的隔阂，会变得十分方便 部署 使用镜像 abyssviper/softethervpn ，该镜像编译基于 alpine 基"/>
+<meta name="twitter:description" content="介绍 Kubernetes 提供了多种对外暴露服务的方式 对于开发调试来说，使用 VPN 方式打通 本机开发环境 与 Cluster 之间的网络，会变得十分方便 SoftEther VPN 选用 SoftEther VPN 主要原因是 支持通过单"/>
 <meta name="application-name" content="Viper&#39;s Blog">
 <meta name="apple-mobile-web-app-title" content="Viper&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="https://gitee.com/AbyssViper/pic/raw/master/images/ico.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.viper.pub/softether-vpn-k8s/" /><link rel="prev" href="https://www.viper.pub/devops-gitops-argocd/" /><link rel="next" href="https://www.viper.pub/helm-v3-use/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.a12cacf4b5b41234196cb89042b24a70.css" integrity="md5-oSys9LW0EjQZbLiQQrJKcA=="><link rel="stylesheet" href="/css/style.min.f03a2ec71b16efbe4f24352e542c93a9.css" integrity="md5-8DouxxsW775PJDUuVCyTqQ=="><link rel="stylesheet" href="/lib/fontawesome-free/all.min.26386564b5cf1594be24059af1cd0db9.css" integrity="md5-JjhlZLXPFZS&#43;JAWa8c0NuQ=="><link rel="stylesheet" href="/lib/animate/animate.min.43d6b8fdf324505f0ceb7ea698d0b7a5.css" integrity="md5-Q9a4/fMkUF8M636mmNC3pQ=="><script type="application/ld+json">
     {
@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/www.viper.pub\/softether-vpn-k8s\/"
-        },"genre": "posts","keywords": "VPN, 网络","wordcount":  118 ,
+        },"genre": "posts","keywords": "VPN, 网络","wordcount":  1229 ,
         "url": "https:\/\/www.viper.pub\/softether-vpn-k8s\/","datePublished": "2020-08-27T21:56:40+08:00","dateModified": "2020-08-27T21:56:40+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -118,8 +118,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Softether VPN 打通容器调试网络</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://www.viper.pub" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>abyssviper</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%BD%91%E7%BB%9C/"><i class="far fa-folder fa-fw"></i>网络</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-08-27">2020-08-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 118 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟&nbsp;<span id="/softether-vpn-k8s/" class="leancloud_visitors" data-flag-title="Softether VPN 打通容器调试网络">
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-08-27">2020-08-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1229 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;<span id="/softether-vpn-k8s/" class="leancloud_visitors" data-flag-title="Softether VPN 打通容器调试网络">
                         <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
         </div><div class="featured-image"><img
@@ -136,16 +136,427 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#介绍">介绍</a></li>
-    <li><a href="#部署">部署</a></li>
+    <li><a href="#介绍">介绍</a>
+      <ul>
+        <li><a href="#softether-vpn">SoftEther VPN</a></li>
+        <li><a href="#部署介绍">部署介绍</a></li>
+      </ul>
+    </li>
+    <li><a href="#自定义部署">自定义部署</a>
+      <ul>
+        <li><a href="#完整配置文件">完整配置文件</a></li>
+        <li><a href="#管理">管理</a>
+          <ul>
+            <li><a href="#管理工具下载">管理工具下载</a></li>
+            <li><a href="#连接配置">连接配置</a></li>
+            <li><a href="#配置-securenat-和-用户">配置 SecureNAT 和 用户</a></li>
+            <li><a href="#配置openvpn">配置OpenVPN</a></li>
+          </ul>
+        </li>
+        <li><a href="#连接">连接</a>
+          <ul>
+            <li><a href="#softethervpn-client">SoftEtherVPN Client</a></li>
+            <li><a href="#openvpn">OpenVPN</a></li>
+          </ul>
+        </li>
+        <li><a href="#持久化">持久化</a></li>
+      </ul>
+    </li>
+    <li><a href="#无配置快速部署">无配置快速部署</a></li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><h2 id="介绍">介绍</h2>
-<p>Kubernetes 提供了多种对外暴露服务的方式，但是对于调试环境来说，使用 VPN 方式打通与POD之间的隔阂，会变得十分方便</p>
-<h2 id="部署">部署</h2>
-<p>使用镜像 <code>abyssviper/softethervpn</code> ，该镜像编译基于 <code>alpine</code>  基础镜像编译，非常轻量</p>
-<p>并且去除了 拆分隧道 限制（参考该文章：），可以向 VPN 客户端推送定制路由</p>
-<p>Deployment 镜像编译</p>
+<p>Kubernetes 提供了多种对外暴露服务的方式</p>
+<p>对于开发调试来说，使用 VPN 方式打通 <strong>本机开发环境 与 Cluster</strong> 之间的网络，会变得十分方便</p>
+<h3 id="softether-vpn">SoftEther VPN</h3>
+<p>选用 <code>SoftEther VPN</code> 主要原因是</p>
+<ul>
+<li>支持通过<strong>单端口多种VPN接入方式</strong>，比如 <code>SoftEtherVPN Client</code>、<code>OpenVPN</code></li>
+<li>有统一的账户管理、分组管理、权限控制、拆分隧道 等功能</li>
+</ul>
+<h3 id="部署介绍">部署介绍</h3>
+<ul>
+<li>自定义部署：支持拆分隧道功能，需要下载客户端进行管理</li>
+<li>无配置快速部署：不支持拆分隧道功能，可以不连接远程管理，开箱即用</li>
+</ul>
+<h2 id="自定义部署">自定义部署</h2>
+<p>使用镜像 <code>abyssviper/softethervpn</code> ，该镜像编译基于 <code>alpine</code>  基础镜像编译，仅保留了 <code>vpnserver</code>, 非常轻量</p>
+<p>并且去除了 拆分隧道 限制（<a href="https://www.viper.pub/softether-vpn-split-tunnel/" target="_blank" rel="noopener noreffer">参考该文章</a>），可以向 VPN 客户端<strong>推送定制路由</strong></p>
+<h3 id="完整配置文件">完整配置文件</h3>
+<p>创建发布配置文件  deployment-softethervpn.yaml</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>apps/v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Deployment<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>vpn<span class="w">
+</span><span class="w">  </span><span class="k">namespace</span><span class="p">:</span><span class="w"> </span>devops<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">selector</span><span class="p">:</span><span class="w">
+</span><span class="w">   </span><span class="k">matchLabels</span><span class="p">:</span><span class="w">
+</span><span class="w">     </span><span class="k">app</span><span class="p">:</span><span class="w"> </span>softether-vpnserver<span class="w">
+</span><span class="w">  </span><span class="k">template</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">labels</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="k">app</span><span class="p">:</span><span class="w"> </span>softether-vpnserver<span class="w">
+</span><span class="w">    </span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">containers</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>softether-vpn-alpine<span class="w">
+</span><span class="w">        </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>abyssviper/softethervpn<span class="w">
+</span><span class="w">        </span><span class="k">imagePullPolicy</span><span class="p">:</span><span class="w"> </span>IfNotPresent<span class="w">
+</span><span class="w">        </span><span class="k">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="k">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">5555</span><span class="w">
+</span><span class="w">          </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>connect<span class="w">
+</span><span class="w">          </span><span class="k">protocol</span><span class="p">:</span><span class="w"> </span>TCP<span class="w">
+</span><span class="w">        </span><span class="k">livenessProbe</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="k">tcpSocket</span><span class="p">:</span><span class="w">
+</span><span class="w">            </span><span class="k">port</span><span class="p">:</span><span class="w"> </span><span class="m">5555</span><span class="w">
+</span><span class="w">          </span><span class="k">initialDelaySeconds</span><span class="p">:</span><span class="w"> </span><span class="m">60</span><span class="w">
+</span><span class="w">          </span><span class="k">timeoutSeconds</span><span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span><span class="w">          </span><span class="k">failureThreshold</span><span class="p">:</span><span class="w"> </span><span class="m">12</span><span class="w">
+</span><span class="w">        </span><span class="k">readinessProbe</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="k">tcpSocket</span><span class="p">:</span><span class="w">
+</span><span class="w">            </span><span class="k">port</span><span class="p">:</span><span class="w"> </span><span class="m">5555</span><span class="w">
+</span><span class="w">        </span><span class="k">resources</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="k">limits</span><span class="p">:</span><span class="w">
+</span><span class="w">            </span><span class="k">cpu</span><span class="p">:</span><span class="w"> </span>1000m<span class="w">
+</span><span class="w">            </span><span class="k">memory</span><span class="p">:</span><span class="w"> </span>200Mi<span class="w">
+</span><span class="w">          </span><span class="k">requests</span><span class="p">:</span><span class="w">
+</span><span class="w">            </span><span class="k">cpu</span><span class="p">:</span><span class="w"> </span>500m<span class="w">
+</span><span class="w">            </span><span class="k">memory</span><span class="p">:</span><span class="w"> </span>100Mi<span class="w">
+</span><span class="w">        </span><span class="k">volumeMounts</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>softether-vpn-storge<span class="w">
+</span><span class="w">          </span><span class="k">subPath</span><span class="p">:</span><span class="w"> </span>softethervpn/vpn_server.config<span class="w">
+</span><span class="w">          </span><span class="k">mountPath</span><span class="p">:</span><span class="w"> </span>/opt/vpnserver/vpn_server.config<span class="w">
+</span><span class="w">        </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>softether-vpn-storge<span class="w">
+</span><span class="w">          </span><span class="k">subPath</span><span class="p">:</span><span class="w"> </span>softethervpn/server_log<span class="w">
+</span><span class="w">          </span><span class="k">mountPath</span><span class="p">:</span><span class="w"> </span>/opt/vpnserver/server_log<span class="w">
+</span><span class="w">        </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>softether-vpn-storge<span class="w">
+</span><span class="w">          </span><span class="k">subPath</span><span class="p">:</span><span class="w"> </span>softethervpn/packet_log<span class="w">
+</span><span class="w">          </span><span class="k">mountPath</span><span class="p">:</span><span class="w"> </span>/opt/vpnserver/packet_log<span class="w">
+</span><span class="w">        </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>softether-vpn-storge<span class="w">
+</span><span class="w">          </span><span class="k">subPath</span><span class="p">:</span><span class="w"> </span>softethervpn/security_log<span class="w">
+</span><span class="w">          </span><span class="k">mountPath</span><span class="p">:</span><span class="w"> </span>/opt/vpnserver/security_log<span class="w">
+</span><span class="w">      </span><span class="k">volumes</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>softether-vpn-storge<span class="w">
+</span><span class="w">        </span><span class="k">persistentVolumeClaim</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="k">claimName</span><span class="p">:</span><span class="w"> </span>vpn-pvc<span class="w">
+</span><span class="w"></span>---<span class="w">
+</span><span class="w"></span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Service<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>vpn<span class="w">
+</span><span class="w">  </span><span class="k">namespace</span><span class="p">:</span><span class="w"> </span>devops<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">selector</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">app</span><span class="p">:</span><span class="w"> </span>softether-vpnserver<span class="w">
+</span><span class="w">  </span><span class="k">type</span><span class="p">:</span><span class="w"> </span>NodePort<span class="w">
+</span><span class="w">  </span><span class="k">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>connect<span class="w">
+</span><span class="w">    </span><span class="k">port</span><span class="p">:</span><span class="w"> </span><span class="m">5555</span><span class="w">
+</span><span class="w">    </span><span class="k">nodePort</span><span class="p">:</span><span class="w"> </span><span class="m">30003</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>创建PV, PVC配置文件  pvc-softethervpn.yaml  本文使用 NFS</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>PersistentVolume<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>vpn-pv<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">capacity</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">storage</span><span class="p">:</span><span class="w"> </span>100Gi<span class="w">
+</span><span class="w">  </span><span class="k">accessModes</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- ReadWriteMany<span class="w">
+</span><span class="w">  </span><span class="k">persistentVolumeReclaimPolicy</span><span class="p">:</span><span class="w"> </span>Delete<span class="w">
+</span><span class="w">  </span><span class="k">nfs</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">server</span><span class="p">:</span><span class="w"> </span><span class="m">192.168.7.40</span><span class="w">
+</span><span class="w">    </span><span class="k">path</span><span class="p">:</span><span class="w"> </span>/data/kubernetes<span class="w">
+</span><span class="w">
+</span><span class="w"></span>---<span class="w">
+</span><span class="w"></span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>PersistentVolumeClaim<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>vpn-pvc<span class="w">
+</span><span class="w">  </span><span class="k">namespace</span><span class="p">:</span><span class="w"> </span>devops<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">accessModes</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- ReadWriteMany<span class="w">
+</span><span class="w">  </span><span class="k">resources</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">requests</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">storage</span><span class="p">:</span><span class="w"> </span>1Gi<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>首先创建发布 PV, PVC 配置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">$ kubectl apply -f pvc-softethervpn.yaml
+</code></pre></td></tr></table>
+</div>
+</div><p>然后发布SoftEtherVPN</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">$ kubectl apply -f deployment-softethervpn.yaml
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="管理">管理</h3>
+<h4 id="管理工具下载">管理工具下载</h4>
+<p>通过 <code>SoftEtherVPN</code> 官方提供的 Manager 工具进行管理（<a href="https://www.softether-download.com/cn.aspx?product=softether" target="_blank" rel="noopener noreffer">下载地址</a>）</p>
+<p><figure><a class="lightgallery" href="https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/softethervpn-manager-download.png" title="管理工具下载地址" data-thumbnail="https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/softethervpn-manager-download.png" data-sub-html="<h2>管理工具下载地址</h2><p>管理工具下载地址</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/softethervpn-manager-download.png"
+            data-srcset="https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/softethervpn-manager-download.png, https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/softethervpn-manager-download.png 1.5x, https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/softethervpn-manager-download.png 2x"
+            data-sizes="auto"
+            alt="https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/softethervpn-manager-download.png" />
+    </a><figcaption class="image-caption">管理工具下载地址</figcaption>
+    </figure></p>
+<p><br /></p>
+<h4 id="连接配置">连接配置</h4>
+<p>配置服务端<strong>地址以及端口</strong>， 第一次连接需要手动设置管理密码</p>
+<p><figure><a class="lightgallery" href="https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/softethervpn-manager-connect-config.png" title="服务端连接配置" data-thumbnail="https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/softethervpn-manager-connect-config.png" data-sub-html="<h2>服务端连接配置</h2><p>服务端连接配置</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/softethervpn-manager-connect-config.png"
+            data-srcset="https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/softethervpn-manager-connect-config.png, https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/softethervpn-manager-connect-config.png 1.5x, https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/softethervpn-manager-connect-config.png 2x"
+            data-sizes="auto"
+            alt="https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/softethervpn-manager-connect-config.png" />
+    </a><figcaption class="image-caption">服务端连接配置</figcaption>
+    </figure></p>
+<p><br /></p>
+<h4 id="配置-securenat-和-用户">配置 SecureNAT 和 用户</h4>
+<p>连接成功后，通过 <strong>管理虚拟HUB(A)</strong> —》<strong>虚拟 NAT 和 虚拟 DHCP 服务器(V)</strong> —》<strong>启用 SecureNAT(E)</strong> —》<strong>SecureNAT配置(C)</strong></p>
+<p><figure><a class="lightgallery" href="https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/securenat-config.png" title="SecureNAT配置" data-thumbnail="https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/securenat-config.png" data-sub-html="<h2>SecureNAT配置</h2><p>SecureNAT配置</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/securenat-config.png"
+            data-srcset="https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/securenat-config.png, https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/securenat-config.png 1.5x, https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/securenat-config.png 2x"
+            data-sizes="auto"
+            alt="https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/securenat-config.png" />
+    </a><figcaption class="image-caption">SecureNAT配置</figcaption>
+    </figure></p>
+<ul>
+<li><strong>网关配置</strong>：如果填写，则本地VPN客户端流量默认路由走服务端，不需要推送路由；推荐使用本地网关+路由推送的方式</li>
+<li><strong>DNS配置</strong>：如果需要使用DNS解析（example: my-nginx.default.svc.cluster.local），需要配置集群内 <code>CoreDNS </code> 的 IP 地址</li>
+<li><strong>路由推送</strong>：路由推送格式如图所示，网关地址填写 SecureNAT 配置的网关地址</li>
+</ul>
+<p><br /></p>
+<p>在  <strong>管理虚拟HUB(A)</strong> 中，添加一个用户</p>
+<p><figure><a class="lightgallery" href="https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/hub-config-add-user.png" title="添加用户" data-thumbnail="https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/hub-config-add-user.png" data-sub-html="<h2>添加用户</h2><p>添加用户</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/hub-config-add-user.png"
+            data-srcset="https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/hub-config-add-user.png, https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/hub-config-add-user.png 1.5x, https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/hub-config-add-user.png 2x"
+            data-sizes="auto"
+            alt="https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/hub-config-add-user.png" />
+    </a><figcaption class="image-caption">添加用户</figcaption>
+    </figure></p>
+<h4 id="配置openvpn">配置OpenVPN</h4>
+<p>通过 VPN 管理工具，<strong>启用 OpenVPN 功能</strong>，生成 OpenVPN Client 配置样本文件</p>
+<p><figure><a class="lightgallery" href="https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/openvpn-config.png" title="OpenVPN配置" data-thumbnail="https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/openvpn-config.png" data-sub-html="<h2>OpenVPN配置</h2><p>OpenVPN配置</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/openvpn-config.png"
+            data-srcset="https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/openvpn-config.png, https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/openvpn-config.png 1.5x, https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/openvpn-config.png 2x"
+            data-sizes="auto"
+            alt="https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/openvpn-config.png" />
+    </a><figcaption class="image-caption">OpenVPN配置</figcaption>
+    </figure></p>
+<p>解压后，对 <code>access_l3.ovpn</code> 进行编辑</p>
+<p><figure><a class="lightgallery" href="https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/openvpn-config-template.png" title="OpnVPN配置案例文件" data-thumbnail="https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/openvpn-config-template.png" data-sub-html="<h2>OpnVPN配置案例文件</h2><p>OpnVPN配置案例文件</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/openvpn-config-template.png"
+            data-srcset="https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/openvpn-config-template.png, https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/openvpn-config-template.png 1.5x, https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/openvpn-config-template.png 2x"
+            data-sizes="auto"
+            alt="https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/openvpn-config-template.png" />
+    </a><figcaption class="image-caption">OpnVPN配置案例文件</figcaption>
+    </figure></p>
+<p>按照如下的配置进行修改，其中</p>
+<ul>
+<li><strong>remote</strong>: 上述 Kubernetes 发布 VPN 配置文件的 <code>Service</code> 地址</li>
+<li><strong>proto</strong>: 使用 TCP 作为连接协议，也可以使用 UDP，注意修改发布 VPN 时 YAML 配置文件的 端口映射配置</li>
+<li><strong>ca</strong>:  添加 <code>ca</code>标签，填写 VPN Server 配置中的 证书信息，证书信息获取方式见后面</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">dev tun
+proto tcp
+remote 192.168.7.200 <span class="m">30003</span>
+cipher AES-128-CBC
+auth SHA1
+resolv-retry infinite
+nobind
+persist-key
+persist-tun
+client
+verb <span class="m">3</span>
+auth-user-pass
+&lt;ca&gt;
+-----BEGIN CERTIFICATE-----
+从如下配置中获取
+-----END CERTIFICATE-----
+&lt;/ca&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>可以通过打开 <strong>编辑设置(D)</strong> 找到证书信息 或  <strong>加密与网络(E)</strong> 导出配置文件</p>
+<p><figure><a class="lightgallery" href="https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/openvpn-config-cert1.png" title="获取ca信息方式1" data-thumbnail="https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/openvpn-config-cert1.png" data-sub-html="<h2>获取ca信息方式1</h2><p>获取ca信息方式1</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/openvpn-config-cert1.png"
+            data-srcset="https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/openvpn-config-cert1.png, https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/openvpn-config-cert1.png 1.5x, https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/openvpn-config-cert1.png 2x"
+            data-sizes="auto"
+            alt="https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/openvpn-config-cert1.png" />
+    </a><figcaption class="image-caption">获取ca信息方式1</figcaption>
+    </figure></p>
+<p><figure><a class="lightgallery" href="https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/openvpn-config-cert2.png" title="获取ca信息方式2" data-thumbnail="https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/openvpn-config-cert2.png" data-sub-html="<h2>获取ca信息方式2</h2><p>获取ca信息方式2</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/openvpn-config-cert2.png"
+            data-srcset="https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/openvpn-config-cert2.png, https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/openvpn-config-cert2.png 1.5x, https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/openvpn-config-cert2.png 2x"
+            data-sizes="auto"
+            alt="https://gitee.com/AbyssViper/pic/raw/master/images/softether-vpn-k8s/openvpn-config-cert2.png" />
+    </a><figcaption class="image-caption">获取ca信息方式2</figcaption>
+    </figure></p>
+<h3 id="连接">连接</h3>
+<h4 id="softethervpn-client">SoftEtherVPN Client</h4>
+<p>通过官网下载连接客户端，适用于 Windows 方式，Linux中也可以；推荐 Linux 与 OSX 中使用 OpenVPN 的方式</p>
+<h4 id="openvpn">OpenVPN</h4>
+<h3 id="持久化">持久化</h3>
+<h2 id="无配置快速部署">无配置快速部署</h2>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
