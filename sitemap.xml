@@ -2,19 +2,21 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
+            <loc>https://www.viper.pub/golang-slice/</loc><lastmod>2020-09-02T08:53:37&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://www.viper.pub/posts/</loc><lastmod>2020-09-02T08:53:37&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://www.viper.pub/</loc><lastmod>2020-09-02T08:53:37&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://www.viper.pub/develop-tools-k8s/</loc><lastmod>2020-09-01T08:15:21&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://www.viper.pub/categories/</loc><lastmod>2020-08-27T21:56:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://www.viper.pub/posts/</loc><lastmod>2020-08-27T21:56:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://www.viper.pub/softether-vpn-k8s/</loc><lastmod>2020-08-27T21:56:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://www.viper.pub/tags/</loc><lastmod>2020-08-27T21:56:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://www.viper.pub/</loc><lastmod>2020-08-27T21:56:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://www.viper.pub/tags/vpn/</loc><lastmod>2020-08-27T21:56:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://www.viper.pub/tags/%E7%BD%91%E7%BB%9C/</loc><lastmod>2020-08-27T21:56:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://www.viper.pub/categories/%E7%BD%91%E7%BB%9C/</loc><lastmod>2020-08-27T21:56:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://www.viper.pub/about/</loc><lastmod>2020-08-10T01:05:03&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
-            <loc>https://www.viper.pub/tags/kubernetes/</loc><lastmod>2020-08-11T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url><url>
-            <loc>https://www.viper.pub/categories/kubernetes/</loc><lastmod>2020-08-11T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url><url>
-            <loc>https://www.viper.pub/k8s-install-hardway-4/</loc><lastmod>2020-08-11T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url><url>
-            <loc>https://www.viper.pub/k8s-install-hardway-3/</loc><lastmod>2020-08-11T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url><url>
+            <loc>https://www.viper.pub/tags/kubernetes/</loc><lastmod>2020-08-11T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
+            <loc>https://www.viper.pub/categories/kubernetes/</loc><lastmod>2020-08-11T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
+            <loc>https://www.viper.pub/k8s-install-hardway-4/</loc><lastmod>2020-08-11T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
+            <loc>https://www.viper.pub/k8s-install-hardway-3/</loc><lastmod>2020-08-11T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
             <loc>https://www.viper.pub/k8s-install-hardway-2/</loc><lastmod>2020-08-10T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
             <loc>https://www.viper.pub/k8s-install-hardway-1/</loc><lastmod>2020-08-10T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
             <loc>https://www.viper.pub/softether-vpn-split-tunnel/</loc><lastmod>2019-08-10T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url></urlset>
