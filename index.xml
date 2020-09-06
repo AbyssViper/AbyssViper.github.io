@@ -4,9 +4,16 @@
         <link>https://www.viper.pub/</link>
         <description>Welcome to viper&#39;s blog.</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>root@viper.run (abyssviper)</managingEditor>
-            <webMaster>root@viper.run (abyssviper)</webMaster><lastBuildDate>Wed, 02 Sep 2020 08:53:37 &#43;0800</lastBuildDate>
+            <webMaster>root@viper.run (abyssviper)</webMaster><lastBuildDate>Fri, 04 Sep 2020 08:39:07 &#43;0800</lastBuildDate>
             <atom:link href="https://www.viper.pub/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Operator Sdk Shallow</title>
+    <link>https://www.viper.pub/operator-sdk-shallow/</link>
+    <pubDate>Fri, 04 Sep 2020 08:39:07 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.viper.pub/operator-sdk-shallow/</guid>
+    <description><![CDATA[环境 linux 。下载 linux version 添加执行权限， 移动到 /usr/bin operator-sdk version 安装本地 harbor 或者 docker registry docker run -d -p 5000:5000 &ndash;restart always -v /data/registry:/var/lib/registry &ndash;name registry registry:latest 1 docker run -d -p 5000:5000 --restart always --name registry -v /data/registry:/var/lib/registry registry:latest 1 2 3 4 5 cat /etc/docker/daemon.json { &#34;insecure-registries&#34;: [&#34;localhost:5000&#34;], &#34;registry-mirrors&#34;: [&#34;https://tqsl0ohv.mirror.aliyuncs.com&#34;] } 查看]]></description>
+</item><item>
     <title>Golang Slice</title>
     <link>https://www.viper.pub/golang-slice/</link>
     <pubDate>Wed, 02 Sep 2020 08:53:37 &#43;0800</pubDate>
