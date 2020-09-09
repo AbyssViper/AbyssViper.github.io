@@ -4,7 +4,16 @@
         <link>https://www.viper.pub/categories/kubernetes/</link>
         <description>Kubernetes - 分类 - Viper的博客</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>root@viper.run (abyssviper)</managingEditor>
-            <webMaster>root@viper.run (abyssviper)</webMaster><lastBuildDate>Tue, 10 Dec 2019 22:40:42 &#43;0800</lastBuildDate><atom:link href="https://www.viper.pub/categories/kubernetes/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>root@viper.run (abyssviper)</webMaster><lastBuildDate>Wed, 09 Sep 2020 09:39:10 &#43;0800</lastBuildDate><atom:link href="https://www.viper.pub/categories/kubernetes/" rel="self" type="application/rss+xml" /><item>
+    <title>Kubernetes Handbook</title>
+    <link>https://www.viper.pub/kubernetes-handbook/</link>
+    <pubDate>Wed, 09 Sep 2020 09:39:10 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.viper.pub/kubernetes-handbook/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://gitee.com/AbyssViper/pic/raw/master/kubernetes/featuredImage.png" referrerpolicy="no-referrer">
+            </div>Kubernetes-Handbook 点击跳转 持续更新中&hellip;]]></description>
+</item><item>
     <title>Kubernetes 二进制部署 Part4</title>
     <link>https://www.viper.pub/k8s-install-hardway-4/</link>
     <pubDate>Tue, 10 Dec 2019 22:40:42 &#43;0800</pubDate>
