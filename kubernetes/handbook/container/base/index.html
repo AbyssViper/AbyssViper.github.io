@@ -226,42 +226,23 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#123" class="md-nav__link">
-    123
+  <a href="#_3" class="md-nav__link">
+    容器的边界
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#123_1" class="md-nav__link">
-    123
-  </a>
-  
-    <nav class="md-nav" aria-label="123">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#123_2" class="md-nav__link">
-    123
-  </a>
-  
-    <nav class="md-nav" aria-label="123">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#123_3" class="md-nav__link">
-    123
+  <a href="#namespace" class="md-nav__link">
+    Namespace
   </a>
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
+          <li class="md-nav__item">
+  <a href="#cgroups" class="md-nav__link">
+    Cgroups
+  </a>
   
 </li>
         
@@ -478,42 +459,23 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#123" class="md-nav__link">
-    123
+  <a href="#_3" class="md-nav__link">
+    容器的边界
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#123_1" class="md-nav__link">
-    123
-  </a>
-  
-    <nav class="md-nav" aria-label="123">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#123_2" class="md-nav__link">
-    123
-  </a>
-  
-    <nav class="md-nav" aria-label="123">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#123_3" class="md-nav__link">
-    123
+  <a href="#namespace" class="md-nav__link">
+    Namespace
   </a>
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
+          <li class="md-nav__item">
+  <a href="#cgroups" class="md-nav__link">
+    Cgroups
+  </a>
   
 </li>
         
@@ -539,12 +501,87 @@
                 
                 
                 <h1 id="_1">容器基础<a class="headerlink" href="#_1" title="Permanent link">⚓︎</a></h1>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>简介</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/moby/moby">moby</a></td>
+<td>继承于原先的 docker项目，由社区维护的开源项目</td>
+</tr>
+<tr>
+<td><a href="https://github.com/docker/docker-ce">docker-ce</a></td>
+<td>开源项目，基于moby项目的免费容器产品，由docker公司维护</td>
+</tr>
+<tr>
+<td>docker-ee</td>
+<td>闭源，docker公司的商业产品</td>
+</tr>
+</tbody>
+</table>
 <h2 id="_2">容器<a class="headerlink" href="#_2" title="Permanent link">⚓︎</a></h2>
-<h3 id="123">123<a class="headerlink" href="#123" title="Permanent link">⚓︎</a></h3>
-<h3 id="123_1">123<a class="headerlink" href="#123_1" title="Permanent link">⚓︎</a></h3>
-<h4 id="123_2">123<a class="headerlink" href="#123_2" title="Permanent link">⚓︎</a></h4>
-<h5 id="123_3">123<a class="headerlink" href="#123_3" title="Permanent link">⚓︎</a></h5>
-<p>一个视图隔离、资源可限制、独立文件系统的进程集合</p>
+<p><strong>容器</strong> 是一个视图隔离、资源可限制、独立文件系统的进程集合</p>
+<h3 id="_3">容器的边界<a class="headerlink" href="#_3" title="Permanent link">⚓︎</a></h3>
+<p>容器技术的核心功能，通过约束和修改进程的动态表现，从而为其创建一个 "边界"</p>
+<p>对于 <code>Docker</code> 等大多数的 Linux Container 来讲，约束是通过 <code>Cgroups</code> 技术实现，修改进程的的视图则是通过 <code>Namespace</code> 实现的</p>
+<p>一个正在运行的 Docker Container 其实是一个 启用了多个 Linux <code>Namespace</code> 的应用进程，该进程可用的资源，受到 <code>Cgroups</code> 限制</p>
+<h3 id="namespace">Namespace<a class="headerlink" href="#namespace" title="Permanent link">⚓︎</a></h3>
+<p>Namespace 是 <code>Linux Kernel</code> 的一个功能，可以隔离系统资源，当前共有 6 种 Namespace</p>
+<table>
+<thead>
+<tr>
+<th>Namespace</th>
+<th>系统调用参数</th>
+<th>内核版本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mount Namespace</td>
+<td>CLONE_NEWNS</td>
+<td>2.4.19</td>
+</tr>
+<tr>
+<td>UTS Namespace</td>
+<td>CLONE_NEWUTS</td>
+<td>2.6.19</td>
+</tr>
+<tr>
+<td>IPC Namespace</td>
+<td>CLONE_NEWIPC</td>
+<td>2.6.19</td>
+</tr>
+<tr>
+<td>PID Namespace</td>
+<td>CLONE_NEWPID</td>
+<td>2.6.24</td>
+</tr>
+<tr>
+<td>Network Namespace</td>
+<td>CLONE_NEWNET</td>
+<td>2.6.29</td>
+</tr>
+<tr>
+<td>User Namespace</td>
+<td>CLONE_NEWUSER</td>
+<td>3.8</td>
+</tr>
+</tbody>
+</table>
+<p>Namespace 的 API 调用主要设计到三个系统调用</p>
+<ul>
+<li>clone(): 创建新的进程，根据上述的系统调用参数来判断需要创建哪种 Namespace</li>
+<li>unshare(): 将进程从 某个 Namespace 中移出</li>
+<li>setns(): 将进程加入到 Namespace 中</li>
+</ul>
+<p>由此看出，容器实际上就是创建容器进程的时候，指定进程需要启用的一组 Namespace 参数，使得容器只能看到当前 Namespace 限定的资源、文件、设备、状态、配置等；所以说 <strong>容器只是一种特殊的进程</strong></p>
+<h3 id="cgroups">Cgroups<a class="headerlink" href="#cgroups" title="Permanent link">⚓︎</a></h3>
+<p>Control Groups， 提供了对一组进程以及其子进程进行资源限制、控制和统计的能力，这里的资源包括：CPU、内存、存储、网络等；还可以对进程优先级设置、审计、挂起恢复等</p>
+<p>Linux对外暴露的操作接口文件是：/sys/fs/cgroup</p>
                 
               
               
