@@ -2,13 +2,14 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://www.viper.pub/categories/</loc><lastmod>2020-09-09T09:39:10&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
-            <loc>https://www.viper.pub/tags/kubernetes/</loc><lastmod>2020-09-09T09:39:10&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
-            <loc>https://www.viper.pub/categories/kubernetes/</loc><lastmod>2020-09-09T09:39:10&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
-            <loc>https://www.viper.pub/kubernetes-handbook/</loc><lastmod>2020-09-09T09:39:10&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
-            <loc>https://www.viper.pub/posts/</loc><lastmod>2020-09-09T09:39:10&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
-            <loc>https://www.viper.pub/tags/</loc><lastmod>2020-09-09T09:39:10&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
-            <loc>https://www.viper.pub/</loc><lastmod>2020-09-09T09:39:10&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
+            <loc>https://www.viper.pub/operator-sdk-dev-win/</loc><lastmod>2020-10-09T09:34:38&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://www.viper.pub/posts/</loc><lastmod>2020-10-09T09:34:38&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://www.viper.pub/</loc><lastmod>2020-10-09T09:34:38&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://www.viper.pub/categories/</loc><lastmod>2020-09-09T09:39:10&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url><url>
+            <loc>https://www.viper.pub/tags/kubernetes/</loc><lastmod>2020-09-09T09:39:10&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url><url>
+            <loc>https://www.viper.pub/categories/kubernetes/</loc><lastmod>2020-09-09T09:39:10&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url><url>
+            <loc>https://www.viper.pub/kubernetes-handbook/</loc><lastmod>2020-09-09T09:39:10&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url><url>
+            <loc>https://www.viper.pub/tags/</loc><lastmod>2020-09-09T09:39:10&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url><url>
             <loc>https://www.viper.pub/softether-vpn-k8s/</loc><lastmod>2020-08-27T21:56:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://www.viper.pub/tags/vpn/</loc><lastmod>2020-08-27T21:56:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://www.viper.pub/tags/%E7%BD%91%E7%BB%9C/</loc><lastmod>2020-08-27T21:56:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
