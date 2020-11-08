@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kubernetes handbook</title>
+    <link>https://www.viper.pub/kubernetes/handbook/</link>
+    <description>Recent content on kubernetes handbook</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    
+	<atom:link href="https://www.viper.pub/kubernetes/handbook/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title></title>
+      <link>https://www.viper.pub/kubernetes/handbook/menu/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.viper.pub/kubernetes/handbook/menu/</guid>
+      <description> 第一章节 第二章节  </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://www.viper.pub/kubernetes/handbook/posts/part1-container/ch01-kn/base/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.viper.pub/kubernetes/handbook/posts/part1-container/ch01-kn/base/</guid>
+      <description>项目 简介     moby 继承于原先的 docker项目，由社区维护的开源项目   docker-ce 开源项目，基于moby项目的免费容器产品，由docker公司维护   docker-ee 闭源，docker公司的商业产品    容器#容器 是一个视图隔离、资源可限制、独立文件系统的进程集合
+容器的边界#容器技术的核心功能，通过约束和修改进程的动态表现，从而为其创建一个 &amp;ldquo;边界&amp;rdquo;
+对于 Docker 等大多数的 Linux Container 来讲，约束是通过 Cgroups 技术实现，修改进程的的视图则是通过 Namespace 实现的
+一个正在运行的 Docker Container 其实是一个 启用了多个 Linux Namespace 的应用进程，该进程可用的资源，受到 Cgroups 限制
+Namespace#Namespace 是 Linux Kernel 的一个功能，可以隔离系统资源，当前共有 6 种 Namespace
+   Namespace 系统调用参数 内核版本     Mount Namespace CLONE_NEWNS 2.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://www.viper.pub/kubernetes/handbook/posts/part1-container/ch02-runtime/runtime/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.viper.pub/kubernetes/handbook/posts/part1-container/ch02-runtime/runtime/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://www.viper.pub/kubernetes/handbook/posts/part1-container/ch02-runtime/write-docker/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.viper.pub/kubernetes/handbook/posts/part1-container/ch02-runtime/write-docker/</guid>
+      <description>推荐阅读#《自己动手写Docker》 使用 go 实现了简单的 runtime 引擎，强烈推荐
+阅读笔记#书籍中相关的知识点有点老旧，整体写下来存在很多坑，后续会把相应的每个章节的坑在本文进行补充
+项目地址：https://github.com/AbyssViper/mydocker</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -4,14 +4,7 @@
         <link>https://www.viper.pub/posts/</link>
         <description>所有文章 | Viper的博客</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>root@viper.run (abyssviper)</managingEditor>
-            <webMaster>root@viper.run (abyssviper)</webMaster><lastBuildDate>Fri, 09 Oct 2020 09:34:38 &#43;0800</lastBuildDate><atom:link href="https://www.viper.pub/posts/" rel="self" type="application/rss+xml" /><item>
-    <title>Operator Sdk Dev Win</title>
-    <link>https://www.viper.pub/operator-sdk-dev-win/</link>
-    <pubDate>Fri, 09 Oct 2020 09:34:38 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://www.viper.pub/operator-sdk-dev-win/</guid>
-    <description><![CDATA[安装MinGW 添加环境变量 更改为 make.exe 1 2 3 4 git clone https://github.com/operator-framework/operator-sdk git checkout master make tidy make install]]></description>
-</item><item>
+            <webMaster>root@viper.run (abyssviper)</webMaster><lastBuildDate>Wed, 09 Sep 2020 09:39:10 &#43;0800</lastBuildDate><atom:link href="https://www.viper.pub/posts/" rel="self" type="application/rss+xml" /><item>
     <title>Kubernetes Handbook</title>
     <link>https://www.viper.pub/kubernetes-handbook/</link>
     <pubDate>Wed, 09 Sep 2020 09:39:10 &#43;0800</pubDate>

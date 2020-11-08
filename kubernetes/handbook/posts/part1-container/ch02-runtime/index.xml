@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kubernetes handbook</title>
+    <link>https://www.viper.pub/kubernetes/handbook/posts/part1-container/ch02-runtime/</link>
+    <description>Recent content on kubernetes handbook</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    
+	<atom:link href="https://www.viper.pub/kubernetes/handbook/posts/part1-container/ch02-runtime/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title></title>
+      <link>https://www.viper.pub/kubernetes/handbook/posts/part1-container/ch02-runtime/runtime/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.viper.pub/kubernetes/handbook/posts/part1-container/ch02-runtime/runtime/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://www.viper.pub/kubernetes/handbook/posts/part1-container/ch02-runtime/write-docker/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.viper.pub/kubernetes/handbook/posts/part1-container/ch02-runtime/write-docker/</guid>
+      <description>推荐阅读#《自己动手写Docker》 使用 go 实现了简单的 runtime 引擎，强烈推荐
+阅读笔记#书籍中相关的知识点有点老旧，整体写下来存在很多坑，后续会把相应的每个章节的坑在本文进行补充
+项目地址：https://github.com/AbyssViper/mydocker</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,11 +1,50 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url>
-     <loc>https://www.viper.pub/kubernetes/handbook/container/base/</loc>
-     <lastmod>2020-10-17</lastmod>
-     <changefreq>daily</changefreq>
-    </url><url>
-     <loc>https://www.viper.pub/kubernetes/handbook/container/write-docker/</loc>
-     <lastmod>2020-10-17</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://www.viper.pub/kubernetes/handbook/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.viper.pub/kubernetes/handbook/menu/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.viper.pub/kubernetes/handbook/posts/part1-container/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.viper.pub/kubernetes/handbook/posts/part1-container/ch01-kn/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.viper.pub/kubernetes/handbook/posts/part1-container/ch01-kn/base/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.viper.pub/kubernetes/handbook/posts/part1-container/ch02-runtime/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.viper.pub/kubernetes/handbook/posts/part1-container/ch02-runtime/runtime/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.viper.pub/kubernetes/handbook/posts/part1-container/ch02-runtime/write-docker/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.viper.pub/kubernetes/handbook/categories/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.viper.pub/kubernetes/handbook/posts/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.viper.pub/kubernetes/handbook/tags/</loc>
+  </url>
+  
 </urlset>

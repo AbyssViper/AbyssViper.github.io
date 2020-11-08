@@ -1,0 +1,1 @@
+if(navigator.serviceWorker){navigator.serviceWorker.register("/kubernetes/handbook/sw.js",{scope:"/kubernetes/handbook/"});}

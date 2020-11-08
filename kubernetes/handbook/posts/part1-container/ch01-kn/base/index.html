@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en" dir=>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="项目 简介     moby 继承于原先的 docker项目，由社区维护的开源项目   docker-ce 开源项目，基于moby项目的免费容器产品，由docker公司维护   docker-ee 闭源，docker公司的商业产品    容器#容器 是一个视图隔离、资源可限制、独立文件系统的进程集合
+容器的边界#容器技术的核心功能，通过约束和修改进程的动态表现，从而为其创建一个 &ldquo;边界&rdquo;
+对于 Docker 等大多数的 Linux Container 来讲，约束是通过 Cgroups 技术实现，修改进程的的视图则是通过 Namespace 实现的
+一个正在运行的 Docker Container 其实是一个 启用了多个 Linux Namespace 的应用进程，该进程可用的资源，受到 Cgroups 限制
+Namespace#Namespace 是 Linux Kernel 的一个功能，可以隔离系统资源，当前共有 6 种 Namespace
+   Namespace 系统调用参数 内核版本     Mount Namespace CLONE_NEWNS 2.">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="" />
+<meta property="og:description" content="项目 简介     moby 继承于原先的 docker项目，由社区维护的开源项目   docker-ce 开源项目，基于moby项目的免费容器产品，由docker公司维护   docker-ee 闭源，docker公司的商业产品    容器#容器 是一个视图隔离、资源可限制、独立文件系统的进程集合
+容器的边界#容器技术的核心功能，通过约束和修改进程的动态表现，从而为其创建一个 &ldquo;边界&rdquo;
+对于 Docker 等大多数的 Linux Container 来讲，约束是通过 Cgroups 技术实现，修改进程的的视图则是通过 Namespace 实现的
+一个正在运行的 Docker Container 其实是一个 启用了多个 Linux Namespace 的应用进程，该进程可用的资源，受到 Cgroups 限制
+Namespace#Namespace 是 Linux Kernel 的一个功能，可以隔离系统资源，当前共有 6 种 Namespace
+   Namespace 系统调用参数 内核版本     Mount Namespace CLONE_NEWNS 2." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.viper.pub/kubernetes/handbook/posts/part1-container/ch01-kn/base/" />
+
+<title>Base | kubernetes handbook</title>
+<link rel="manifest" href="/kubernetes/handbook/manifest.json">
+<link rel="icon" href="/kubernetes/handbook/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/kubernetes/handbook/book.min.134b70e5316650a530cb42e4e8630b2a01d532bebfc0337028211175336e4806.css" integrity="sha256-E0tw5TFmUKUwy0Lk6GMLKgHVMr6/wDNwKCERdTNuSAY=">
+<script defer src="/kubernetes/handbook/en.search.min.16a35f0afe8589e7e19eb15b660a2b854de3c0dad33378b0ac65632cc818eaa4.js" integrity="sha256-FqNfCv6FiefhnrFbZgorhU3jwNrTM3iwrGVjLMgY6qQ="></script>
+
+<script defer src="/kubernetes/handbook/sw.min.a1896ac714436529cf4aaadc044a0371497d36201f43fdab4801b54e60aad22b.js" integrity="sha256-oYlqxxRDZSnPSqrcBEoDcUl9NiAfQ/2rSAG1TmCq0is="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/kubernetes/handbook"><span>kubernetes handbook</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="https://www.viper.pub" target="_blank" rel="noopener">
+        博 客
+      </a>
+  </li>
+  
+  <li>
+    <a href="https://github.com/AbyssViper" target="_blank" rel="noopener">
+        Github
+       <br /> <hr /></a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="" target="_blank" rel="noopener">
+        ©2019-2020 AbyssViper
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/kubernetes/handbook/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Base</strong>
+
+  <label for="toc-control">
+    
+    <img src="/kubernetes/handbook/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#容器">容器</a>
+          <ul>
+            <li><a href="#容器的边界">容器的边界</a></li>
+            <li><a href="#namespace">Namespace</a></li>
+            <li><a href="#cgroups">Cgroups</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+<article class="markdown">
+  <h1>
+    <a href="/kubernetes/handbook/posts/part1-container/ch01-kn/base/"></a>
+  </h1>
+  
+
+
+  
+
+  
+
+
+  <p><table>
+<thead>
+<tr>
+<th>项目</th>
+<th>简介</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+  <a href="https://github.com/moby/moby">moby</a></td>
+<td>继承于原先的 docker项目，由社区维护的开源项目</td>
+</tr>
+<tr>
+<td>
+  <a href="https://github.com/docker/docker-ce">docker-ce</a></td>
+<td>开源项目，基于moby项目的免费容器产品，由docker公司维护</td>
+</tr>
+<tr>
+<td>docker-ee</td>
+<td>闭源，docker公司的商业产品</td>
+</tr>
+</tbody>
+</table>
+<h2 id="容器">
+  容器
+  <a class="anchor" href="#%e5%ae%b9%e5%99%a8">#</a>
+</h2>
+<p><strong>容器</strong> 是一个视图隔离、资源可限制、独立文件系统的进程集合</p>
+<h3 id="容器的边界">
+  容器的边界
+  <a class="anchor" href="#%e5%ae%b9%e5%99%a8%e7%9a%84%e8%be%b9%e7%95%8c">#</a>
+</h3>
+<p>容器技术的核心功能，通过约束和修改进程的动态表现，从而为其创建一个 &ldquo;边界&rdquo;</p>
+<p>对于 <code>Docker</code> 等大多数的 Linux Container 来讲，约束是通过 <code>Cgroups</code> 技术实现，修改进程的的视图则是通过 <code>Namespace</code> 实现的</p>
+<p>一个正在运行的 Docker Container 其实是一个 启用了多个 Linux <code>Namespace</code> 的应用进程，该进程可用的资源，受到 <code>Cgroups</code> 限制</p>
+<h3 id="namespace">
+  Namespace
+  <a class="anchor" href="#namespace">#</a>
+</h3>
+<p>Namespace 是 <code>Linux Kernel</code> 的一个功能，可以隔离系统资源，当前共有 6 种 Namespace</p>
+<table>
+<thead>
+<tr>
+<th>Namespace</th>
+<th>系统调用参数</th>
+<th>内核版本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mount Namespace</td>
+<td>CLONE_NEWNS</td>
+<td>2.4.19</td>
+</tr>
+<tr>
+<td>UTS Namespace</td>
+<td>CLONE_NEWUTS</td>
+<td>2.6.19</td>
+</tr>
+<tr>
+<td>IPC Namespace</td>
+<td>CLONE_NEWIPC</td>
+<td>2.6.19</td>
+</tr>
+<tr>
+<td>PID Namespace</td>
+<td>CLONE_NEWPID</td>
+<td>2.6.24</td>
+</tr>
+<tr>
+<td>Network Namespace</td>
+<td>CLONE_NEWNET</td>
+<td>2.6.29</td>
+</tr>
+<tr>
+<td>User Namespace</td>
+<td>CLONE_NEWUSER</td>
+<td>3.8</td>
+</tr>
+</tbody>
+</table>
+<p>Namespace 的 API 调用主要设计到三个系统调用</p>
+<ul>
+<li>clone(): 创建新的进程，根据上述的系统调用参数来判断需要创建哪种 Namespace</li>
+<li>unshare(): 将进程从 某个 Namespace 中移出</li>
+<li>setns(): 将进程加入到 Namespace 中</li>
+</ul>
+<p>由此看出，容器实际上就是创建容器进程的时候，指定进程需要启用的一组 Namespace 参数，使得容器只能看到当前 Namespace 限定的资源、文件、设备、状态、配置等；所以说 <strong>容器只是一种特殊的进程</strong></p>
+<h3 id="cgroups">
+  Cgroups
+  <a class="anchor" href="#cgroups">#</a>
+</h3>
+<p>Control Groups， 提供了对一组进程以及其子进程进行资源限制、控制和统计的能力，这里的资源包括：CPU、内存、存储、网络等；还可以对进程优先级设置、审计、挂起恢复等</p>
+<p>Linux对外暴露的操作接口文件是：/sys/fs/cgroup</p>
+</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#容器">容器</a>
+          <ul>
+            <li><a href="#容器的边界">容器的边界</a></li>
+            <li><a href="#namespace">Namespace</a></li>
+            <li><a href="#cgroups">Cgroups</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
