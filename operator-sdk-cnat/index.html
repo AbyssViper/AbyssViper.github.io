@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Operator-sdk V1.2 简单案例快速入手 - Viper的博客</title><meta name="Description" content="Welcome to viper&#39;s blog."><meta property="og:title" content="Operator-sdk V1.2 简单案例快速入手" />
+<meta property="og:description" content="准备 案例简介 案例来自于 《Programming-Kubernetes》文章中的 cloud native at ，用于实现一个云原生的 at 命令, 效果： 在yaml配置中 schedule 时" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.viper.pub/operator-sdk-cnat/" />
+<meta property="og:image" content="https://www.viper.pub/logo.png"/>
+<meta property="article:published_time" content="2020-11-18T09:48:08+08:00" />
+<meta property="article:modified_time" content="2020-11-18T09:48:08+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://www.viper.pub/logo.png"/>
+
+<meta name="twitter:title" content="Operator-sdk V1.2 简单案例快速入手"/>
+<meta name="twitter:description" content="准备 案例简介 案例来自于 《Programming-Kubernetes》文章中的 cloud native at ，用于实现一个云原生的 at 命令, 效果： 在yaml配置中 schedule 时"/>
+<meta name="application-name" content="Viper&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Viper&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="https://gitee.com/AbyssViper/pic/raw/master/images/ico.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.viper.pub/operator-sdk-cnat/" /><link rel="prev" href="https://www.viper.pub/kubernetes-handbook/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.a12cacf4b5b41234196cb89042b24a70.css" integrity="md5-oSys9LW0EjQZbLiQQrJKcA=="><link rel="stylesheet" href="/css/style.min.f03a2ec71b16efbe4f24352e542c93a9.css" integrity="md5-8DouxxsW775PJDUuVCyTqQ=="><link rel="stylesheet" href="/lib/fontawesome-free/all.min.26386564b5cf1594be24059af1cd0db9.css" integrity="md5-JjhlZLXPFZS&#43;JAWa8c0NuQ=="><link rel="stylesheet" href="/lib/animate/animate.min.43d6b8fdf324505f0ceb7ea698d0b7a5.css" integrity="md5-Q9a4/fMkUF8M636mmNC3pQ=="><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Operator-sdk V1.2 简单案例快速入手",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.viper.pub\/operator-sdk-cnat\/"
+        },"genre": "posts","keywords": "Kubernetes, Operator-SDK","wordcount":  1743 ,
+        "url": "https:\/\/www.viper.pub\/operator-sdk-cnat\/","datePublished": "2020-11-18T09:48:08+08:00","dateModified": "2020-11-18T09:48:08+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "abyssviper"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Viper的博客"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="https://gitee.com/AbyssViper/pic/raw/master/images/logo.png"
+        data-srcset="https://gitee.com/AbyssViper/pic/raw/master/images/logo.png, https://gitee.com/AbyssViper/pic/raw/master/images/logo.png 1.5x, https://gitee.com/AbyssViper/pic/raw/master/images/logo.png 2x"
+        data-sizes="auto"
+        alt="https://gitee.com/AbyssViper/pic/raw/master/images/logo.png"
+        title="https://gitee.com/AbyssViper/pic/raw/master/images/logo.png" />Viper的博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Viper的博客"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="https://gitee.com/AbyssViper/pic/raw/master/images/logo.png"
+        data-srcset="https://gitee.com/AbyssViper/pic/raw/master/images/logo.png, https://gitee.com/AbyssViper/pic/raw/master/images/logo.png 1.5x, https://gitee.com/AbyssViper/pic/raw/master/images/logo.png 2x"
+        data-sizes="auto"
+        alt="https://gitee.com/AbyssViper/pic/raw/master/images/logo.png"
+        title="https://gitee.com/AbyssViper/pic/raw/master/images/logo.png" />Viper的博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Operator-sdk V1.2 简单案例快速入手</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://www.viper.pub" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>abyssviper</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/kubernetes/"><i class="far fa-folder fa-fw"></i>Kubernetes</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-11-18">2020-11-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1743 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;<span id="/operator-sdk-cnat/" class="leancloud_visitors" data-flag-title="Operator-sdk V1.2 简单案例快速入手">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/featuredImage.png"
+        data-srcset="https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/featuredImage.png, https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/featuredImage.png 1.5x, https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/featuredImage.png 2x"
+        data-sizes="auto"
+        alt="https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/featuredImage.png"
+        title="https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/featuredImage.png" /></div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#准备">准备</a>
+      <ul>
+        <li><a href="#案例简介">案例简介</a></li>
+        <li><a href="#环境介绍">环境介绍</a></li>
+      </ul>
+    </li>
+    <li><a href="#初始化">初始化</a>
+      <ul>
+        <li><a href="#go环境依赖">Go环境依赖</a></li>
+        <li><a href="#项目初始化">项目初始化</a></li>
+        <li><a href="#api创建">API创建</a></li>
+      </ul>
+    </li>
+    <li><a href="#发布测试">发布测试</a></li>
+    <li><a href="#编写业务逻辑">编写业务逻辑</a>
+      <ul>
+        <li><a href="#项目结构">项目结构</a></li>
+        <li><a href="#定义结构体">定义结构体</a></li>
+        <li><a href="#实现逻辑">实现逻辑</a>
+          <ul>
+            <li><a href="#逻辑结构">逻辑结构</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="准备">准备</h2>
+<h3 id="案例简介">案例简介</h3>
+<p>案例来自于 <a href="https://programming-kubernetes.info/" target="_blank" rel="noopener noreffer">《Programming-Kubernetes》</a>文章中的 cloud native at ，用于实现一个云原生的 at 命令,</p>
+<p><strong>效果：</strong> 在yaml配置中 <code>schedule</code> 时间到达后，创建 busybox 镜像的 Pod，执行yaml配置中的 <code>command</code></p>
+<p>具体实现效果如下，通过以下格式的 yaml 进行定义</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">$ cat programming-kubernetes_v1alpha1_at.yaml
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>programming-kubernetes.viper.run/v1alpha1<span class="w">
+</span><span class="w"></span><span class="k">Kind</span><span class="p">:</span><span class="w"> </span>At<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>at-demo<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">command</span><span class="p">:</span><span class="w"> </span>echo<span class="w"> </span>QAQ<span class="w">
+</span><span class="w">  </span><span class="k">schedule</span><span class="p">:</span><span class="w"> </span><span class="ld">2020-11-18</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>通过如下命令进行发布以及查看</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">$ kubectl apply -f programming-kubernetes_v1alpha1_at.yaml
+$ kubectl get ats
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="环境介绍">环境介绍</h3>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>版本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>开发环境</td>
+<td>Linux_x86_64</td>
+</tr>
+<tr>
+<td>kubernetes</td>
+<td>v1.16.6</td>
+</tr>
+<tr>
+<td>kubectl</td>
+<td>v1.16.6</td>
+</tr>
+<tr>
+<td>go</td>
+<td>go1.14.4 linux/amd64</td>
+</tr>
+<tr>
+<td>operator-sdk</td>
+<td>v1.2.0</td>
+</tr>
+<tr>
+<td>IDE</td>
+<td>GoLand</td>
+</tr>
+</tbody>
+</table>
+<h2 id="初始化">初始化</h2>
+<h3 id="go环境依赖">Go环境依赖</h3>
+<p>需要提前开启 go mod，配置  goproxy</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">export</span> <span class="nv">GO111MODULE</span><span class="o">=</span>on
+<span class="nb">export</span> <span class="nv">GOPROXY</span><span class="o">=</span>https://mirrors.aliyun.com/goproxy/
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="项目初始化">项目初始化</h3>
+<p>初始化项目，新版本的 operator-sdk 使用的 &ndash;domain进行指定域名，比如本次项目我们期望的是 programming-kubernetes.viper.run, 此处domain指定好 viper.run 之后，api创建的时候只需要指定 group 为 programming-kubernetes 即可</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">$ mkdir /workspace/programming-kubernetes
+$ operator-sdk init --domain<span class="o">=</span>viper.run --repo<span class="o">=</span>github.com/AbyssViper/programming-kubernetes
+</code></pre></td></tr></table>
+</div>
+</div><p><figure><a class="lightgallery" href="https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/project-init.png" title="项目初始化" data-thumbnail="https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/project-init.png" data-sub-html="<h2>项目初始化</h2><p>项目初始化</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/project-init.png"
+            data-srcset="https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/project-init.png, https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/project-init.png 1.5x, https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/project-init.png 2x"
+            data-sizes="auto"
+            alt="https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/project-init.png" />
+    </a><figcaption class="image-caption">项目初始化</figcaption>
+    </figure></p>
+<h3 id="api创建">API创建</h3>
+<p>创建 API ，各个字段的含义 apiVersion: <code>group.domain/version</code>, kind 对应 yaml 配置中的 Kind， 这里我们设置 controller 为 true，同时按照 group 与 version 定义创建 controller。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">$ operator-sdk create api --group programming-kubernetes --version v1alpha1 --kind At --resource<span class="o">=</span><span class="nb">true</span> --controller<span class="o">=</span><span class="nb">true</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><figure><a class="lightgallery" href="https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/project-create-api.png" title="创建api" data-thumbnail="https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/project-create-api.png" data-sub-html="<h2>创建api</h2><p>创建api</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/project-create-api.png"
+            data-srcset="https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/project-create-api.png, https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/project-create-api.png 1.5x, https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/project-create-api.png 2x"
+            data-sizes="auto"
+            alt="https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/project-create-api.png" />
+    </a><figcaption class="image-caption">创建api</figcaption>
+    </figure></p>
+<h2 id="发布测试">发布测试</h2>
+<p>接下来进行一下发布测试，会创建对应的 CRD</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">$ make install
+$ kubectl get crds <span class="p">|</span> grep ats.programming-kubernetes.viper.run
+</code></pre></td></tr></table>
+</div>
+</div><p><figure><a class="lightgallery" href="https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/crds-created-test.png" title="CRD发布测试" data-thumbnail="https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/crds-created-test.png" data-sub-html="<h2>CRD发布测试</h2><p>CRD发布测试</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/crds-created-test.png"
+            data-srcset="https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/crds-created-test.png, https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/crds-created-test.png 1.5x, https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/crds-created-test.png 2x"
+            data-sizes="auto"
+            alt="https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/crds-created-test.png" />
+    </a><figcaption class="image-caption">CRD发布测试</figcaption>
+    </figure></p>
+<p>将自带的 sample yaml 发布至 Kubernetes，并且通过 kubectl get 查看发布情况</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">$ kubectl get ats
+</code></pre></td></tr></table>
+</div>
+</div><p><figure><a class="lightgallery" href="https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/crds-created-test-get-ats.png" title="发布并查看" data-thumbnail="https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/crds-created-test-get-ats.png" data-sub-html="<h2>发布并查看</h2><p>发布并查看</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/crds-created-test-get-ats.png"
+            data-srcset="https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/crds-created-test-get-ats.png, https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/crds-created-test-get-ats.png 1.5x, https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/crds-created-test-get-ats.png 2x"
+            data-sizes="auto"
+            alt="https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/crds-created-test-get-ats.png" />
+    </a><figcaption class="image-caption">发布并查看</figcaption>
+    </figure></p>
+<p>通过如下命令，对于已经发布的 crd 进行清理</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">make uninstall
+</code></pre></td></tr></table>
+</div>
+</div><p><figure><a class="lightgallery" href="https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/crds-created-test-clean.png" title="清理" data-thumbnail="https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/crds-created-test-clean.png" data-sub-html="<h2>清理</h2><p>清理</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/crds-created-test-clean.png"
+            data-srcset="https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/crds-created-test-clean.png, https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/crds-created-test-clean.png 1.5x, https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/crds-created-test-clean.png 2x"
+            data-sizes="auto"
+            alt="https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/crds-created-test-clean.png" />
+    </a><figcaption class="image-caption">清理</figcaption>
+    </figure></p>
+<h2 id="编写业务逻辑">编写业务逻辑</h2>
+<h3 id="项目结构">项目结构</h3>
+<p>一般情况下，对于业务逻辑，我们主要关注的是  <code>at_types.go</code> 与 <code>at_controller.go</code>,  yaml文件中对自定义资源使用的字段定义，是在 <code>at_types.go</code> 中定义的，相关的业务逻辑是需要在 <code>at_controller.go</code>中进行编写的。</p>
+<p><figure><a class="lightgallery" href="https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/project-struct.png" title="项目结构" data-thumbnail="https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/project-struct.png" data-sub-html="<h2>项目结构</h2><p>项目结构</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/project-struct.png"
+            data-srcset="https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/project-struct.png, https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/project-struct.png 1.5x, https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/project-struct.png 2x"
+            data-sizes="auto"
+            alt="https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/project-struct.png" />
+    </a><figcaption class="image-caption">项目结构</figcaption>
+    </figure></p>
+<h3 id="定义结构体">定义结构体</h3>
+<p>在 <code>at_types.go</code> 中进行 yaml 的映射结构定义</p>
+<p>对于 spec 结构体，我们需要 <code>Schedule</code> <code>Command</code> 两个字段声明</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">AtSpec</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="c1">// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
+</span><span class="c1"></span>	<span class="c1">// Important: Run &#34;make&#34; to regenerate code after modifying this file
+</span><span class="c1"></span>
+	<span class="c1">// Schedule need UTC time format. Example: 2006-05-14T09:23:00Z
+</span><span class="c1"></span>	<span class="nx">Schedule</span> <span class="kt">string</span> <span class="s">`json:&#34;schedule,omitempty&#34;`</span>
+	<span class="c1">// Linux command will execute when be scheduled.
+</span><span class="c1"></span>	<span class="nx">Command</span> <span class="kt">string</span> <span class="s">`json:&#34;command,omitempty&#34;`</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>而对于 status 结构体，我们需要一个 <code>Phase</code> 字段来存储当前 <code>At</code> 实例所处的阶段</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">AtStatus</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="c1">// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
+</span><span class="c1"></span>	<span class="c1">// Important: Run &#34;make&#34; to regenerate code after modifying this file
+</span><span class="c1"></span>
+	<span class="c1">// Phase set instance&#39;s status.
+</span><span class="c1"></span>	<span class="nx">Phase</span> <span class="kt">string</span> <span class="s">`json:&#34;phase,omitempty&#34;`</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>既然有了 status 对应的状态，我们需要对状态常量进行个标识，所以 <code>at_types.go</code> 中还需要声明如下常量，可以看到对于我们的 <code>At</code> 实例有 <code>PENDING</code>, <code>RUNNING</code>, <code>DONE</code> 三个状态</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">const</span> <span class="p">(</span>
+	<span class="nx">PhasePending</span> <span class="p">=</span> <span class="s">&#34;PENDING&#34;</span>
+	<span class="nx">PhaseRunning</span> <span class="p">=</span> <span class="s">&#34;RUNNING&#34;</span>
+	<span class="nx">PhaseDone</span>    <span class="p">=</span> <span class="s">&#34;DONE&#34;</span>
+<span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>相关的类型结构体映射已经定义好了，接下来就是实现相关的逻辑</p>
+<h3 id="实现逻辑">实现逻辑</h3>
+<h4 id="逻辑结构">逻辑结构</h4>
+<p>对于实现一个定时的at命令，基本实现逻辑分为以下几步：</p>
+<ul>
+<li></li>
+</ul>
+<p>具体的实现逻辑在控制循环中进行控制，在controllers.at_controller.go 中的 Reconcile 函数中进行实现</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// +kubebuilder:rbac:groups=programming-kubernetes.viper.run,resources=ats,verbs=get;list;watch;create;update;patch;delete
+</span><span class="c1">// +kubebuilder:rbac:groups=programming-kubernetes.viper.run,resources=ats/status,verbs=get;update;patch
+</span><span class="c1"></span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">AtReconciler</span><span class="p">)</span> <span class="nf">Reconcile</span><span class="p">(</span><span class="nx">req</span> <span class="nx">ctrl</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">(</span><span class="nx">ctrl</span><span class="p">.</span><span class="nx">Result</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">_</span> <span class="p">=</span> <span class="nx">context</span><span class="p">.</span><span class="nf">Background</span><span class="p">()</span>
+	<span class="nx">_</span> <span class="p">=</span> <span class="nx">r</span><span class="p">.</span><span class="nx">Log</span><span class="p">.</span><span class="nf">WithValues</span><span class="p">(</span><span class="s">&#34;at&#34;</span><span class="p">,</span> <span class="nx">req</span><span class="p">.</span><span class="nx">NamespacedName</span><span class="p">)</span>
+
+	<span class="c1">// your logic here
+</span><span class="c1"></span>
+	<span class="k">return</span> <span class="nx">ctrl</span><span class="p">.</span><span class="nx">Result</span><span class="p">{},</span> <span class="kc">nil</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>控制循环中判定当前 At 实例的状态</li>
+<li>如果实例状态为 空，则代表新的实例，需要初始化添加 PENDING 状态</li>
+<li>如果是 PENDING 状态，判定 schedule 字段跟当前时间比较，是否已经到达了需要执行 command 的时机，如果未到跳过本次循环。如果到达了需要执行的时机，更改状态为 RUNNING</li>
+<li>如果状态为 RUNNING, 则以 busybox 镜像创建 Pod 实例，并且执行，如果 Pod 状态已经为 Success 或者是 Fail 状态，则更改实例状态为 Done</li>
+<li>如果实例状态为 Done 则代表本次已经执行完成，返回</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// +kubebuilder:rbac:groups=programming-kubernetes.viper.run,resources=ats,verbs=get;list;watch;create;update;patch;delete
+</span><span class="c1">// +kubebuilder:rbac:groups=programming-kubernetes.viper.run,resources=ats/status,verbs=get;update;patch
+</span><span class="c1"></span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">AtReconciler</span><span class="p">)</span> <span class="nf">Reconcile</span><span class="p">(</span><span class="nx">req</span> <span class="nx">ctrl</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">(</span><span class="nx">ctrl</span><span class="p">.</span><span class="nx">Result</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">ctx</span> <span class="o">:=</span> <span class="nx">context</span><span class="p">.</span><span class="nf">Background</span><span class="p">()</span>
+	<span class="nx">reqLogger</span> <span class="o">:=</span> <span class="nx">r</span><span class="p">.</span><span class="nx">Log</span><span class="p">.</span><span class="nf">WithValues</span><span class="p">(</span><span class="s">&#34;at&#34;</span><span class="p">,</span> <span class="nx">req</span><span class="p">.</span><span class="nx">NamespacedName</span><span class="p">)</span>
+
+	<span class="nx">reqLogger</span><span class="p">.</span><span class="nf">Info</span><span class="p">(</span><span class="s">&#34;----- Reconciling At -----&#34;</span><span class="p">)</span>
+	<span class="c1">// Create At instance
+</span><span class="c1"></span>	<span class="nx">atInstance</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">cnatv1alpha1</span><span class="p">.</span><span class="nx">At</span><span class="p">{}</span>
+	<span class="c1">// Try to get cloud native at instance.
+</span><span class="c1"></span>	<span class="nx">err</span> <span class="o">:=</span> <span class="nx">r</span><span class="p">.</span><span class="nf">Get</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">req</span><span class="p">.</span><span class="nx">NamespacedName</span><span class="p">,</span> <span class="nx">atInstance</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="c1">// Request object not found.
+</span><span class="c1"></span>		<span class="k">if</span> <span class="nx">errors</span><span class="p">.</span><span class="nf">IsNotFound</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="nx">ctrl</span><span class="p">.</span><span class="nx">Result</span><span class="p">{},</span> <span class="kc">nil</span>
+		<span class="p">}</span>
+		<span class="c1">// Other error.
+</span><span class="c1"></span>		<span class="k">return</span> <span class="nx">ctrl</span><span class="p">.</span><span class="nx">Result</span><span class="p">{},</span> <span class="nx">err</span>
+	<span class="p">}</span>
+
+	<span class="c1">// If instance&#39;s phase not set (string type default &#34;&#34;), set PENDING default.
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">atInstance</span><span class="p">.</span><span class="nx">Status</span><span class="p">.</span><span class="nx">Phase</span> <span class="o">==</span> <span class="s">&#34;&#34;</span> <span class="p">{</span>
+		<span class="nx">atInstance</span><span class="p">.</span><span class="nx">Status</span><span class="p">.</span><span class="nx">Phase</span> <span class="p">=</span> <span class="nx">cnatv1alpha1</span><span class="p">.</span><span class="nx">PhasePending</span>
+	<span class="p">}</span>
+
+	<span class="c1">// Switch instance phase, switch logic.
+</span><span class="c1"></span>	<span class="k">switch</span> <span class="nx">atInstance</span><span class="p">.</span><span class="nx">Status</span><span class="p">.</span><span class="nx">Phase</span> <span class="p">{</span>
+	<span class="k">case</span> <span class="nx">cnatv1alpha1</span><span class="p">.</span><span class="nx">PhasePending</span><span class="p">:</span>
+		
+	<span class="k">case</span> <span class="nx">cnatv1alpha1</span><span class="p">.</span><span class="nx">PhaseRunning</span><span class="p">:</span>
+		
+	<span class="k">case</span> <span class="nx">cnatv1alpha1</span><span class="p">.</span><span class="nx">PhaseDone</span><span class="p">:</span>
+		<span class="nx">reqLogger</span><span class="p">.</span><span class="nf">Info</span><span class="p">(</span><span class="s">&#34;Phase:&#34;</span><span class="p">,</span> <span class="s">&#34;status&#34;</span><span class="p">,</span> <span class="nx">cnatv1alpha1</span><span class="p">.</span><span class="nx">PhaseDone</span><span class="p">)</span>
+		<span class="k">return</span> <span class="nx">ctrl</span><span class="p">.</span><span class="nx">Result</span><span class="p">{},</span> <span class="kc">nil</span>
+	<span class="k">default</span><span class="p">:</span>
+		<span class="nx">reqLogger</span><span class="p">.</span><span class="nf">Info</span><span class="p">(</span><span class="s">&#34;Unknown instance status.&#34;</span><span class="p">)</span>
+		<span class="k">return</span> <span class="nx">ctrl</span><span class="p">.</span><span class="nx">Result</span><span class="p">{},</span> <span class="kc">nil</span>
+	<span class="p">}</span>
+	<span class="c1">// Update this time reconcile status to the respective phase.
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">r</span><span class="p">.</span><span class="nf">Status</span><span class="p">().</span><span class="nf">Update</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">atInstance</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">ctrl</span><span class="p">.</span><span class="nx">Result</span><span class="p">{},</span> <span class="nx">err</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="nx">ctrl</span><span class="p">.</span><span class="nx">Result</span><span class="p">{},</span> <span class="kc">nil</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">reqLogger</span><span class="p">.</span><span class="nf">Info</span><span class="p">(</span><span class="s">&#34;Phase:&#34;</span><span class="p">,</span> <span class="s">&#34;status&#34;</span><span class="p">,</span> <span class="nx">cnatv1alpha1</span><span class="p">.</span><span class="nx">PhasePending</span><span class="p">)</span>
+<span class="c1">// Violate field from config yaml.
+</span><span class="c1"></span><span class="nx">targetSchedule</span> <span class="o">:=</span> <span class="nx">atInstance</span><span class="p">.</span><span class="nx">Spec</span><span class="p">.</span><span class="nx">Schedule</span>
+<span class="c1">// Violate schedule.
+</span><span class="c1"></span><span class="nx">reqLogger</span><span class="p">.</span><span class="nf">Info</span><span class="p">(</span><span class="s">&#34;Violate schedule format.&#34;</span><span class="p">,</span> <span class="s">&#34;schedule: &#34;</span><span class="p">,</span> <span class="nx">targetSchedule</span><span class="p">)</span>
+<span class="nx">timeNow</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">().</span><span class="nf">UTC</span><span class="p">()</span>
+<span class="nx">local</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">LoadLocation</span><span class="p">(</span><span class="s">&#34;Asia/Shanghai&#34;</span><span class="p">)</span>
+<span class="nx">layout</span> <span class="o">:=</span> <span class="s">&#34;2006-01-02T15:04:05Z&#34;</span>
+<span class="nx">s</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">ParseInLocation</span><span class="p">(</span><span class="nx">layout</span><span class="p">,</span> <span class="nx">targetSchedule</span><span class="p">,</span> <span class="nx">local</span><span class="p">)</span>
+<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+    <span class="nx">reqLogger</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="s">&#34;Phase schedule error.&#34;</span><span class="p">)</span>
+    <span class="c1">// Requeue.
+</span><span class="c1"></span>    <span class="k">return</span> <span class="nx">ctrl</span><span class="p">.</span><span class="nx">Result</span><span class="p">{},</span> <span class="nx">err</span>
+<span class="p">}</span>
+<span class="nx">diffTime</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">.</span><span class="nf">Sub</span><span class="p">(</span><span class="nx">timeNow</span><span class="p">)</span>
+<span class="nx">reqLogger</span><span class="p">.</span><span class="nf">Info</span><span class="p">(</span><span class="s">&#34;Schedule parse diff time end.&#34;</span><span class="p">,</span> <span class="s">&#34;result&#34;</span><span class="p">,</span> <span class="nx">diffTime</span><span class="p">)</span>
+<span class="c1">// Not this time.
+</span><span class="c1"></span><span class="k">if</span> <span class="nx">diffTime</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
+    <span class="c1">// Not this time, requeue after time diff.
+</span><span class="c1"></span>    <span class="k">return</span> <span class="nx">ctrl</span><span class="p">.</span><span class="nx">Result</span><span class="p">{</span><span class="nx">RequeueAfter</span><span class="p">:</span> <span class="nx">diffTime</span><span class="p">},</span> <span class="kc">nil</span>
+<span class="p">}</span>
+<span class="c1">// Time now, will execute command.
+</span><span class="c1"></span><span class="nx">reqLogger</span><span class="p">.</span><span class="nf">Info</span><span class="p">(</span><span class="s">&#34;Ready to phase RUNNING.&#34;</span><span class="p">,</span> <span class="s">&#34;command&#34;</span><span class="p">,</span> <span class="nx">atInstance</span><span class="p">.</span><span class="nx">Spec</span><span class="p">.</span><span class="nx">Command</span><span class="p">)</span>
+<span class="c1">// Change status, next requeue will execute case PhaseRUNNING.
+</span><span class="c1"></span><span class="nx">atInstance</span><span class="p">.</span><span class="nx">Status</span><span class="p">.</span><span class="nx">Phase</span> <span class="p">=</span> <span class="nx">cnatv1alpha1</span><span class="p">.</span><span class="nx">PhaseRunning</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">reqLogger</span><span class="p">.</span><span class="nf">Info</span><span class="p">(</span><span class="s">&#34;Phase:&#34;</span><span class="p">,</span> <span class="s">&#34;status&#34;</span><span class="p">,</span> <span class="nx">cnatv1alpha1</span><span class="p">.</span><span class="nx">PhaseRunning</span><span class="p">)</span>
+<span class="nx">labels</span> <span class="o">:=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span>
+    <span class="s">&#34;app&#34;</span><span class="p">:</span> <span class="nx">atInstance</span><span class="p">.</span><span class="nx">Name</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="nx">exePod</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">corev1</span><span class="p">.</span><span class="nx">Pod</span><span class="p">{</span>
+    <span class="nx">ObjectMeta</span><span class="p">:</span> <span class="nx">metav1</span><span class="p">.</span><span class="nx">ObjectMeta</span><span class="p">{</span>
+        <span class="nx">Name</span><span class="p">:</span>      <span class="nx">atInstance</span><span class="p">.</span><span class="nx">Name</span> <span class="o">+</span> <span class="s">&#34;-pod&#34;</span><span class="p">,</span>
+        <span class="nx">Namespace</span><span class="p">:</span> <span class="nx">atInstance</span><span class="p">.</span><span class="nx">Namespace</span><span class="p">,</span>
+        <span class="nx">Labels</span><span class="p">:</span>    <span class="nx">labels</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="nx">Spec</span><span class="p">:</span> <span class="nx">corev1</span><span class="p">.</span><span class="nx">PodSpec</span><span class="p">{</span>
+        <span class="nx">Containers</span><span class="p">:</span> <span class="p">[]</span><span class="nx">corev1</span><span class="p">.</span><span class="nx">Container</span><span class="p">{</span>
+            <span class="p">{</span>
+                <span class="nx">Name</span><span class="p">:</span>    <span class="s">&#34;busybox&#34;</span><span class="p">,</span>
+                <span class="nx">Image</span><span class="p">:</span>   <span class="s">&#34;busybox&#34;</span><span class="p">,</span>
+                <span class="nx">Command</span><span class="p">:</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">Split</span><span class="p">(</span><span class="nx">atInstance</span><span class="p">.</span><span class="nx">Spec</span><span class="p">.</span><span class="nx">Command</span><span class="p">,</span> <span class="s">&#34; &#34;</span><span class="p">),</span>
+            <span class="p">},</span>
+        <span class="p">},</span>
+        <span class="nx">RestartPolicy</span><span class="p">:</span> <span class="nx">corev1</span><span class="p">.</span><span class="nx">RestartPolicyOnFailure</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">controllerutil</span><span class="p">.</span><span class="nf">SetControllerReference</span><span class="p">(</span><span class="nx">atInstance</span><span class="p">,</span> <span class="nx">exePod</span><span class="p">,</span> <span class="nx">r</span><span class="p">.</span><span class="nx">Scheme</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+    <span class="c1">// requeue with error.
+</span><span class="c1"></span>    <span class="k">return</span> <span class="nx">ctrl</span><span class="p">.</span><span class="nx">Result</span><span class="p">{},</span> <span class="nx">err</span>
+<span class="p">}</span>
+<span class="nx">getPod</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">corev1</span><span class="p">.</span><span class="nx">Pod</span><span class="p">{}</span>
+<span class="c1">// Try to get exePod now.
+</span><span class="c1"></span><span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">r</span><span class="p">.</span><span class="nf">Get</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">types</span><span class="p">.</span><span class="nx">NamespacedName</span><span class="p">{</span><span class="nx">Name</span><span class="p">:</span> <span class="nx">exePod</span><span class="p">.</span><span class="nx">Name</span><span class="p">,</span> <span class="nx">Namespace</span><span class="p">:</span> <span class="nx">exePod</span><span class="p">.</span><span class="nx">Namespace</span><span class="p">},</span> <span class="nx">getPod</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="nx">errors</span><span class="p">.</span><span class="nf">IsNotFound</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">r</span><span class="p">.</span><span class="nf">Create</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">exePod</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">ctrl</span><span class="p">.</span><span class="nx">Result</span><span class="p">{},</span> <span class="nx">err</span>
+        <span class="p">}</span>
+        <span class="nx">reqLogger</span><span class="p">.</span><span class="nf">Info</span><span class="p">(</span><span class="s">&#34;Pod create success.&#34;</span><span class="p">,</span> <span class="s">&#34;name&#34;</span><span class="p">,</span> <span class="nx">exePod</span><span class="p">.</span><span class="nx">Name</span><span class="p">)</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">ctrl</span><span class="p">.</span><span class="nx">Result</span><span class="p">{},</span> <span class="nx">err</span>
+    <span class="p">}</span>
+<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">getPod</span><span class="p">.</span><span class="nx">Status</span><span class="p">.</span><span class="nx">Phase</span> <span class="o">==</span> <span class="nx">corev1</span><span class="p">.</span><span class="nx">PodFailed</span> <span class="o">||</span> <span class="nx">getPod</span><span class="p">.</span><span class="nx">Status</span><span class="p">.</span><span class="nx">Phase</span> <span class="o">==</span> <span class="nx">corev1</span><span class="p">.</span><span class="nx">PodSucceeded</span> <span class="p">{</span>
+    <span class="nx">reqLogger</span><span class="p">.</span><span class="nf">Info</span><span class="p">(</span><span class="s">&#34;container terminal&#34;</span><span class="p">,</span> <span class="s">&#34;reason&#34;</span><span class="p">,</span> <span class="nx">getPod</span><span class="p">.</span><span class="nx">Status</span><span class="p">.</span><span class="nx">Reason</span><span class="p">,</span> <span class="s">&#34;message&#34;</span><span class="p">,</span> <span class="nx">getPod</span><span class="p">.</span><span class="nx">Status</span><span class="p">.</span><span class="nx">Message</span><span class="p">)</span>
+    <span class="nx">atInstance</span><span class="p">.</span><span class="nx">Status</span><span class="p">.</span><span class="nx">Phase</span> <span class="p">=</span> <span class="nx">cnatv1alpha1</span><span class="p">.</span><span class="nx">PhaseDone</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">ctrl</span><span class="p">.</span><span class="nx">Result</span><span class="p">{},</span> <span class="kc">nil</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-11-18</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.viper.pub/operator-sdk-cnat/" data-title="Operator-sdk V1.2 简单案例快速入手" data-hashtags="Kubernetes,Operator-SDK"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.viper.pub/operator-sdk-cnat/" data-hashtag="Kubernetes"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://www.viper.pub/operator-sdk-cnat/" data-title="Operator-sdk V1.2 简单案例快速入手" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://www.viper.pub/operator-sdk-cnat/" data-title="Operator-sdk V1.2 简单案例快速入手"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.viper.pub/operator-sdk-cnat/" data-title="Operator-sdk V1.2 简单案例快速入手" data-image="https://gitee.com/AbyssViper/pic/raw/master/images/operator-sdk-cnat/featuredImage.png"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://www.viper.pub/operator-sdk-cnat/" data-title="Operator-sdk V1.2 简单案例快速入手" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://www.viper.pub/operator-sdk-cnat/" data-title="Operator-sdk V1.2 简单案例快速入手" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://www.viper.pub/operator-sdk-cnat/" data-title="Operator-sdk V1.2 简单案例快速入手"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/kubernetes/">Kubernetes</a>,&nbsp;<a href="/tags/operator-sdk/">Operator-SDK</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/kubernetes-handbook/" class="prev" rel="prev" title="Kubernetes Handbook"><i class="fas fa-angle-left fa-fw"></i>Kubernetes Handbook</a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.74.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2020</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.77eb6ae63c63c88c5e7a10b6c9570c54.css" integrity="md5-d&#43;tq5jxjyIxeehC2yVcMVA=="><link rel="stylesheet" href="/lib/katex/katex.min.ef3c395634e43fe45f5332bfca2287b3.css" integrity="md5-7zw5VjTkP&#43;RfUzK/yiKHsw=="><link rel="stylesheet" href="/lib/katex/copy-tex.min.622133ef544b0f203604a52bebba29f4.css" integrity="md5-YiEz71RLDyA2BKUr67op9A=="><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.4c5305a5255032858d47ae995b20aeca.css" integrity="md5-TFMFpSVQMoWNR66ZWyCuyg=="><script type="text/javascript" src="/lib/valine/Valine.min.6a23a2ee7eb1e270cf4129dac311dcdb.js" integrity="md5-aiOi7n6x4nDPQSnawxHc2w=="></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.dd4e1772a44268dd6e27f193695067fc.js" integrity="md5-3U4XcqRCaN1uJ/GTaVBn/A=="></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.10321080d79e27ee01ff36859c02acd3.js" integrity="md5-EDIQgNeeJ&#43;4B/zaFnAKs0w=="></script><script type="text/javascript" src="/lib/lunr/lunr.min.f2eea188dc4939c55ff8f55569a4e87c.js" integrity="md5-8u6hiNxJOcVf&#43;PVVaaTofA=="></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.b82fb8d93ce0ea6a485dfa3a0b1e7573.js" integrity="md5-uC&#43;42Tzg6mpIXfo6Cx51cw=="></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.f1ba3e22560e2eb7474f28feb4507617.js" integrity="md5-8bo&#43;IlYOLrdHTyj&#43;tFB2Fw=="></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.40c0bfc764764587555c066d46fe6071.js" integrity="md5-QMC/x2R2RYdVXAZtRv5gcQ=="></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.c6a5b6b1db8980fdc42cd3456fe1ec74.js" integrity="md5-xqW2sduJgP3ELNNFb&#43;HsdA=="></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.ba38a712df31c778e10e8211f8cb891b.js" integrity="md5-ujinEt8xx3jhDoIR&#43;MuJGw=="></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.fa56076f9d071729612c4849acae1ce5.js" integrity="md5-&#43;lYHb50HFylhLEhJrK4c5Q=="></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.4f0896a2ff5ef76f0dd00f5c5de65abb.js" integrity="md5-TwiWov9e928N0A9cXeZauw=="></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.221393f48062472d1e72960fda7db7a3.js" integrity="md5-IhOT9IBiRy0ecpYP2n23ow=="></script><script type="text/javascript" src="/lib/sharer/sharer.min.5625619b1285f17b13aee3f397116aa6.js" integrity="md5-ViVhmxKF8XsTruPzlxFqpg=="></script><script type="text/javascript" src="/lib/katex/katex.min.c158c9e823b681cf535f46596b5e4eac.js" integrity="md5-wVjJ6CO2gc9TX0ZZa15OrA=="></script><script type="text/javascript" src="/lib/katex/auto-render.min.28cd0b98cd3f4fa37d52f3ffe47ad9d4.js" integrity="md5-KM0LmM0/T6N9UvP/5HrZ1A=="></script><script type="text/javascript" src="/lib/katex/copy-tex.min.bfaec7d1dea915d74a7a6d833f0ff62e.js" integrity="md5-v67H0d6pFddKem2DPw/2Lg=="></script><script type="text/javascript" src="/lib/katex/mhchem.min.1bbb252363e83547d4b2186a41eaca28.js" integrity="md5-G7slI2PoNUfUshhqQerKKA=="></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.4a48532bf0b17c058b8b6854f49de23f.js" integrity="md5-SkhTK/CxfAWLi2hU9J3iPw=="></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":30},"comment":{"valine":{"appId":"PDQyOpsbcc3NjAsoLIhLIYGH-MdYXbMMI","appKey":"ftCfYT3oNSUU4N2Jdl2so5EQ","avatar":"robohash","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"不留下点什么嘛QAQ","recordIP":true,"visitor":true}},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.8043ef4f5ae2d4fd302305ffd8316f55.js" integrity="md5-gEPvT1ri1P0wIwX/2DFvVQ=="></script></body>
+</html>
